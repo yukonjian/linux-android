@@ -1,0 +1,37 @@
+D20 = sound
+D21 = phone
+D22 = meeting
+D23 = lock
+
+D5 = power
+D6 = message
+D4 = alarm
+
+
+#define C72_LED_SOUND_ON
+#define C72_LED_SOUND_OFF
+#define C72_LED_PHONE_ON
+#define C72_LED_PHONE_OFF
+#define C72_LED_MEETING_ON
+#define C72_LED_MEETING_OFF
+#define C72_LED_LOCK_ON
+#define C72_LED_LOCK_OFF
+#define C72_LED_POWER_ON
+#define C72_LED_POWER_OFF
+#define C72_LED_MESSAGE_ON
+#define C72_LED_MESSAGE_OFF
+#define C72_LED_ALARM_ON
+#define C72_LED_ALARM_OFF
+
+
+
+这个函数是入口
+cx\src\app\phone\controller\Logic_R47\src\Control  int CControl_R47::JNIInit()
+
+./src/emb/devctrl/src/devctrl.c
+
+
+./src/app/phone/controller/Logic_R47/src/JNIWrap/ControllerWrap.cpp
+
+./src/app/phone/controller/Logic_R47/include/ControllerWrap.h
+./include/logic/ControllerWrap.h
