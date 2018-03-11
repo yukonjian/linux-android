@@ -1,0 +1,1 @@
+cmd_/home/steven/work/led/led.ko := /home/steven/work/lichee/out/sun8iw11p1/androidm/common/buildroot/external-toolchain/bin/arm-linux-gnueabi-ld -EL -r  -T /home/steven/work/lichee/linux-3.10/scripts/module-common.lds --build-id  -o /home/steven/work/led/led.ko /home/steven/work/led/led.o /home/steven/work/led/led.mod.o
