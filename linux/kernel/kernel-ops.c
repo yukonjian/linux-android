@@ -50,3 +50,40 @@ static inline void iounmap(void __iomem *addr)
 
 
 4.有关err的跳转操作命名，可以使用err_xxx(xxx表示发生错误的函数)
+
+5.#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+
+6.信号量
+struct semaphore sem;
+sema_init(&sem, count);
+void down(struct semaphore *sem)	//如果不能获取，切换状态至TASK_UNINTERRUPTIBLE*/
+void up(struct semaphore *sem);
+
+7.互斥量
+struct mutex xxx_mutex;
+void mutex_init(struct mutex *lock);
+void mutex_lock(struct mutex *lock);
+void mutex_unlock(struct mutex *lock);
+
+8.定时器
+struct timer_list mytimer;
+void init_timer(struct timer_list *timer);
+初始化定时器结构体的 超时时间 定时器处理函数 处理函数传参
+void timer_func(unsigned long data) //定义定时器处理函数
+my_timer.expires = jiffies + 5*HZ;
+my_timer.function = timer_func;
+my_timer.data = (unsigned long)99;
+激活定时器，只执行一次处理函数
+void add_timer(struct timer_list *timer)
+
+再次激活定时器
+my_timer.expires = jiffies + 5*HZ;
+add_timer(&my_timer);
+or:
+int mod_timer(struct timer_list *timer, unsigned long expires)
+可以修改并未结束的定时器相当于：
+del_timer(timer); timer->expires = expires; add_timer(timer);
+return ：mod_timer() of an inactive timer returns 0, mod_timer() of an  active timer returns 1
+若想在定时器没有超时前取消定时器,注销模块时要使用
+int del_timer(struct timer_list *timer)
+return : del_timer() of an inactive timer returns 0, del_timer() of an  active timer returns 1
