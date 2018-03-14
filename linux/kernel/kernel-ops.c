@@ -87,3 +87,71 @@ return ：mod_timer() of an inactive timer returns 0, mod_timer() of an  active 
 若想在定时器没有超时前取消定时器,注销模块时要使用
 int del_timer(struct timer_list *timer)
 return : del_timer() of an inactive timer returns 0, del_timer() of an  active timer returns 1
+
+9.简单的延时，属于忙等待
+void udelay(unsigned long usecs);	//该种延时属于忙等待
+void mdelay(unsigned long msecs);
+
+10.工作与工作队列
+struct work_struct  commit_work;
+INIT_WORK(struct work_struct * work, work_func);
+typedef void (*work_func_t)(void *work);
+
+struct workqueue_struct *Display_commit_work;
+struct workqueue_struct *create_singlethread_workqueue(const char *name)
+
+int queue_work(struct workqueue_struct *wq, struct work_struct *work)
+在卸载模块是，需刷新并注销工作队列
+void flush_workqueue(struct workqueue_struct *wq)
+void destroy_workqueue(struct workqueue_struct *wq)
+
+11.中断
+int request_irq(unsigned int irq, irq_handler_t handler, unsigned long flags,
+	    const char *name, void *dev_id)
+typedef irqreturn_t (*irq_handler_t)(int, void *);
+static irqreturn_t intr_handler(int irq, void *dev_id)
+enum irqreturn {
+	IRQ_NONE		= (0 << 0),
+	IRQ_HANDLED		= (1 << 0),
+	IRQ_WAKE_THREAD		= (1 << 1),
+};
+typedef enum irqreturn irqreturn_t;
+flags:
+IRQF_TRIGGER_RISING; IRQF_TRIGGER_FALLING; IRQF_TRIGGER_HIGH; IRQF_TRIGGER_LOW; IRQF_SHARED;
+
+void free_irq(unsigned int irq, void *dev_id)
+
+查看中断信息：cat /proc/interrupts
+
+设备树中的中断的使用
+
+unsigned int irq_of_parse_and_map(struct device_node *dev, int index)；
+unsigned int irq_of_parse_and_map(struct device_node *dev, int index)
+{
+    struct of_phandle_args oirq;
+    if (of_irq_parse_one(dev, index, &oirq))－－－－分析device node中的interrupt相关属性
+        return 0;
+    return irq_create_of_mapping(&oirq);－－－－－创建映射，并返回对应的IRQ number
+}
+
+12.内核与用户空间的数据拷贝
+unsigned long copy_from_user(void *to, const void __user *from, unsigned long n)
+unsigned long copy_to_user(void __user *to, const void *from, unsigned long n)
+Returns number of bytes that could not be copied.
+On success, this will be zero.
+if (copy_from_user(&ax25_ctl, arg, sizeof(ax25_ctl)))
+  return -EFAULT;
+
+get_user(to, pfrom); put_user(to, pfrom);
+复制的内存是简单类型，如char,int ,long等
+int val;
+return put_user(val, (int __user *)arg);
+Returns zero on success, or -EFAULT on error.
+
+13.调试打印信息
+cat /proc/sys/kernel/printk
+4 4 1 7
+第一个“4”表示内核打印函数printk的打印级别
+不够打印级别的信息会被写到日志中可通过dmesg 命令来查看
+KERN_DEBUG; KERN_INFO; KERN_WARNING; KERN_ERR;
+#define xxx_inf(fmt,msg...)     do { printk(KERN_WARNING "[XXX] %s,line:%d:"fmt,__func__,__LINE__,##msg)}while(0)

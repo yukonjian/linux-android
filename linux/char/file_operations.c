@@ -19,3 +19,10 @@ MAP_SHARED //与其它所有映射这个对象的进程共享映射空间。
 off_t offset：被映射对象内容的起点。offset参数一般设为0，表示从文件头开始映射。
 
 int (*mmap) (struct file *, struct vm_area_struct *);
+2.ioctal
+long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
+_IO(type,nr) //没有参数的命令
+_IOR(type,nr,size) //该命令是从驱动读取数据
+_IOW(type,nr,size) //该命令是从驱动写入数据
+_IOWR(type,nr,size) //双向数据传输
+type:幻数  nr:序数  size:数据大小，只需要填写数据类型 example:int,struct test;

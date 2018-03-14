@@ -13,3 +13,6 @@ arm-none-linux-gnueabi-gcc -static -o hello hello.c
 arm-linux-androideabi-gcc -pie -fPIE -o helloa hello.c
 arm-linux-androideabi-gcc -pie -fPIE -o ov9732app ov9732_app.c
 arm-linux-androideabi-gcc -pie -fPIE -o getbuffer getbuffer.c
+
+3.重新挂载目录
+mount -o remount /
