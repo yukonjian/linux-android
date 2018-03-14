@@ -155,3 +155,52 @@ cat /proc/sys/kernel/printk
 不够打印级别的信息会被写到日志中可通过dmesg 命令来查看
 KERN_DEBUG; KERN_INFO; KERN_WARNING; KERN_ERR;
 #define xxx_inf(fmt,msg...)     do { printk(KERN_WARNING "[XXX] %s,line:%d:"fmt,__func__,__LINE__,##msg)}while(0)
+
+14.链表
+struct list_head {
+	struct list_head *next, *prev;
+};
+
+static inline void INIT_LIST_HEAD(struct list_head *list)
+{
+    list->next = list;
+    list->prev = list;
+}
+list_add和list_add_tail分别是插在表头和表尾，但是都是通过__list_add实现，因为内核实现的链表是双向链表，
+所以head->prev之后就是表尾，而head->next之后就是表头。
+static inline void list_add(struct list_head *new, struct list_head *head)
+{
+    __list_add(new, head, head->next);
+}
+
+static inline void list_add_tail(struct list_head *new, struct list_head *head)
+{
+    __list_add(new, head->prev, head);
+}
+
+static inline void list_del(struct list_head *entry)
+{
+    __list_del(entry->prev, entry->next);
+    entry->next = LIST_POISON1;
+    entry->prev = LIST_POISON2;
+}
+
+/**
+ * list_for_each_entry	-	iterate over list of given type
+ * @pos:	the type * to use as a loop cursor.
+ * @head:	the head for your list.
+ * @member:	the name of the list_struct within the struct.
+ */
+#define list_for_each_entry(pos, head, member)				\
+	for (pos = list_entry((head)->next, typeof(*pos), member);	\
+	     &pos->member != (head); 	\
+	     pos = list_entry(pos->member.next, typeof(*pos), member))
+
+ /**
+  * list_entry - get the struct for this entry
+  * @ptr:	the &struct list_head pointer.
+  * @type:	the type of the struct this is embedded in.
+  * @member:	the name of the list_struct within the struct.
+  */
+ #define list_entry(ptr, type, member) \
+ 	container_of(ptr, type, member)
