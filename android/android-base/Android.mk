@@ -32,7 +32,7 @@ BUILD_SHARED_LIBRARY ：编译为动态库
 BUILD_EXECUTABLE：编译为Native C可执行程序
 
 二.GNU　Make 提供的功能宏,只有通过类似： $(call function) 的方式来得到其值
-1.	my-dir: $(call my-dir):
+1.	my-dir: 
 LOCAL_PATH := $(call my-dir)
 2.	all-subdir-makefiles:
 返回一个列表，包含'my-dir'中所有子目录中的Android.mk。
