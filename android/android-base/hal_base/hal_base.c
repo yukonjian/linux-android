@@ -6,7 +6,7 @@ struct hw_module_t;
 struct hw_module_methods_t;
 struct hw_device_t;
 3.文件目录
-androidm/hardware/libhardware/#include/hardware  //modules 头文件
+androidm/hardware/libhardware/include/hardware  //modules 头文件
 androidm/hardware/libhardware/modules           //modules 的c文件
 4.模块ID
  #define LED_HARDWARE_MODULE_ID "led"  //定义一个MODULE_ID，HAL层可以根据这个ID找到我们这个HAL stub

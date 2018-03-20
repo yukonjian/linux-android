@@ -12,3 +12,11 @@ git checkout . 放弃当前目录下的修改
 git checkout master 将分支切换到master
 git checkout -b master 如果分支存在则只切换分支，若不存在则创建并切换到master分支
 git checkout --help
+
+2.log
+git log -p -2 // -p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新
+
+git log --name-status
+
+3.查看远程分支
+git branch -a

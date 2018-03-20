@@ -1,0 +1,7 @@
+1.  OpenGL 主要用来 compose surface 和2D 、 3D 的图形处理。通过OpenGL 来处理的主要是UI、Game 、地图、 Flash 等应用。
+2.  Hwcomposer主要用在视频方面，通过直接将YUV的视频数据直接输出显示，如 camera 的 preview 、视频的播放。
+3.  DisplayDispatcher用于获取和设置显示的配置参数，如获取hdmi和tv的热拔插状态，然后根据获取到的状态设置从
+hdmi还是tv输出等。
+
+Android图形显示之硬件抽象层Gralloc
+http://blog.csdn.net/yangwen123/article/details/12192401
