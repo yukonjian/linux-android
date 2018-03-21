@@ -10,7 +10,7 @@ mmap函数，可将文件的内容映射到用户空间。对于帧缓冲设备�
 
 
 显示模式是1280*720-8位色
-4.执行dd if=/dev/zero of=/dev/graphics/fb0 bs=1280 count=720 实现清
+4.执行dd if=/dev/zero of=/dev/graphics/fb0 bs=1280 count=720* 实现清屏
 
 
 
@@ -124,4 +124,36 @@ struct disp_device {
 	int (*get_panel_info)(struct disp_device* dispdev, disp_panel_para *info);
 };
 
-cat /dev/graphics/fb0 > /sdcard/fb0
+
+
+s32 bsp_disp_lcd_set_panel_funs(char *name, disp_lcd_panel_fun * lcd_cfg)
+{
+	struct disp_device* lcd;
+	u32 num_screens;
+	u32 screen_id;
+	u32 registered_cnt = 0;
+
+	num_screens = bsp_disp_feat_get_num_screens();
+	for (screen_id=0; screen_id<num_screens; screen_id++) {
+		lcd = disp_get_lcd(screen_id);
+		if (lcd && (lcd->set_panel_func)) {
+			if (!lcd->set_panel_func(lcd, name, lcd_cfg)) {
+				gdisp.lcd_registered[screen_id] = 1;
+				registered_cnt ++;
+				DE_INF("panel driver %s register\n", name);
+			}
+		}
+	}
+
+	return 0;
+}
+
+lcdp->lcd_panel_fun.cfg_open_flow = lcd_cfg->cfg_open_flow;
+
+disp_lcd_enable
+disp_lcd_fake_enable
+
+work
+bsp_disp_device_switch
+disp_device_attached_and_enable
+mgr->device->disable(mgr->device);
