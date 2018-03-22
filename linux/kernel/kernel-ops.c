@@ -154,7 +154,7 @@ cat /proc/sys/kernel/printk
 第一个“4”表示内核打印函数printk的打印级别
 不够打印级别的信息会被写到日志中可通过dmesg 命令来查看
 KERN_DEBUG; KERN_INFO; KERN_WARNING; KERN_ERR;
-#define xxx_inf(fmt,msg...)     do { printk(KERN_WARNING "[XXX] %s,line:%d:"fmt,__func__,__LINE__,##msg)}while(0)
+#define xxx_inf(fmt,msg...)     do { printk(KERN_WARNING "[XXX] %s,line:%d:"fmt,__func__,__LINE__,##msg);}while(0)
 
 14.链表
 struct list_head {
@@ -217,3 +217,13 @@ static inline void list_del(struct list_head *entry)
 	(type *)( (char *)__mptr - offsetof(type,member) );})
 
   devp = container_of(inode->i_cdev, struct test_t, test_cdev);
+
+15.延时
+#include <linux/delay.h>
+void msleep(unsigned int msecs);
+void usleep_range(unsigned long min, unsigned long max);
+mdelay
+udelay
+ndelay
+#include <linux/timer.h>
+jiffies  HZ
