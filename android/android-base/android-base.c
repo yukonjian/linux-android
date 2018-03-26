@@ -16,3 +16,6 @@ arm-linux-androideabi-gcc -pie -fPIE -o getbuffer getbuffer.c
 
 3.重新挂载目录
 mount -o remount /
+4.dmesg打印
+dmesg | tail -20      //打印最后20行
+dmesg --help          //查看帮助信息
