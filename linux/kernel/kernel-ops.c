@@ -227,3 +227,7 @@ udelay
 ndelay
 #include <linux/timer.h>
 jiffies  HZ
+
+16.拷贝strlcpy
+函数原型声明：size_t strlcpy(char *dst, const char *src, size_t size)
+头文件引用：#include <string.h>

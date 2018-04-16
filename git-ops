@@ -20,3 +20,19 @@ git log --name-status
 
 3.查看远程分支
 git branch -a
+
+
+4.git push后报错
+
+No refs in common and none specified; doing nothing.
+Perhaps you should specify a branch such as 'master'.
+fatal: The remote end hung up unexpectedly
+error: failed to push some refs to 'git@xxxxxxx'
+
+此报错意思为git不知道您当前提交的版本
+解决办法：git push origin master
+
+5.git add -f
+
+6.在git中不检查文件权限
+在git库中 .git文件夹下的config文件中的filemode = false

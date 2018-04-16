@@ -10,3 +10,7 @@ http://www.alsa-project.org/main/index.php/Main_Page
 5. PCM是英文Pulse-code modulation的缩写，中文译名是脉冲编码调制。
 6.C0D0代表的是声卡0中的设备0，pcmC0D0c最后一个c代表capture，pcmC0D0p最后一个p代表playback，
 这些都是alsa-driver中的命名规则。
+7. DAI (Digital Audio Interfaces) :  AC97, I2S and PCM
+8.线路输出line，指1千欧、2Vrms的信号，和CD机输出类似。
+喇叭输出speaker，直接接到无源音箱，是大功率输出。
+耳机输出phones，可以驱动耳机，为32欧的耳机，提供50mW左右的功率。

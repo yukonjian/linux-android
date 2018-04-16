@@ -1,0 +1,30 @@
+https://blog.csdn.net/azloong/article/details/6536855
+一、I2S总线规范
+I2S（Inter-IC Sound,Integrated Interchip Sound）是飞利浦公司为数字音频设备之间的音频数据传输而制定的一种总线标准。
+I2S有3个主要信号：
+1、串行时钟SCLK，也叫位时钟BCLK (bit clock)，即对应数字音频的每一位数据，SCLK有1个脉冲。SCLK的频率=2×采样频率×采样位数。
+2、帧时钟LRCK(left/right clock)，用于切换左右声道的数据。LRCK为“0”表示正在传输的是左声道的数据，为“1”则表示正在传输的是右声道的数据。
+LRCK的频率等于采样频率。
+3、串行数据SDATA(Tx,Rx)，就是用二进制补码表示的音频数据。
+有时为了使系统间能够更好地同步，还需要另外传输一个信号MCLK，称为主时钟，也叫系统时钟（Sys Clock），
+是采样频率的256倍或384倍。
+4、（I2S结构）数据的最高位总是出现在LRCK变化（也就是一帧开始）后的第2个SCLK脉冲处，第二个上升沿采样。
+
+PCM 接口有帧同步信号,可以实时传输语音信号;IIS只有左右声道信号,不能实时传输语音信号.
+故不能用做蓝牙等语音通信接口.
+PCM和I2S的区别于数据相对于帧时钟（FSYNC/WS）的位置、时钟的极性和帧的长度。
+其实，I2S上传输的也是PCM类型的数据，因此可以说I2S不过是PCM接口的特例。
+时钟信号线,SCLK；SCLK的频率=2×采样频率×采样位数
+介绍I2S, PCM , AC97
+https://blog.csdn.net/adazone/article/details/44831385
+
+二、PCM
+PCM（PCM-clock、PCM-sync、PCM-in、PCM-out）脉冲编码调制，模拟语音信号经过采样量化以及一定数据排列就是PCM了。
+理论上可以传输单声道，双声道立体声和多声道。是数字音频的raw data。
+1、PCM总线用于传输数字语音信号，包括4根信号线：FSYNC(同步)/PCLK(时钟)/DTX(发送)/DRX(接收)
+2、PCM分为Master和Slave. Master提供PCLK及FSYNC。
+3、PCM FSYNC为帧同步信号，其频率为PCM采样频率，一般为8KHz。一个帧同步信号的上升沿代表一帧(frame)数据的开始，
+一帧数据中分为若干个时隙（time slot），时隙对应channel。
+
+三、数字音频接口
+http://www.wangdali.net/i2s/

@@ -120,3 +120,12 @@ struct platform_device *platform_device_alloc(const char *name, int id)
 int platform_device_add(struct platform_device *pdev)
 //释放分配的设备
 void platform_device_put(struct platform_device *pdev)
+
+8.平台设备私有数据
+platform_set_drvdata
+	dev_set_drvdata
+		dev->p->driver_data = data;
+struct platform_device
+	struct device	dev;
+		struct device_private	*p;
+			void *driver_data;
