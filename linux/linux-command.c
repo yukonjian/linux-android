@@ -20,3 +20,8 @@ cp -r /tmp/tempA/ wasadmin@10.127.40.25:/tmp/wang/
 5.linux模块的编译
 make modules  //编译所有模块文件
 make modules_install INSTALL_MOD_PATH=/home/ubuntu/WorkSpace/qemu-rootfs  //最终在qemu-rootfs下生成目录lib/modules：
+
+6.模块的操作
+insmod xxx.ko
+rmmod xxx.ko
+remod xxx.ko
