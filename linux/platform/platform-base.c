@@ -104,3 +104,19 @@ static struct platform_driver disp_driver = {
 /sys/devices/platform/
 /sys/bus/platform/devices/
 /sys/bus/platform/drivers/
+
+6.平台设备的2种注册方法
+1）
+static struct platform_device asoc_dev = {
+    .name         = "soc-audio",
+    .id       = -1,
+    .dev = {
+    	.release = asoc_release,
+	},
+};
+platform_device_register(&asoc_dev);
+2）
+struct platform_device *platform_device_alloc(const char *name, int id)
+int platform_device_add(struct platform_device *pdev)
+//释放分配的设备
+void platform_device_put(struct platform_device *pdev)
