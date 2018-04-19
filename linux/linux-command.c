@@ -25,3 +25,18 @@ make modules_install INSTALL_MOD_PATH=/home/ubuntu/WorkSpace/qemu-rootfs  //最�
 insmod xxx.ko
 rmmod xxx.ko
 remod xxx.ko
+
+7.打包解压命令
+tar:
+打包解压 .tar 文件
+解包：tar xvf FileName.tar
+打包：tar cvf FileName.tar DirName
+打包解压 .tar.gz和.tgz 文件
+解压：tar xzvf FileName.tar.gz
+压缩：tar czvf FileName.tar.gz DirName
+打包解压 .tar.bz2 文件
+解压：tar xjvf FileName.tar.bz2
+压缩：tar cjvf FileName.tar.bz2 DirName
+打包解压 .zip 文件
+解压：unzip FileName.zip
+压缩：zip FileName.zip DirName

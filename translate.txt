@@ -59,11 +59,6 @@ proxy
 n.
 代理服务器;代表权;代理人，代替物;委托书
 
-composer
-英 [kəmˈpəʊzə(r)]   美 [kəmˈpoʊzə(r)]
-n.
-（尤指古典音乐）作曲家;调停人;设计者
-
 enhance
 英 [ɪnˈhɑ:ns]   美 [ɪnˈhæns]
 vt.
@@ -110,10 +105,22 @@ dispatcher   //DisplayDispatcher
 n.
 调度;发报机;收发
 
+dis-
+① 表示"不，消失掉"
+dislike不喜欢（dis+like喜爱→不喜爱）
+disorder无秩序（dis+order顺序→没有顺序）
+dishonest不诚实的（dis+honest诚实的）
+disappear消失（dis+appear出现→不出现→消失）
+② 表示"分开，分离"
+disseminate散布，传播（dis+semin种子＋ate→散布〔种子〕）
+dispense分配（dis+pense花费→分开花费→分配〔财富等〕）
+distract分心（dis+tract拉→把〔心〕拉开→分心）
+distend膨胀（dis+tend拉→分开拉→膨胀）
+
 frame
 英 [freɪm]   美 [frem]
 n.
-框架;边框;眼镜框;组织
+框架;边框;眼镜框;组织;帧
 vt.
 陷害;设计;表达;使适合（某一特殊用途）
 adj.
@@ -273,3 +280,81 @@ conform	英[kənˈfɔ:m]
 vi.	符合; 遵照; 适应环境;
 vt.	使遵守; 使一致; 使顺从;
 adj.	一致的; 顺从的;
+
+multiplex
+英 [ˈmʌltɪpleks]   美 [ˈmʌltəˌplɛks]
+adj.
+多元的，多倍的，复式的;多部的，复合的，多样的，多重的;；[电讯]多路传输的
+n.多路;多厅影院，多剧场影剧院
+v.多路传输，多路复用;多重发讯
+
+enumerate
+英 [ɪˈnju:məreɪt]   美 [ɪˈnu:məreɪt]
+vt.列举，枚举，数
+
+toggle //Packages->Keybinding Resolver->Toggle
+英 [ˈtɒgl]   美 [ˈtɑ:gl]
+n.棒形纽扣;套索扣;转换键;切换键
+v.切换
+
+bind
+英 [baɪnd]   美 [baɪnd]
+vt.捆绑;约束;装订;（用长布条）缠绕
+vt.& vi.
+（使）结合
+n.捆绑;窘境，困境;植物的藤蔓
+
+resolver
+英 [rɪ'zɒlvə]   美 [rɪ'zɒlvə]
+n.下决心者，解决[答]问题者;溶媒;求解仪
+
+sink  //struct snd_soc_dapm_widget *sink; 到达端widget
+英 [sɪŋk]   美 [sɪŋk]
+vi.淹没;下落;退去;渐渐进入
+vt.使下沉;使下垂;砸入地面;使败落
+n.水池;洗涤槽;污水坑
+
+scale
+英 [skeɪl]   美 [skel]
+n.规模;比例（尺）;鱼鳞;级别
+vt.测量;攀登;刮去…的鳞片
+vi.衡量;攀登;（鳞屑）脱落;生水垢
+
+bounce        //Headset Detection debounce
+英 [baʊns]   美 [baʊns]
+vi.跳，反弹;急促地动;拒付，退票
+vt.弹跳;使弹起;（使）上下晃动
+n.弹跳;弹性;活力
+
+polarity
+英 [pəˈlærəti]   美 [poˈlærɪti,pə-]
+n.
+[物]极性;[生]反向性;对立;[数]配极
+
+tri - 三
+
+angle
+英 [ˈæŋgl]   美 [ˈæŋɡəl]
+n.角;[比喻]（考虑、问题的）角度;观点;轮廓鲜明的突出体
+vt.使形成（或弯成）角度;把…放置成一角度;调整（或对准）…的角度;使
+
+triangle
+英 [ˈtraɪæŋgl]   美 [ˈtraɪˌæŋɡəl]
+n.三角形;三人一组;三角铁;三角板
+
+inverted
+英 [ɪn'vɜ:tɪd]   美 [ɪn'vɜ:tɪd]
+adj.反向的，倒转的
+v.使倒置，使反转( invert的过去式和过去分词 )
+
+restriction
+英 [rɪˈstrɪkʃn]   美 [rɪˈstrɪkʃən]
+n.限制，限定;拘束，束缚;管制
+
+coefficient
+英 [ˌkəʊɪˈfɪʃnt]   美 [ˌkoʊɪˈfɪʃnt]
+n.系数;（测定某种质量或变化过程的）率;程度;协同因素
+adj.共同作用的;合作的
+
+hpf
+high-pass filter 高通滤波器;
