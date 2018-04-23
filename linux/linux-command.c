@@ -40,3 +40,20 @@ tar:
 打包解压 .zip 文件
 解压：unzip FileName.zip
 压缩：zip FileName.zip DirName
+
+8. scp secure copy的缩写,基于ssh登陆进行安全的远程文件拷贝命令
+(2) 复制目录：
+命令格式：
+scp -r local_folder remote_username@remote_ip:remote_folder
+或者
+scp -r local_folder remote_ip:remote_folder
+
+第1个指定了用户名，命令执行后需要输入用户密码；
+第2个没有指定用户名，命令执行后需要输入用户名和密码；
+
+9. MAC地址修改方法
+ifconfig eth0 down
+ifconfig eth0 hw ether 52:54:00:66:66:66   #设置eth0的MAC地址
+ifconfig eth0 up
+
+10.

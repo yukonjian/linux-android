@@ -32,3 +32,5 @@ static int es8374_pcm_hw_params(struct snd_pcm_substream *substream,
 8. 		/* Digital Interface */ 其中有2个名字
 		SND_SOC_DAPM_AIF_OUT("I2S OUT", "I2S1 Capture",  1,
 				SND_SOC_NOPM, 0, 0),
+9. snd_soc_write 是对i2c设备中的寄存器进行操作，是否需要进行i2c读写封装
+10. 在应用中对audio codec驱动的测试。使用库和命令还是库和测试程序。
