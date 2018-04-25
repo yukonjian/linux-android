@@ -358,3 +358,31 @@ adj.共同作用的;合作的
 
 hpf
 high-pass filter 高通滤波器;
+
+explicit
+英 [ɪkˈsplɪsɪt]   美 [ɪkˈsplɪsɪt]
+adj.明确的，清楚的;直言的;详述的;不隐瞒的
+e:For this reason, the kernel code must instantiate I2C devices explicitly.
+
+instant
+英 [ˈɪnstənt]   美 [ˈɪnstənt]
+n.瞬间，顷刻;此刻;当月;速食食品，即溶饮料
+adj.立即的;迫切的;
+
+instantiate 实例化
+
+priority  //Programmable hardware channel priority.
+英 [praɪˈɒrəti]   美 [praɪˈɔ:rəti]
+n.优先，优先权;
+
+referenced    //Referenced by Functions   函数引用
+英 ['refrənst]   美 ['refrənst]
+adj.参考的，引用的
+
+compress      //PCM compress mode
+英 [kəmˈpres]   美 [kəmˈprɛs]
+vt.压缩;
+
+real  //It wasn't a ghost; it was a real person.
+英 [ˈri:əl]   美 [ˈriəl, ril]
+adj.真的;真实的，现实的;事实上的;真诚的

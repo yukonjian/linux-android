@@ -34,3 +34,12 @@ static int es8374_pcm_hw_params(struct snd_pcm_substream *substream,
 				SND_SOC_NOPM, 0, 0),
 9. snd_soc_write 是对i2c设备中的寄存器进行操作，是否需要进行i2c读写封装
 10. 在应用中对audio codec驱动的测试。使用库和命令还是库和测试程序。
+
+11. #define module_param(name, type, perm)                \
+    module_param_named(name, name, type, perm)
+
+通过命令"modinfo -p ${modulename}"可以得知一个模块有哪些参数可以使用。
+同时，对于已经加载到内核里的模块，它们的模块参数会列举在/sys/module/$ {modulename}/parameters/目录下面，
+可以使用"echo -n ${value} > /sys/module/$ {modulename}/parameters/${parm}"这样的命令去修改。
+https://blog.csdn.net/angle_birds/article/details/7975790
+https://blog.csdn.net/Top_hxl_dq/article/details/74935893

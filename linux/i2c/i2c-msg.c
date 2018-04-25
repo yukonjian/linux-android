@@ -27,7 +27,7 @@ static void mpu6050_write_byte(struct i2c_client *client,const unsigned char reg
     struct i2c_msg msg[2] = {
         [0] = {
             .addr = client->addr,
-            .flags= W_FLG,
+            .flags= 0,                  //发送的读写位，只定义了 I2C_M_RD =1；写为 0
             .len = sizeof(txbuf),
             .buf = txbuf,
         },
@@ -42,7 +42,7 @@ static char mpu6050_read_byte(struct i2c_client *client,const unsigned char reg)
     struct i2c_msg msg[2] = {
         [0] = {
             .addr = client->addr,
-            .flags = W_FLG,
+            .flags = 0,
             .len = sizeof(txbuf),
             .buf = txbuf,
         },

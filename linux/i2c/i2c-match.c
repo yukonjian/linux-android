@@ -37,4 +37,51 @@ struct i2c_driver mpu6050_driver = {
     .id_table = mpu6050_dev_match,
 };
 
-2.
+2. static struct i2c_board_info at24cxx_info = {
+	I2C_BOARD_INFO("at24c08", 0x50),
+};
+
+static int at24cxx_dev_init(void)
+{
+	struct i2c_adapter *i2c_adap;
+
+	i2c_adap = i2c_get_adapter(0);
+	at24cxx_client = i2c_new_device(i2c_adap, &at24cxx_info);
+	i2c_put_adapter(i2c_adap);
+
+	return 0;
+}
+
+3. i2c_register_board_info
+4. i2c_new_probed_device
+5. 4.从用户空间实例化一个器件：这个方法相当智能快速，如下输入指令，即可增加一个i2c设备，同时增加了对应的设备文件。
+# echo eeprom 0x50 > /sys/bus/i2c/devices/i2c-3/new_device
+
+Linux的官方文档《linux-3.4.2\Documentation\i2c\instantiating-devices》
+
+6. /drivers/i2c/i2c-core.c
+static int i2c_device_match(struct device *dev, struct device_driver *drv)
+{
+	struct i2c_client	*client = i2c_verify_client(dev);
+	struct i2c_driver	*driver;
+
+	if (!client)
+		return 0;
+
+	/* Attempt an OF style match */
+	if (of_driver_match_device(dev, drv))
+		return 1;
+
+	/* Then ACPI style match */
+	if (acpi_driver_match_device(dev, drv))
+		return 1;
+
+	driver = to_i2c_driver(drv);
+	/* match on an id table if there is one */
+	if (driver->id_table)
+		return i2c_match_id(driver->id_table, client) != NULL;
+
+	return 0;
+}
+7. 即使使用设备树来匹配，也要对id_table进行有效的赋值，否则probe不会被回调
+https://www.cnblogs.com/xiaojiang1025/p/6501956.html
