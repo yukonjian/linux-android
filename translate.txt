@@ -383,6 +383,36 @@ compress      //PCM compress mode
 英 [kəmˈpres]   美 [kəmˈprɛs]
 vt.压缩;
 
-real  //It wasn't a ghost; it was a real person.
+real    //It wasn't a ghost; it was a real person.
 英 [ˈri:əl]   美 [ˈriəl, ril]
 adj.真的;真实的，现实的;事实上的;真诚的
+
+slot    //at the indicated time slot
+英 [slɒt]   美 [slɑ:t]
+n.位置;狭槽，水沟;
+
+assert
+英 [əˈsɜ:t]   美 [əˈsɜ:rt]
+vt.生效
+
+represent
+英 [ˌreprɪˈzent]   美 [ˌrɛprɪˈzɛnt]
+vt.表现，象征;代表，代理;扮演;作为示范
+vi.代表;
+
+coherent
+英 [kəʊˈhɪərənt]   美 [koʊˈhɪrənt]
+adj.连贯的;一致的;条理分明的;清楚明白的
+
+combine
+英 [kəmˈbaɪn]   美 [kəmˈbaɪn]
+v.使结合;使化合;兼有;用联合收割机收割
+n.联合;
+
+achieve
+英 [əˈtʃi:v]   美 [əˈtʃiv]
+vt.实现;取得;获得;成功
+
+calibration
+英 [ˌkælɪˈbreɪʃn]   美 [ˌkæləˈbreʃən]
+n.校准，标准化;刻度，标度;
