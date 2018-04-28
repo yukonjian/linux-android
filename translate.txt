@@ -416,3 +416,7 @@ vt.实现;取得;获得;成功
 calibration
 英 [ˌkælɪˈbreɪʃn]   美 [ˌkæləˈbreʃən]
 n.校准，标准化;刻度，标度;
+
+fade  //fade in fade out 淡入淡出
+英 [feɪd]   美 [fed]
+vi.褪去，失去光泽;

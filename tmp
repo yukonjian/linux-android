@@ -11,3 +11,33 @@ scp steven@172.18.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec
 
 cp pcm_test
 scp steven@172.18.2.89:/home/steven/work/mt7628-1/libpcm/pcm_test ./
+
+
+
+
+
+static ssize_t show_device_c72_led(struct device *dev,struct device_attribute *attr, char *buf)
+{
+	return snprintf(buf, VER_SIZE, "%s\n", Version);
+}
+static ssize_t store_device_c72_led(struct device *dev,	struct device_attribute *attr, const char *buf, size_t count)
+{
+	return snprintf(Version, VER_SIZE, "%s", buf);
+}
+
+#define C72_LED_IOCTL			(0xa000)
+#define C72_LED_SOUND_ON		(C72_LED_IOCTL + 1)
+#define C72_LED_SOUND_OFF		(C72_LED_IOCTL + 2)
+#define C72_LED_PHONE_ON		(C72_LED_IOCTL + 3)
+#define C72_LED_PHONE_OFF		(C72_LED_IOCTL + 4)
+#define C72_LED_MEETING_ON		(C72_LED_IOCTL + 5)
+#define C72_LED_MEETING_OFF		(C72_LED_IOCTL + 6)
+#define C72_LED_LOCK_ON			(C72_LED_IOCTL + 7)
+#define C72_LED_LOCK_OFF		(C72_LED_IOCTL + 8)
+#define C72_LED_POWER_ON		(C72_LED_IOCTL + 9)
+#define C72_LED_POWER_OFF		(C72_LED_IOCTL + 10)
+#define C72_LED_MESSAGE_ON		(C72_LED_IOCTL + 11)
+#define C72_LED_MESSAGE_OFF		(C72_LED_IOCTL + 12)
+#define C72_LED_ALARM_RED_ON	(C72_LED_IOCTL + 13)
+#define C72_LED_ALARM_BLUE_ON	(C72_LED_IOCTL + 14)
+#define C72_LED_ALARM_OFF		(C72_LED_IOCTL + 15)
