@@ -1,0 +1,17 @@
+1. 静态ip的设置
+1）配置静态IP地址：
+打开/etc/network/interfaces文件
+写入：
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 172.18.2.89
+netmask 255.255.0.0
+gateway 172.18.1.2
+
+2）永久性修改DNS
+打开文件/etc/resolvconf/resolv.conf.d/base
+写入：
+ameserver 8.8.8.8

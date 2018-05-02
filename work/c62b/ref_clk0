@@ -1,0 +1,21 @@
+1. CLKCFG0 1000002C
+11:9 REFCLK0_RATE Output clock rate of reference Clock 0
+                  7: CPUPLL Clock/8
+                  6: Off
+                  5: Internal Fraction-N_CLK/2 (I2S/PCM)
+                  4: 48 MHz
+                  3: 40 MHz
+                  2: 25 MHz
+                  1: 12 MHz
+                  0: Xtal clock(25/40 MHz by boot strap)
+
+2. GPIO1_MODE 10000060
+18 REFCLK_MODE  REFCLK GPIO mode
+                1: GPIO
+                0: REFCLK (12M)
+
+寄存器映射值，已经定义好
+#define RALINK_SYSCTL_BASE		0xB0000000
+寄存器的读写
+#define GDMA_READ_REG(addr) 		le32_to_cpu(*(volatile u32 *)(addr))
+#define GDMA_WRITE_REG(addr, val)  	*((volatile uint32_t *)(addr)) = cpu_to_le32(val)

@@ -24,7 +24,7 @@ example:
 static void mpu6050_write_byte(struct i2c_client *client,const unsigned char reg,const unsigned char val)
 {
     char txbuf[2] = {reg,val};
-    struct i2c_msg msg[2] = {
+    struct i2c_msg msg[1] = {
         [0] = {
             .addr = client->addr,
             .flags= 0,                  //发送的读写位，只定义了 I2C_M_RD =1；写为 0
