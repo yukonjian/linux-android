@@ -1,0 +1,37 @@
+1. int pcm_request_irq(void)
+{
+  ......
+  /* Enable system interrupt for PCM */
+  /* 该寄存器处与7620不太一样 */
+  data = pcm_inw(RALINK_REG_INTENA);
+  data |=0x010;
+    pcm_outw(RALINK_REG_INTENA, data);
+}
+2. threshold
+
+7 RX_DMA_FAULT Rx DMA Fault Detected Interrupt
+Asserts when a fault is detected in Rx DMA signals.
+6 RX_OVRUN Rx Overrun Interrupt
+Asserts when the Rx FIFO is overrun.
+5 RX_UNRUN Rx Underrun Interrupt
+Asserts when the Rx FIFO is underrun.
+4 RX_THRES Rx FIFO Below Threshold Interrupt
+Asserts when the Rx FIFO is lower than the defined threshold.
+3 TX_DMA_FAULT Tx DMA Fault Detected Interrupt
+Asserts when a fault is detected in Tx DMA signals.
+2 TX_OVRUN Tx FIFO Overrun Interrupt
+Asserts when the Tx FIFO is overrun.
+1 TX_UNRUN Tx FIFO Underrun Interrupt
+Asserts when the Tx FIFO is underrun.
+0 TX_THRES Tx FIFO Below Threshold Interrupt
+Asserts when the FIFO is lower than the defined threshold
+
+3. pcm_mmap
+for( i=0; i<ppcm_config->pcm_ch_num; i++ )
+{
+  tx_start_addr[i] = pcm_share_mem + (i*PCM_FIFO_SIZE*(MAX_CH_RX_FIFO+MAX_CH_TX_FIFO));
+  rx_start_addr[i] = tx_start_addr[i] + PCM_FIFO_SIZE*MAX_CH_TX_FIFO;
+}
+
+4. ALAW linear
+5. DMA通道分配

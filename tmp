@@ -1,16 +1,22 @@
 cp i2c-ralink
-scp steven@172.18.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/
-target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14/driver
-s/i2c/busses/i2c-ralink.ko ./
+scp steven@172.25.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14/drivers/i2c/busses/i2c-ralink.ko ./
+
+cp es8374-dev.ko
+scp steven@172.25.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14/drivers/i2c/es8374-dev.ko ./
+
+cp es8374-drv.ko
+scp steven@172.25.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14/drivers/i2c/es8374-drv.ko ./
 
 cp ralink_gdma.ko
-scp steven@172.18.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14/drivers/char/es8374_pcm/dma_drv/ralink_gdma.ko ./
+scp steven@172.25.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14/drivers/char/es8374_pcm/dma_drv/ralink_gdma.ko ./
 
 cp pcm_ctrl.ko
-scp steven@172.18.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14/drivers/char/es8374_pcm/pcm_drv/pcm_ctrl.ko ./
+scp steven@172.25.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14/drivers/char/es8374_pcm/pcm_drv/pcm_ctrl.ko ./
 
 cp pcm_test
-scp steven@172.18.2.89:/home/steven/work/mt7628-1/libpcm/pcm_test ./
+scp steven@172.25.2.89:/home/steven/work/mt7628-1/libpcm/pcm_test ./
+
+scp steven@172.25.2.89:/home/steven/work/mt7628-1/driver-test/es8374-drv.ko ./
 
 
 
