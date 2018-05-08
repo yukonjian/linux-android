@@ -16,6 +16,7 @@ scp steven@172.25.2.89:~/work/mt7628-1/openwrt-sdk/build_dir/target-mipsel_24kec
 cp pcm_test
 scp steven@172.25.2.89:/home/steven/work/mt7628-1/libpcm/pcm_test ./
 
+cp es8374-drv.ko
 scp steven@172.25.2.89:/home/steven/work/mt7628-1/driver-test/es8374-drv.ko ./
 
 
