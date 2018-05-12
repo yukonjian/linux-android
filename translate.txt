@@ -423,6 +423,11 @@ vi.褪去，失去光泽;
 
 LSB   //Least Significant Bit
 低位优先
+LSB（Least Significant Bit），意为最低有效位；MSB（Most Significant Bit），意为最高有效位
 
 RTP   //Real-time Transport Protocol
 实时传输协议
+
+gap
+英 [gæp]   美 [ɡæp]
+n.间断；间隔；间隙

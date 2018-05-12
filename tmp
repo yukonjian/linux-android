@@ -19,6 +19,11 @@ scp steven@172.25.2.89:/home/steven/work/mt7628-1/libpcm/pcm_test ./
 cp es8374-drv.ko
 scp steven@172.25.2.89:/home/steven/work/mt7628-1/driver-test/es8374-drv.ko ./
 
+cp pcm_ctrl.ko
+scp steven@172.25.2.89:/home/steven/work/mt7628-1/driver-test/pcm/char/es8374_pcm/pcm_drv/pcm_ctrl.ko ./
+
+cp ralink_gdma.ko
+scp steven@172.25.2.89:/home/steven/work/mt7628-1/driver-test/pcm/char/es8374_pcm/dma_drv/ralink_gdma.ko ./
 
 
 
@@ -48,3 +53,34 @@ static ssize_t store_device_c72_led(struct device *dev,	struct device_attribute
 #define C72_LED_ALARM_RED_ON	(C72_LED_IOCTL + 13)
 #define C72_LED_ALARM_BLUE_ON	(C72_LED_IOCTL + 14)
 #define C72_LED_ALARM_OFF		(C72_LED_IOCTL + 15)
+
+
+root@OpenWrt:/etc# cat rc.local
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+ifconfig br-lan 172.25.2.88
+
+ifconfig br-lan up
+ifconfig br-lan hw ether 00:0C:43:28:81:AB
+ifconfig br-lan up
+
+ifconfig eth0 down
+ifconfig eth0 hw ether 00:0C:43:28:82:AB
+ifconfig eth0 up
+
+ifconfig eth0.1 down
+ifconfig eth0.1 hw ether 00:0C:43:28:83:AB
+ifconfig eth0.1 up
+
+ifconfig eth0.2 down
+ifconfig eth0.2 hw ether 00:0C:43:28:84:AB
+ifconfig eth0.2 up
+
+
+exit 0
+root@OpenWrt:/etc#
+
+
+The count extrac[  343.943000] PCM_API: DMA_STOP chan[1]
+t is 214 ;
