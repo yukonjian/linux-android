@@ -431,3 +431,37 @@ RTP   //Real-time Transport Protocol
 gap
 英 [gæp]   美 [ɡæp]
 n.间断；间隔；间隙
+
+oops
+英 [ʊps]   美 [ups]
+int.
+哎哟
+
+panic
+英 [ˈpænɪk]   美 [ˈpænɪk]
+n.
+恐慌，惊慌;（金融方面）大恐慌;成功;〈俚〉非常滑稽的人
+vt.
+使恐慌
+
+//Linux内核在发生kernel panic时会打印出Oops信息，把目前的寄存器状态、堆栈内容、以及完整的Call trace都show给我们看，这样就可以帮助我们定位错误。
+
+tone          //Side Tone
+英 [təʊn]   美 [toʊn]
+n.
+[语]声调，语调;
+
+amplitude
+英 [ˈæmplɪtju:d]   美 [ˈæmplɪtu:d]
+n.
+振幅;
+
+acoustic      //acoustic fixture  声学夹具
+英 [əˈku:stɪk]   美 [əˈkustɪk]
+adj.
+声学的;听觉的;原声的;音响的
+
+partition
+英 [pɑ:ˈtɪʃn]   美 [pɑ:rˈtɪʃn]
+n.
+分割;隔墙;分区

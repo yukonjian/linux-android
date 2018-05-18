@@ -4,3 +4,13 @@ make menuconfig  可以配置包，整体进行配置
 make kernel_menuconfig 可以进行内核方面的配置。
 3. 在/openwrt-sdk/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7628/linux-3.10.14下运行
 make ARCH=mips menuconfig 可以进行内核方面的配置，但是会在编译时被外部的覆盖掉。
+4. 模块的加载
+/etc/modules.d          /* 配置路径 */
+/lib/modules/3.10.14/   /* 模块路径 */
+
+i2c-ralink.ko
+es8374-dev.ko
+es8374-drv.ko
+
+pcm_ctrl.ko
+ralink_gdma.ko
