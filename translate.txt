@@ -465,3 +465,19 @@ partition
 英 [pɑ:ˈtɪʃn]   美 [pɑ:rˈtɪʃn]
 n.
 分割;隔墙;分区
+
+jack
+英 [dʒæk]   美 [dʒæk]
+n.[信]插孔，插座;
+
+headset
+英 [ˈhedset]   美 [ˈhɛdˌsɛt]
+n.戴在头上的耳机或听筒
+
+headset jack 耳机插孔
+headset receiver 头戴式耳机
+
+opcode
+英 [ˈɒpkəʊd]   美 [ˈɑ:pkoʊd]
+n.
+操作码

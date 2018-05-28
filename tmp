@@ -90,3 +90,5 @@ scp steven@172.25.2.89:/home/steven/work/mt7628-1/libpcm/pcmapp ./
 scp steven@172.25.2.89:/home/steven/work/mt7628-1/libpcm/libpcmapi.mt7628.so ./
 
 /home/steven/work/mt7628-1/openwrt-sdk/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/bin/mipsel-openwrt-linux-gcc -Wall -DBUILD_7628  -o  pcmapp   test.c  -L. -lpcmapi.mt7628  -ldl
+
+中断号路径： surfboardint.h
