@@ -481,3 +481,28 @@ opcode
 英 [ˈɒpkəʊd]   美 [ˈɑ:pkoʊd]
 n.
 操作码
+
+global
+英 [ˈgləʊbl]   美 [ˈgloʊbl]
+adj.全局的;
+
+variable
+英 [ˈveəriəbl]   美 [ˈveriəbl]
+adj.变化的，可变的;[数]变量的;[生]变异的
+n.可变因素，变量;易变的东西
+
+global variable  //全局变量
+
+chrome
+英 [krəʊm]   美 [kroʊm]
+n.谷歌浏览器;
+
+monochrome
+英 [ˈmɒnəkrəʊm]   美 [ˈmɑ:nəkroʊm]
+n.单色画，单色照片，黑白照片
+adj.单色的，黑白的
+
+transparency
+英 [trænsˈpærənsi]   美 [trænsˈpɛrənsi, -ˈpær-]
+n.
+透明度;透明;透明性;

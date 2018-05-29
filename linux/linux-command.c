@@ -78,3 +78,32 @@ ifconfig eth0.2 up
 11. openwrt加载模块
 模块路径：/lib/modules/
 添加路径：/etc/modules.d/
+
+11. dd 命令
+dd：用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。
+注意：指定数字的地方（ibs,obs,bs,count）若以下列字符结尾，则乘以相应的数字：b=512；c=1；k=1024；w=2
+参数注释：
+1) if=文件名：输入文件名，缺省为标准输入。即指定源文件。< if=input file >
+2) of=文件名：输出文件名，缺省为标准输出。即指定目的文件。< of=output file >
+3) ibs=bytes：一次读入bytes个字节，即指定一个块大小为bytes个字节。
+    obs=bytes：一次输出bytes个字节，即指定一个块大小为bytes个字节。
+    bs=bytes：同时设置读入/输出的块大小为bytes个字节。
+4) cbs=bytes：一次转换bytes个字节，即指定转换缓冲区大小。
+5) skip=blocks：从输入文件开头跳过blocks个块后再开始复制。
+6) seek=blocks：从输出文件开头跳过blocks个块后再开始复制。
+注意：通常只用当输出文件是磁盘或磁带时才有效，即备份到磁盘或磁带时才有效。
+7) count=blocks：仅拷贝blocks个块，块大小等于ibs指定的字节数。
+8) conv=conversion：用指定的参数转换文件。
+dd 应用实例
+1) 将文件file1.c 的内容全部拷贝到 file.c 
+dd if=./file1.c of=./file.c
+dd if=/dev/hdb of=/dev/hdd
+2) 指定大小的拷贝，大小为 bs*count
+dd if=file1.c of=file2.c bs=3w count=1
+3) 测试硬盘的读写速度
+dd if=/dev/zero bs=1024 count=1000000 of=/root/1Gb.file
+dd if=/root/1Gb.file bs=64k | dd of=/dev/null
+
+/dev/null，外号叫无底洞，你可以向它输出任何数据，它通吃，并且不会撑着！
+/dev/zero，是一个输入设备，你可你用它来初始化文件。该设备无穷尽地提供0，
+可以使用任何你需要的数目——设备提供的要多的多。他可以用于向设备或文件写入字符串0。
