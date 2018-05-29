@@ -446,25 +446,25 @@ vt.
 
 //Linux内核在发生kernel panic时会打印出Oops信息，把目前的寄存器状态、堆栈内容、以及完整的Call trace都show给我们看，这样就可以帮助我们定位错误。
 
+side
+英 [saɪd]   美 [saɪd]
+n.侧面;方面;旁边;
+
 tone          //Side Tone
 英 [təʊn]   美 [toʊn]
-n.
-[语]声调，语调;
+n.[语]声调，语调;
 
 amplitude
 英 [ˈæmplɪtju:d]   美 [ˈæmplɪtu:d]
-n.
-振幅;
+n.振幅;
 
 acoustic      //acoustic fixture  声学夹具
 英 [əˈku:stɪk]   美 [əˈkustɪk]
-adj.
-声学的;听觉的;原声的;音响的
+adj.声学的;听觉的;原声的;音响的
 
 partition
 英 [pɑ:ˈtɪʃn]   美 [pɑ:rˈtɪʃn]
-n.
-分割;隔墙;分区
+n.分割;隔墙;分区
 
 jack
 英 [dʒæk]   美 [dʒæk]
@@ -479,8 +479,7 @@ headset receiver 头戴式耳机
 
 opcode
 英 [ˈɒpkəʊd]   美 [ˈɑ:pkoʊd]
-n.
-操作码
+n.操作码
 
 global
 英 [ˈgləʊbl]   美 [ˈgloʊbl]
