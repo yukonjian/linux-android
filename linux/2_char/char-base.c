@@ -17,3 +17,12 @@ display_dev = device_create(disp_class, NULL, devid, NULL, "disp");
 
 void device_destroy(struct class *class, dev_t devt)
 void class_destroy(struct class *cls)
+
+3. file指针操作
+struct file {
+    struct inode  *inode;
+};
+static inline struct inode *file_inode(struct file *f)
+{
+	return f->f_inode;
+}
