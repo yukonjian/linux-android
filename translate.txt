@@ -494,3 +494,13 @@ transparency
 英 [trænsˈpærənsi]   美 [trænsˈpɛrənsi, -ˈpær-]
 n.
 透明度;透明;透明性;
+
+routine
+英 [ru:ˈti:n]   美 [ruˈtin]
+n.常规;例行程序;生活乏味;
+
+generic
+英 [dʒəˈnerɪk]   美 [dʒəˈnɛrɪk]
+adj.一般的;类的，属性的;
+
+//generic routine   通用例程

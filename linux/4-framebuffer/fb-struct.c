@@ -1,4 +1,5 @@
-在fb.h中包含了framebuffer的主要结构体
+在Linux/include/fb.h中包含了framebuffer的主要结构体
+在linux/include/uapi/fb.h中包含的大部分的宏定义
 1. struct fb_var_screeninfo   /* 描述了显示卡的特性 */
 
 struct fb_var_screeninfo
@@ -41,7 +42,7 @@ unsigned long smem_start; /* Start of frame buffer mem */
 /* (physical address) */
 __u32 smem_len; /* Length of frame buffer mem */
 __u32 type; /* see FB_TYPE_* */
-__u32 type_aux; /* Interleave for interleaved Planes */
+__u32 type_aux; /* Interleave for interleaved Planes,see FB_AUX_ */
 __u32 visual; /* see FB_VISUAL_* */
 __u16 xpanstep; /* zero if no hardware panning */
 __u16 ypanstep; /* zero if no hardware panning */
@@ -70,7 +71,7 @@ __u16 *transp; /* transparency, can be NULL */
 struct fb_info {
 char modename[40]; /* default video mode */
 kdev_t node;
-int flags;
+int flags;        /* see FBINFO_FLAG_ */
 int open; /* Has this been open already ? */
 #define FBINFO_FLAG_MODULE 1 /* Low-level driver is a module */
 struct fb_var_screeninfo var; /* Current var */
@@ -92,6 +93,8 @@ int (*updatevar)(int, struct fb_info*);
 void (*blank)(int, struct fb_info*); /* tell fb to (un)blank the screen */
 /* arg = 0: unblank */
 /* arg > 0: VESA level (arg-1) */
+char __iomem *screen_base;	/* Virtual address */
+unsigned long screen_size;	/* Amount of ioremapped VRAM or 0 */
 void *pseudo_palette; /* Fake palette of 16 colors and
 the cursor's color for non
 palette mode */
@@ -115,7 +118,7 @@ struct fb_info *info);
 /* set settable parameters */
 int (*fb_set_var)(struct fb_var_screeninfo *var, int con,
 struct fb_info *info);
-/* get colormap */ 
+/* get colormap */
 int (*fb_get_cmap)(struct fb_cmap *cmap, int kspc, int con,
 struct fb_info *info);
 /* set colormap */
