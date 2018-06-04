@@ -30,3 +30,5 @@ $@--目标文件，$^--所有的依赖文件，$<--第一个依赖文件。
 #!/bin/bash
 arm-linux-androideabi-gcc -pie -fPIE -o wdt_test wdt_test.c
 chmod 777 ./wdt_test
+
+4. kbuild 简介 https://blog.csdn.net/luckywang1103/article/details/50673536
