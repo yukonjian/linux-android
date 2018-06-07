@@ -15,3 +15,23 @@ b)   在Lab中进行调节很简单，速度很快．
 c)   色域宽阔 。它不仅包含了RGB，CMYK的所有色域，还能表现它们不能表现的色彩，人的肉眼能感知的色彩，都能通过Lab模型表现出来.
 d)   它弥补了RGB色彩模型和CMYK色彩模式色彩分布不均的不足.
 下图所示为Lab颜色空间的图示：
+
+3. 有关16位RGB565彩色
+颜色的数据排列（WORK bit[15~0]）
+              blue|green|red
+纯红：blue = 0;  green = 0 ; red = 0x1f
+LSB first: data[0] = 0x1f; data[1] = 0x00;
+MSB first: data[0] = 0x00; data[1] = 0x1f;
+显示的颜色与外部的GRB接线有关。
+
+3. 有关24位的RGB888彩色
+颜色的数据排列（bytes[0~2]）
+              red|green|blue
+由于其颜色GRB分别有一个字节表示，故没有LSB和MSB的区别
+按红绿蓝的排列顺序：bytes[0] = red; bytes[1] = green; bytes[2] = blue;
+
+4. RGB、YUV和HSV颜色空间模型
+https://www.cnblogs.com/justkong/p/6570914.html
+
+5. yuv和yCbCr的差异
+https://blog.csdn.net/sunshine1314/article/details/612485

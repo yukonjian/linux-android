@@ -21,7 +21,13 @@ void class_destroy(struct class *cls)
 3. file指针操作
 struct file {
     struct inode  *inode;
+    void			*private_data;
 };
+
+struct inode {
+
+};
+
 static inline struct inode *file_inode(struct file *f)
 {
 	return f->f_inode;

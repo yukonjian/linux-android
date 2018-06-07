@@ -3,7 +3,7 @@ du -h --max-depth=1 ./
 -h 表示加，K,M,G
 --max-depth 表示查看的深度
 2.shell脚本
- #！/bin/sh
+ #!/bin/sh
 3.linux中copy软链接
  cp命令copy一个软链接时，copy的是软链接所对应的内容，而不是它本身。
 # echo "1234567890" > test.txt
@@ -95,7 +95,7 @@ dd：用指定大小的块拷贝一个文件，并在拷贝的同时进行指定
 7) count=blocks：仅拷贝blocks个块，块大小等于ibs指定的字节数。
 8) conv=conversion：用指定的参数转换文件。
 dd 应用实例
-1) 将文件file1.c 的内容全部拷贝到 file.c 
+1) 将文件file1.c 的内容全部拷贝到 file.c
 dd if=./file1.c of=./file.c
 dd if=/dev/hdb of=/dev/hdd
 2) 指定大小的拷贝，大小为 bs*count
@@ -107,3 +107,6 @@ dd if=/root/1Gb.file bs=64k | dd of=/dev/null
 /dev/null，外号叫无底洞，你可以向它输出任何数据，它通吃，并且不会撑着！
 /dev/zero，是一个输入设备，你可你用它来初始化文件。该设备无穷尽地提供0，
 可以使用任何你需要的数目——设备提供的要多的多。他可以用于向设备或文件写入字符串0。
+
+12. find命令，只查找文件，需要添加 -type f
+find . -type f

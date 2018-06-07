@@ -26,6 +26,7 @@ int xxx_release(struct inode * inode, struct file * filp)
 	return 0;
 }
 struct file_operations xxx_fops = {
+	.owner = THIS_MODULE,
 	.open  = xxx_open,
 	.release = xxx_release,
 };
@@ -43,7 +44,6 @@ static int __init xxx_init(void)
 	if(IS_ERR_VALUE(retval))
 		goto alloc_chrdev_region_failed;
 	cdev_init(&xxx_infp->cdev, &xxx_fops);
-	xxx_fops.owner = THIS_MODULE;
 	retval = cdev_add(&xxx_infp->cdev, xxx_infp->devno, 1);
 	if(IS_ERR_VALUE(retval))
 		goto cdev_add_failed;
