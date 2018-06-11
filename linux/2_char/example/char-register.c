@@ -14,7 +14,7 @@ struct xxx_info{
 	dev_t devno;
 	struct class *class;
 };
-struct xxx_info *xxx_infp;
+static struct xxx_info *xxx_infp;
 
 
 int xxx_open(struct inode * indoe, struct file * filp)
@@ -40,7 +40,7 @@ static int __init xxx_init(void)
 	if(!xxx_infp)
 		return -ENOMEM;
 
-	retval = alloc_chrdev_region(&xxx_infp->devno, 0, 1, "XXX_NAME");
+	retval = alloc_chrdev_region(&xxx_infp->devno, 0, 1, XXX_NAME);
 	if(IS_ERR_VALUE(retval))
 		goto alloc_chrdev_region_failed;
 	cdev_init(&xxx_infp->cdev, &xxx_fops);
@@ -48,12 +48,12 @@ static int __init xxx_init(void)
 	if(IS_ERR_VALUE(retval))
 		goto cdev_add_failed;
 
-	xxx_infp->class = class_create(THIS_MODULE,"XXX_NAME");
+	xxx_infp->class = class_create(THIS_MODULE, XXX_NAME);
 	if(IS_ERR(xxx_infp->class)){
 		retval = PTR_ERR(xxx_infp->class);
 		goto class_create_failed;
 	}
-	device_create(xxx_infp->class,NULL,xxx_infp->devno,NULL,"XXX_NAME");
+	device_create(xxx_infp->class, NULL, xxx_infp->devno, NULL, XXX_NAME);
 
 	return 0;
 
