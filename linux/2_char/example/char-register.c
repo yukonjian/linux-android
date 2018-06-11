@@ -55,7 +55,7 @@ static int __init xxx_init(void)
 	}
 	device_create(xxx_infp->class, NULL, xxx_infp->devno, NULL, XXX_NAME);
 
-	return 0;
+	return 0; 
 
 	class_create_failed:
 		cdev_del(&xxx_infp->cdev);
