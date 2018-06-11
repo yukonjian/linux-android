@@ -38,3 +38,20 @@ error: failed to push some refs to 'git@xxxxxxx'
 
 6.在git中不检查文件权限
 在git库中 .git文件夹下的config文件中的filemode = false
+
+7.git tag 打标签
+1) 显示所有的tag
+git tag
+2) 打标签
+轻量级的（lightweight）
+git tag [tagname]
+含附注的（annotated）
+git tag -a [tagname] -m "注释"
+3) 显示标签的修改
+git show [tagname]
+4) 将tag推送到远端服务器上
+git push origin [tagname]
+5) 删除标签
+git tag -d [tagname]
+6) 删除远程标签
+git push origin :refs/tags/[tagname]

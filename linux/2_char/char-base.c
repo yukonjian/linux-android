@@ -22,6 +22,7 @@ void class_destroy(struct class *cls)
 struct file {
     struct inode  *inode;
     void			*private_data;
+    loff_t			f_pos;
 };
 
 struct inode {
