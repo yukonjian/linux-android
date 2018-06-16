@@ -110,3 +110,23 @@ dd if=/root/1Gb.file bs=64k | dd of=/dev/null
 
 12. find命令，只查找文件，需要添加 -type f
 find . -type f
+
+13. mount 挂载nfs
+1）安装NFS服务
+sudo apt-get install nfs-kernel-server
+sudo apt-get install nfs-common
+sudo apt-get install portmap
+2）建立共享目录
+在/etc/exports 文件的末尾添加需要共享的文件夹 如：
+/home/steven/work/mount *(rw,sync,no_root_squash)
+3）挂载
+将虚拟机中的mount目录挂载到app目录
+mount -t nfs -o nolock 172.25.2.89:/home/steven/work/mount   /app
+
+14. app 映像文件的生成
+/work/openwrt-sdk/staging_dir/host/bin/mksquashfs4 /work/mkimage/app /work/mkimage/app.squashfs -nopad -noappend -root-owned -comp xz -Xpreset 9 -Xe -Xlc 0 -Xlp 2 -Xpb 2  -b 256k -processors 1
+
+15. 在使用busybox制作根文件系统需要支持mdev，并且在rcS中有以下语句
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+/sbin/mdev -s
+才能在加载驱动时，自动生成节点
