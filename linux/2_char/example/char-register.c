@@ -83,9 +83,10 @@ MODULE_VERSION("1.0");
 
 
 /*****************************************************************************************************/
-static int cdev_file_alloc(struct misc_c62b_info *infop, struct file_operations *fops, const char *name)
+static struct misc_c62b_info *cdev_file_alloc(struct file_operations *fops, const char *name)
 {
 	int retval;
+	struct misc_c62b_info *infop;
 
 	infop = kmalloc(sizeof(struct misc_c62b_info), GFP_KERNEL);
 	if(!infop)
@@ -110,7 +111,8 @@ static int cdev_file_alloc(struct misc_c62b_info *infop, struct file_operations 
 		goto device_create_failed;
 	}
 
-	return 0;
+	dprintk("The cdev_device_alloct finished.\n");
+	return infop;
 
 device_create_failed:
 	class_destroy(infop->class);
@@ -121,15 +123,20 @@ cdev_add_failed:
 alloc_chrdev_region_failed:
 	kfree(infop);
 
-	return retval;
+	return ERR_PTR(retval);
 }
 
-static void cdev_file_release(struct misc_c62b_info *infop)
+static int cdev_file_release(struct misc_c62b_info *infop)
 {
+	if (infop == NULL)
+		return -1;
+
 	device_destroy(infop->class, infop->devno);
 	class_destroy(infop->class);
 	cdev_del(&infop->cdev);
 	unregister_chrdev_region(infop->devno,1);
 	kfree(infop);
+
+	return 0;
 }
 /*****************************************************************************************************/
