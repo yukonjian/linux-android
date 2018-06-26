@@ -1,0 +1,13 @@
+动态库的编译：
+
+/opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -DMACRO -shared -fPIC  devctrl_c62b.c -o libdevctrl.so
+
+-DMACRO : 在编译时定义宏。
+
+编译程序链接动态库：
+/opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -DMACRO -L. -ldevctrl -lpthread -ldl test.c -o testapp
+
+-Wall   ：显示警告信息；
+-DMACRO : 在编译时定义宏。
+-L.		: 指定头文件为当前文件夹
+-lxxx	: 连接xxx库

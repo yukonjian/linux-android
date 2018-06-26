@@ -9,8 +9,8 @@ static int debug  = 0;
 #define dprintk(fmt, args...) \
 do { \
 	if (debug) \
-		printk(KERN_DEBUG"DEBUG""Fun is %s; Line: %d;" fmt, __FUNCTION__, __LINE__, ##args); \
+		printk(KERN_DEBUG"[XXX]""Fun is %s; Line: %d;" fmt, __FUNCTION__, __LINE__, ##args); \
 } while (0)
 
-#define eprintk(fmt, args...)  printk(KERN_ERR"ERROR"fmt, ##args)
-#define iprintk(fmt, args...)  printk(KERN_INFO"WARNING"fmt, ##args)
+#define eprintk(fmt, args...)  printk(KERN_ERR"[XXX]"fmt, ##args)
+#define iprintk(fmt, args...)  printk(KERN_INFO"[XXX]"fmt, ##args)
