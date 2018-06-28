@@ -121,7 +121,7 @@ sudo apt-get install portmap
 /home/steven/work/mount *(rw,sync,no_root_squash)
 3）挂载
 将虚拟机中的mount目录挂载到app目录
-mount -t nfs -o nolock 172.25.2.89:/home/steven/work/mount   /app
+mount -t nfs -o nolock 172.25.2.89:/home/steven/work/mount   /mnt/work
 
 14. app 映像文件的生成
 /work/openwrt-sdk/staging_dir/host/bin/mksquashfs4 /work/mkimage/app /work/mkimage/app.squashfs -nopad -noappend -root-owned -comp xz -Xpreset 9 -Xe -Xlc 0 -Xlp 2 -Xpb 2  -b 256k -processors 1
