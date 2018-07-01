@@ -1,0 +1,38 @@
+语法：
+mount(选项)(参数)
+
+选项：
+-t：指定档案文件系统的型态，通常不必指定。mount 会自动选择正确的型态。
+-a : 加载文件“/etc/fstab”中描述的所有文件系统。
+-o remount：将一个已经挂下的档案系统重新用不同的方式挂上。例如原先是唯读的系统，现在用可读写的模式重新挂上。
+-o ro：用唯读模式挂上。
+-o rw：用可读写模式挂上。
+-o nolock：挂载不用文件锁（ nfs mount 默认选项包括文件锁），nfs挂载一般要加。
+
+参数：
+设备文件名：指定要加载的文件系统对应的设备名；
+加载点：指定加载点目录。
+
+注：有关设备文件名的描述
+对于通常的mount操作而言，这个字段应该包括一个将被装载的块设备的设备结点(通过mknod命令来创建)或指向这类结点的连接(例如/dev/cdrom或/dev/sdb)，
+对于NFSmount操作，这个字段应该包含host:dir格式的信息，对于进程文件系统procfs，使用proc，sysfs使用sys
+
+例子：
+将 /dev/hda1 挂在 /mnt 之下。
+#mount /dev/hda1 /mnt
+
+将 /dev/hda1 用唯读模式挂在 /mnt 之下。
+#mount -o ro /dev/hda1 /mnt
+
+自动挂载光盘
+mount -t auto /dev/cdrom /mnt/cdrom
+
+挂载的nfs服务器上的目录
+mount -t  -o nolock 172.25.2.89:/home/steven/work/mount   /mnt/work
+
+语法：
+umount (加载点)
+
+例子：
+将挂载在/mnt 下的 /dev/hda1 卸载
+umount /mnt
