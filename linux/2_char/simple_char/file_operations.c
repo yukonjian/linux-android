@@ -18,6 +18,18 @@ flags：指定映射对象的类型，映射选项和映射页是否可以共享
 MAP_SHARED //与其它所有映射这个对象的进程共享映射空间。
 off_t offset：被映射对象内容的起点。offset参数一般设为0，表示从文件头开始映射。
 
+不成功返回MAP_FAILED ((void*)-1)
+
+/**
+ * remap_pfn_range - remap kernel memory to userspace
+ * @vma: user vma to map to
+ * @addr: target user address to start at
+ * @pfn: physical address of kernel memory
+ * @size: size of map area
+ * @prot: page protection flags for this mapping
+ *
+ *  Note: this is only safe if the mm semaphore is held when called.
+ */
 int remap_pfn_range(struct vm_area_struct *vma, unsigned long virt_addr, unsigned long pfn, unsigned long size, pgprot_t prot);
 
 int (*mmap) (struct file *, struct vm_area_struct *);
