@@ -1,0 +1,135 @@
+8       INT     1       MIC1 boost volume                        6
+9       INT     1       MIC2 boost volume                        4
+
+6       INT     2       MIC gain volume                          6 3
+
+10      INT     1       ADC gain volume                          3
+
+
+
+
+//95度开始降频
+
+/* 查看cpu内部温度 */
+cd /sys/class/thermal/thermal_zone0
+cat temp
+
+/* 查看cpu当前运行频率 */
+cd /sys/devices/system/cpu/cpu0/cpufreq
+cat cpuinfo_cur_freq
+
+/* 修改频率 */
+sys_config.fex  [dvfs_table]
+sun8iw11p1.dtsi thermal-zones
+
+/**/
+cat /proc/sys/kernel/printk
+echo 8 >> /proc/sys/kernel/printk
+
+/*printk debug*/
+[    7.257078] android_usb: already disabled
+shell@t3-p1:/ $ [    7.842431] csi-iovdd: enabler donot find
+[   10.420088] thermal thermal_zone0: critical temperature reached(63 C),shutting down
+[   11.210459] hci: ERR: sunxi_ehci_hcd_shutdown, is null
+[   11.216180] hci: ERR: sunxi_ehci_hcd_shutdown, is null
+[   11.222660] Power down.
+
+dvfs_table: dvfs_table {
+  compatible = "allwinner,dvfs_table";
+  max_freq = <1200000000>;
+  min_freq = <240000000>;
+  lv_count = <8>;
+  lv1_freq = <1200000000>;
+  lv1_volt = <1300>;
+  lv2_freq = <1104000000>;
+  lv2_volt = <1240>;
+  lv3_freq = <1008000000>;
+  lv3_volt = <1160>;
+  lv4_freq = <912000000>;
+  lv4_volt = <1100>;
+  lv5_freq = <720000000>;
+  lv5_volt = <1000>;
+  lv6_freq = <0>;
+  lv6_volt = <1000>;
+  lv7_freq = <0>;
+  lv7_volt = <1000>;
+  lv8_freq = <0>;
+  lv8_volt = <1000>;
+};
+
+;----------------------------------------------------------------------------------
+[dvfs_table]
+max_freq = 1200000000
+min_freq = 240000000
+
+lv_count = 8
+
+lv1_freq = 1200000000
+lv1_volt = 1300
+
+lv2_freq = 1104000000
+lv2_volt = 1240
+
+lv3_freq = 1008000000
+lv3_volt = 1160
+
+lv4_freq = 912000000
+lv4_volt = 1100
+
+lv5_freq = 720000000
+lv5_volt = 1000
+
+lv6_freq = 0
+lv6_volt = 1000
+
+lv7_freq = 0
+lv7_volt = 1000
+
+lv8_freq = 0
+lv8_volt = 1000
+
+;----------------------------------------------------------------------------------
+
+
+trips{
+  cpu_trip0:t0{
+    temperature = <95>;
+    type = "passive";
+    hysteresis = <0>;
+  };
+  cpu_trip1:t1{
+    temperature = <105>;
+    type = "passive";
+    hysteresis = <0>;
+  };
+  cpu_trip2:t2{
+    temperature = <112>;
+    type = "passive";
+    hysteresis = <0>;
+  };
+  cpu_trip3:t3{
+    temperature = <115>;
+    type = "passive";
+    hysteresis = <0>;
+  };
+  gpu_trip0:t4{
+    temperature = <90>;
+    type = "passive";
+    hysteresis = <0>;
+  };
+  gpu_trip1:t5{
+    temperature = <100>;
+    type = "passive";
+    hysteresis = <0>;
+  };
+  gpu_trip2:t6{
+    temperature = <110>;
+    type = "passive";
+    hysteresis = <0>;
+  };
+  crt_trip:t7{
+    temperature = <180>;
+    type = "critical";
+    hysteresis = <0>;
+  };
+};
