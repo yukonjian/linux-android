@@ -5,6 +5,23 @@
 
 10      INT     1       ADC gain volume                          3
 
+dnake
+root@camdroid:/proc # cat cpuinfo
+Processor       : ARMv7 Processor rev 5 (v7l)
+BogoMIPS        : 4800.00
+Features        : swp half thumb fastmult vfp edsp thumbee neon vfpv3 tls vfpv4 idiva idivt
+CPU implementer : 0x41
+CPU architecture: 7
+CPU variant     : 0x0
+CPU part        : 0xc07
+CPU revision    : 5
+
+Hardware        : sun8i
+Revision        : 0000
+Serial          : 94105033c8143c37030e
+root@camdroid:/proc #
+
+
 
 /* sip 服务器 */
 172.25.2.161：5600

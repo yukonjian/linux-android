@@ -504,3 +504,8 @@ generic
 adj.一般的;类的，属性的;
 
 //generic routine   通用例程
+
+block                         /* O_NONBLOCK 非阻塞 */
+英 [blɒk]   美 [blɑ:k]
+n.块;街区;<英>大楼，大厦;障碍物，阻碍
+vt.阻止;阻塞;限制

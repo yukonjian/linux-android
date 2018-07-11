@@ -4,16 +4,21 @@
 #include <linux/fb.h>
 #include <sys/mman.h>
 #include <string.h>
+#include <stdlib.h>
+
 #include <linux/videodev2.h>
 #include "sunxi_display2.h"
 
 
+
 #define VIDEO_DEVICE_NAME	"/dev/video2"
 
+#define NB_BUFFER		(5)
+#define C72_SCREEN_WIDTH	(1024)
+#define C72_SCREEN_HIGH	(600)
 #define VIDEO_WIDTH 	(800)
 #define VIDEO_HIGH 		(600)
-#define NB_BUFFER		(1)
-#define
+
 
 struct v4l2_capability cap;
 struct v4l2_format format;
@@ -22,27 +27,10 @@ struct v4l2_buffer buf;
 struct v4l2_fmtdesc fmtdesc;
 struct v4l2_input input;
 struct v4l2_streamparm parms;
-
-
-
 struct disp_layer_info info;
-unsigned int ret = 0;
-unsigned int screen_id = 0;
-unsigned int layer_id = 0;
-unsigned int mem_id = 0;
-unsigned int buffer_num = 2;
 
 
 
-
-
-
-
-
-char video_buffer[1280*720*3] = {0};
-char rgb_buffer[1280*720*3] = {0};
-char crop_rgb_buffer[1280*720*3] = {0};
-char rotation_rgb_buffer[1280*720*3] = {0};
 
 
 struct buffer
@@ -95,10 +83,12 @@ void yuv422_to_rgb(char *yuv, char *rgb, unsigned int length)
 	int y0, cb0, cr0, y1, cb1, cr1;
 	char r, g, b;
 	unsigned int i=0, j=0;
-	for (i = 0; i < 480000; ) {
+	unsigned y_num = VIDEO_WIDTH*VIDEO_HIGH;
+
+	for (i = 0; i < y_num; ) {
 		y0 = *(yuv + i);
-		cr0 = *(yuv + i + 480000);
-		cb0 = *(yuv + i + 480000 + 1);
+		cr0 = *(yuv + i + y_num);
+		cb0 = *(yuv + i + y_num + 1);
 
 		y1 = *(yuv + i + 1);
 		cb1 = cb0;
@@ -163,10 +153,7 @@ void lcd_map_view(int x, int y, int width, int heigh, int screen_width, int scre
 		return;
 
 	width_data = width * channel;
-	if (y == 0)
-		base = x * channel;
-	else
-		base = x * y * channel;
+	base = (x + (y * screen_width)) * channel;
 
 	for(i = 0; i < heigh; i++) {
 		for (j = 0; j < width_data; j++) {
@@ -174,63 +161,94 @@ void lcd_map_view(int x, int y, int width, int heigh, int screen_width, int scre
 			data++;
 		}
 
-		base += 1024 * channel;		//一行的数据量,c72使用的屏幕宽度为1024
+		base += C72_SCREEN_WIDTH * channel;		//一行的数据量,c72使用的屏幕宽度为1024
 
 	}
 }
 
-
-
-void video_data_get(void)
+/***********************************************************************************************************
+ *初始化lcd屏幕，
+ *
+ *return : 设备号
+ *
+ ***********************************************************************************************************/
+int c72_lcd_view_init(void **memmap)
 {
-	int fd;
-	fd_set fds;
-	int retval = 0;
-	int i;
-	int type;
-	char a,b,c,d;
+	unsigned int arg[3];
+	unsigned int fb_width,fb_height;
+	int dispfb0;
 
+	if((dispfb0 = open("/dev/fb0",O_RDWR)) == -1) {
+		printf("open /dev/fb0 device fail!\n");
+		return -1;
+	}
+
+	*memmap = (int)mmap(NULL, C72_SCREEN_WIDTH*C72_SCREEN_HIGH*3, PROT_READ | PROT_WRITE, MAP_SHARED, dispfb0, 0L);
+	if(*memmap == 0) {
+		printf("DISP_MEM_MAP 0\n");
+		return -1;
+	}
+
+	return dispfb0;
+}
+
+void c72_lcd_view_exit(int fd, void *memmap)
+{
+	munmap(memmap, C72_SCREEN_WIDTH*C72_SCREEN_HIGH*3);
+	close(fd);
+}
+
+
+
+int main(int argc, char **argv)
+{
+	int retval = 0;
+	int dispfd;
+	int viodefd;
+	void *disp_buf;
+	int type;
+	int i;
+	fd_set fds;
+	struct timeval tv;
+
+	char *data_buf1 = NULL;
+	char *data_buf2 = NULL;
+
+
+
+	/* 分配缓冲区 */
+	data_buf1 = malloc(C72_SCREEN_WIDTH*C72_SCREEN_HIGH*3);
+	data_buf2 = malloc(C72_SCREEN_WIDTH*C72_SCREEN_HIGH*3);
+
+	/* 初始化lcd */
+	c72_lcd_view_init(&disp_buf);
+
+	/* 摄像头获取数据 */
 	/* 打开设备 */
-	fd = open(VIDEO_DEVICE_NAME, O_RDWR | O_NONBLOCK);
-	if (fd <= 0)
+	viodefd = open("/dev/video2", O_RDWR | O_NONBLOCK);
+	if (viodefd <= 0)
 		printf("Error open video device.\n");
 
+	fcntl(viodefd, F_SETFD, FD_CLOEXEC);
+
 	/* 查询设备支持的操作 */
-	if(ioctl(fd,VIDIOC_QUERYCAP,&cap) < 0)
+	if(ioctl(viodefd,VIDIOC_QUERYCAP,&cap) < 0)
 		printf("Error VIDIOC_QUERYCAP failed.\n");
 	printf("The driver name is %s; card name is %s;\n", cap.driver, cap.card);
 	printf("The capability is 0x%x\n", cap.capabilities);
 	/* V4L2_CAP_VIDEO_CAPTURE  V4L2_CAP_READWRITE   V4L2_CAP_STREAMING */
-#if 0
-	/* 查看并显示所有支持的格式 */
-	printf("Start fmtdesc; \n");
-	fmtdesc.index = 0;
-	fmtdesc.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-	while(ioctl(fd,VIDIOC_ENUM_FMT,&fmtdesc) != -1) {
-		printf("The index is %d; description is %s; pixelformat is %x;\n", fmtdesc.index, fmtdesc.description, fmtdesc.pixelformat);
-		a = fmtdesc.pixelformat & 0xff;
-		b = (fmtdesc.pixelformat>>8) & 0xff;
-		c = (fmtdesc.pixelformat>>16) & 0xff;
-		d = (fmtdesc.pixelformat>>24) & 0xff;
-
-		printf("pixelformat is : %c %c %c %c ; \n", a, b, c, d);
-		fmtdesc.index++;
-	}
-#endif
-
-
 	input.index = 0;
 	input.type = V4L2_INPUT_TYPE_CAMERA;
 
 	/* set input input index */
-	if (ioctl(fd, VIDIOC_S_INPUT, &input))
+	if (ioctl(viodefd, VIDIOC_S_INPUT, &input))
 		printf("The VIDIOC_S_INPUT is failed\n");
 #if 0
 	/*  */
 	parms.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 	parms.parm.capture.timeperframe.numerator = 1;
 	parms.parm.capture.timeperframe.denominator = fps;
-	if (ioctl(fd, VIDIOC_S_PARM, &parms) < 0)
+	if (ioctl(viodefd, VIDIOC_S_PARM, &parms) < 0)
 		printf("The VIDIOC_S_INPUT is failed\n");
 #endif
 
@@ -241,7 +259,7 @@ void video_data_get(void)
 	format.fmt.pix.height = VIDEO_HIGH;
 	format.fmt.pix.field = V4L2_FIELD_NONE;
 	format.fmt.pix.pixelformat = V4L2_PIX_FMT_NV16;
-	if(ioctl(fd,VIDIOC_S_FMT,&format) < 0)
+	if(ioctl(viodefd,VIDIOC_S_FMT,&format) < 0)
 		printf("The VIDIOC_S_FMT is failed\n");
 
 
@@ -250,7 +268,7 @@ void video_data_get(void)
 	rqbuf.count = NB_BUFFER;
 	rqbuf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 	rqbuf.memory = V4L2_MEMORY_MMAP;
-	if(ioctl(fd,VIDIOC_REQBUFS,&rqbuf) < 0)
+	if(ioctl(viodefd,VIDIOC_REQBUFS,&rqbuf) < 0)
 		printf("The VIDIOC_REQBUFS is failed\n");
 
 	/* 查询(请求的)缓冲区的地址和长度,并映射到用户空间 */
@@ -259,11 +277,11 @@ void video_data_get(void)
 		buf.index = i;
 		buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;		/* 和请求的类型一致 */
 		buf.memory = V4L2_MEMORY_MMAP;
-		if(ioctl(fd,VIDIOC_QUERYBUF,&buf) < 0)
+		if(ioctl(viodefd,VIDIOC_QUERYBUF,&buf) < 0)
 			printf("The VIDIOC_QUERYBUF failed.\n");
 
 		/* 映射到用户空间 */
-		mapbuff[i].start = mmap(0, buf.length, PROT_READ, MAP_SHARED, fd, buf.m.offset);
+		mapbuff[i].start = mmap(0, buf.length, PROT_READ, MAP_SHARED, viodefd, buf.m.offset);
 		if (mapbuff[i].start == ((void*)-1))
 			printf("mmap[%d] failed;\n", i);
 		mapbuff[i].length = buf.length;
@@ -275,130 +293,67 @@ void video_data_get(void)
 		buf.index = i;
 		buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;		/* 和请求的类型一致 */
 		buf.memory = V4L2_MEMORY_MMAP;
-		if(ioctl(fd,VIDIOC_QBUF,&buf) < 0)
+		if(ioctl(viodefd,VIDIOC_QBUF,&buf) < 0)
 			printf("The VIDIOC_QBUF failed.\n");
 	}
 
 	/* 开始捕获摄像头信号 */
 	type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-	if(ioctl(fd,VIDIOC_STREAMON,&type) < 0)
+	if(ioctl(viodefd,VIDIOC_STREAMON,&type) < 0)
 		printf("The VIDIOC_STREAMON is failed\n");
 
-	sleep(1);
-	while(1) {
-		int r;
-		FD_ZERO(&fds);
-		FD_SET(fd, &fds);
 
+	while(1) {
+//	sleep(1);
+		FD_ZERO(&fds);
+		FD_SET(viodefd, &fds);
+
+		/* timeout */
 		tv.tv_sec  = 2;
 		tv.tv_usec = 0;
-		r = select(fd + 1, &fds, NULL, NULL, &tv);
+		select(viodefd + 1, &fds, NULL, NULL, &tv);
+		printf("Read frame buffer\n");
+
 		/* 获取帧并进行处理 */
 		memset(&buf, 0, sizeof(struct v4l2_buffer));
 		buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 		buf.memory = V4L2_MEMORY_MMAP;
 		/* get data from buffers */
-		if(ioctl(fd, VIDIOC_DQBUF,&buf) < 0)
+		if(ioctl(viodefd, VIDIOC_DQBUF,&buf) < 0)
 			printf("The VIDIOC_DQBUF is failed\n");
-
+#if 1
 
 		/* 拷贝数据 */
-		memcpy(video_buffer, mapbuff[buf.index].start, buf.bytesused);
-		printf("The get data length is %d\n", buf.bytesused);
+		memcpy(data_buf1, mapbuff[buf.index].start, buf.bytesused);
+		//printf("The get data length is %d\n", buf.bytesused);
 
-		yuv422_to_rgb(video_buffer, rgb_buffer, buf.bytesused);
+		/* 将采集到的ycrcb数据转换为rgb */
+		yuv422_to_rgb(data_buf1, data_buf2, buf.bytesused);
 
-		crop_rgb_map(rgb_buffer, crop_rgb_buffer,800, 600, 512, 300, 3);
+		/* 裁剪512*300的图像 */
+		crop_rgb_map(data_buf2, data_buf1,VIDEO_WIDTH, VIDEO_HIGH, 512, 300, 3);
 
-		rotation_180_map(crop_rgb_buffer, rotation_rgb_buffer, 512, 300, 3);
+		/* 将图片旋转180度 */
+		rotation_180_map(data_buf1, data_buf2, 512, 300, 3);
 
-		lcd_map_view(512, 1, 512, 300, mem, rotation_rgb_buffer);
-
-		if(ioctl(fd,VIDIOC_QBUF,&buf) < 0)
+		/* 显示图片 */
+		lcd_map_view(512, 50, 512, 300, C72_SCREEN_WIDTH, C72_SCREEN_HIGH, disp_buf, data_buf2, 3);
+#endif
+		if(ioctl(viodefd,VIDIOC_QBUF,&buf) < 0)
 			printf("The VIDIOC_QBUF failed.\n");
 	}
-	}
-
 
 	/* 停止捕获摄像头信号 */
 	type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-	if(ioctl(fd,VIDIOC_STREAMOFF,&type) < 0)
+	if(ioctl(viodefd,VIDIOC_STREAMOFF,&type) < 0)
 		printf("The VIDIOC_STREAMOFF is failed\n");
 
 
-
-
 	/* 关闭设备文件 */
-	close(fd);
-
-}
-
-/***********************************************************************************************************
- *初始化lcd屏幕，
- *
- *return : 返回操作lcd屏的指针
- *
- ***********************************************************************************************************/
-void *lcd_view_init(void)
-{
-	unsigned int dispfh;
-	unsigned int arg[3];
-	unsigned int fb_width,fb_height;
-	int dispfb0;
-	unsigned int memmap;
-
-	if((dispfh = open("/dev/disp",O_RDWR)) == -1) {
-		printf("open display device fail!\n");
-		return -1;
-	}
-	/* get screen size */
-	arg[0] = 0;			/* 选择0液晶屏 */
-	fb_width = ioctl(dispfh,DISP_GET_SCN_WIDTH,(void*)arg);
-	fb_height = ioctl(dispfh,DISP_GET_SCN_HEIGHT,(void*)arg);
-	printf("screen_size=%d x %d \n", fb_width, fb_height);
-
-	if((dispfb0 = open("/dev/fb0",O_RDWR)) == -1) {
-		printf("open /dev/fb0 device fail!\n");
-		return -1;
-	}
-
-	memmap = (int)mmap(NULL, fb_width*fb_height*3, PROT_READ | PROT_WRITE, MAP_SHARED, dispfb0, 0L);
-	if(memmap == 0) {
-		printf("DISP_MEM_MAP 0\n");
-		return -1;
-	}
-
-	return (void *)memmap;
-}
+	close(viodefd);
 
 
-
-
-
-int main(int argc, char **argv)
-{
-
-
-	printf("mmap is ok\n");
-
-	/* draw colorbar on the memory requested */
-//	memset((void*)mem, 0xff, fb_width*fb_height*3);
-
-	video_data_get();
-
-	yuv422_to_rgb(video_buffer, rgb_buffer, buf.bytesused);
-
-	crop_rgb888_map(800, 600, 512, 300, rgb_buffer, crop_rgb_buffer);
-
-	Rotation180Right(crop_rgb_buffer, rotation_rgb_buffer, 512, 300, 3);
-
-	lcd_map_view(512, 1, 512, 300, mem, rotation_rgb_buffer);
-
-
-
-//	memcpy((void*)mem, video_buffer, fb_width*fb_height*3);
-
-
-	close(dispfh);
+	/* 释放lcd资源 */
+	c72_lcd_view_exit(dispfd, disp_buf);
 	return 0;
 }
