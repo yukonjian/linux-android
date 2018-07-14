@@ -1,3 +1,7 @@
+#ifndef _DRVTEST_H
+#define _DRVTEST_H
+
+
 /*******************************************************************************************/
 /* print */
 #define CONFIG_DRVTEST_DEBUG
@@ -11,3 +15,7 @@
 #define printk_err(fmt, args...)  printk(KERN_ERR"[DRVTEST] : "fmt, ##args)
 #define printk_info(fmt, args...)  printk(KERN_INFO"[DRVTEST] : "fmt, ##args)
 /*******************************************************************************************/
+
+
+
+#endif

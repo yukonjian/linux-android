@@ -21,3 +21,6 @@ dmesg -c
 2）cat /proc/kmsg
 显示内核信息。
 由于/proc/kmsg是一个“永无休止的文件”， 因此，cat /proc/kmsg的进程只能通过“Ctrl+C”或kill终止。
+
+3. 查看设备号
+cat /proc/devices

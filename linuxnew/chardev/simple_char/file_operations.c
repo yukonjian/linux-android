@@ -1,3 +1,13 @@
+struct fileoperations {
+  int (*open) (struct inode *, struct file *);
+  int (*release) (struct inode *, struct file *);
+  ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
+  ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
+  long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
+  int (*mmap) (struct file *, struct vm_area_struct *);  
+};
+
+
 1.
 头文件 <sys/mman.h>
 void* mmap(void* start,size_t length,int prot,int flags,int fd,off_t offset);
