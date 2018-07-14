@@ -26,3 +26,6 @@ xxx-($CONFIG_XXX) += xx2.o
 3. 设备节点的创建
 mknod path c/b major minor
 mknod /dev/led c 45 0
+
+4. 查看设备号
+cat /proc/devices
