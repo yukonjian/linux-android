@@ -1,0 +1,11 @@
+CC=/home/steven/work/lichee/out/sun8iw11p1/dragonboard/common/buildroot/external-toolchain/bin/arm-linux-gnueabi-gcc
+
+OBJS=apptest.o
+
+all:apptest
+
+test: $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $(OBJS)
+
+clean:
+	rm -f apptest *.o

@@ -107,7 +107,7 @@ static struct misc_c62b_info *cdev_file_alloc(struct file_operations *fops, cons
 		goto class_create_failed;
 	}
 	if(IS_ERR(device_create(infop->class, NULL, infop->devno, NULL, name))) {
-		retval = PTR_ERR(infop->class);
+		retval = -1;
 		goto device_create_failed;
 	}
 

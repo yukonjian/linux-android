@@ -23,4 +23,7 @@ dmesg -c
 由于/proc/kmsg是一个“永无休止的文件”， 因此，cat /proc/kmsg的进程只能通过“Ctrl+C”或kill终止。
 
 3. 查看设备号
-cat /proc/devices
+/proc/devices
+
+4. 查看中断
+/proc/interrupts

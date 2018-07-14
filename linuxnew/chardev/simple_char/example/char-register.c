@@ -69,6 +69,8 @@ static int __init xxx_init(void)
 
 static void __exit xxx_exit(void)
 {
+	device_destroy(xxx_infp->class, xxx_infp->devno);
+	class_destroy(xxx_infp->class);
 	cdev_del(&xxx_infp->cdev);
 	unregister_chrdev_region(xxx_infp->devno,1);
 	kfree(xxx_infp);

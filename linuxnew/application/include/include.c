@@ -6,7 +6,7 @@
 宏例如EXIT_FAILURE、EXIT_SUCCESS、RAND_MAX和MB_CUR_MAX等等；
 常用的函数如malloc()、calloc()、realloc()、free()、system()、atoi()、atol()、rand()、srand()、exit()等等。 */
 
-#include <string.h>
+#include <string.h>   /* 字符串处理，memset */
 
 #include <sys/mman.h>
 #include <linux/fb.h>
