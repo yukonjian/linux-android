@@ -8,3 +8,7 @@
 #include <linux/device.h>   /* 设备文件创建所需 */
 #include <linux/timer.h>    /* 定时器所需 */
 #include <linux/delay.h>    /* 包含mdelay, msleep延时函数 */
+
+#include <linux/mutex.h>
+#include <linux/semaphore.h>
+#include <linux/spinlock.h>
