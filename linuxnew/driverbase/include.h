@@ -12,3 +12,5 @@
 #include <linux/mutex.h>
 #include <linux/semaphore.h>
 #include <linux/spinlock.h>
+
+#include <linux/videodev2.h>
