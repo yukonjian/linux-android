@@ -1,0 +1,5 @@
+1. jffs2
+/work/openwrt-sdk/staging_dir/host/bin/mkfs.jffs2 -r /work/mkimage/c62b_app/flash -o /work/mkimage/c62b_app/flash.img -e 0x1000 -n -X lzma
+
+2. squashfs4
+/work/openwrt-sdk/staging_dir/host/bin/mksquashfs4 /work/mkimage/app /work/mkimage/app.squashfs -nopad -noappend -root-owned -comp xz -Xpreset 9 -Xe -Xlc 0 -Xlp 2 -Xpb 2  -b 256k -processors 1

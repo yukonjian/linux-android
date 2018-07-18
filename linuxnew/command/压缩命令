@@ -1,0 +1,5 @@
+1. lzma  unlzma
+a) 没加 -d, -z； lzma 压缩； unlzma 解压
+b) 当加 -d, -z;  lzma 和 unlzma 一样
+-d --decompress   force decompression
+-z --compress     force compression
