@@ -17,11 +17,39 @@
   a) int schedule_work(struct work_struct *work);
   b) int schedule_delayed_work(struct work_struct *work, unsigned long delay);  /* delay is jiffies */
   c) int queue_work(struct workqueue_struct *wq, struct work_struct *work);
-  d)  int queue_delayed_work(struct workqueue_struct *wq,
+  d) int queue_delayed_work(struct workqueue_struct *wq,
             struct work_struct *work, unsigned long delay);
 
 4) 清理工作队列中的所有任务
-  a) void flush_workqueue(struct workqueue_struct *wq)
+  void flush_workqueue(struct workqueue_struct *wq)
 
 5) 销毁队列，释放资源
-  a) void destroy_workqueue(struct workqueue_struct *wq);
+  void destroy_workqueue(struct workqueue_struct *wq);
+
+2. 等待队列
+阻塞操作是指：在执行设备操作时，若不能获得资源，则挂起进程（进程进入睡眠状态）直到满足可操作的条件再进行操作。
+1) 等待队列头部定义和初始化
+  a) 静态定义
+   DECLARE_WAIT_QUEUE_HEAD(name);
+  b) 动态定义
+   wait_queue_head_t my_queue;
+   init_waitqueue_head(&my_queue);
+
+2) 定义等待队列元素
+  a) 静态定义
+    DECLARE_WAITQUEUE(name, tsk); /* tsk 会赋值给 name.private */
+
+3) 添加和移除等待队列
+  void add_wait_queue(wait_queue_head_t *q, wait_queue_t *wait);
+  void remove_wait_queue(wait_queue_head_t *q, wait_queue_t *wait);
+
+4) 等待事件
+  wait_event(queue, condition)
+  注：queue ：等待队列头（并不是指针）；condition ：只有当条件满足时才会结束等待。
+  wait_event_interruptible(queue, condition)
+  wait_event_timeout(queue, timeout)
+  wait_event_interruptible_timeout(queue, condition, timeout)
+
+5) 唤醒队列
+  void wake_up(wait_queue_head_t *q);
+  void wake_up_interruptible(wait_queue_head_t *q);
