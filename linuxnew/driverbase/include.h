@@ -13,4 +13,6 @@
 #include <linux/semaphore.h>
 #include <linux/spinlock.h>
 
+#include <linux/workqueue.h>  /* 工作队列需要 */
+
 #include <linux/videodev2.h>
