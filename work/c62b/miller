@@ -1,0 +1,71 @@
+steven 制作的 jiffs镜像文件相当基础版本，aos和dsp可以运行成功。
+u-boot下烧写jiffs镜像文到dev/mtdblock5, 系统启动后会mount到\flash目录。
+
+一、aos相关文件
+   pull iad 的aos1.8-ephone 分支代码
+   在172.25.52.8编译服务器上编译：tools 目录下 执行sudo ./makeall.sh  dinstar-mips
+   编译完成后在tools\bin\dinstar-mips目录 下会生产几个文件
+
+1、把tools\bin\dinstar-mips目录下的dagappmsp.ldf 拷贝到板子\flash\apps\目录，修改调试aos代码时要更新
+2、把tools\bin\dinstar-mips目录下的dagwebmsp.ldf 拷贝到板子\flash\apps\目录，web相关文件修改时要更新
+
+
+二、dsp相关文件
+    dsp合作方提供的dsp（4M多）文件有更新时，用命令lzma -f  dsp 压缩，把压缩后的dsp.lzma拷贝到板子\flash\apps\目录
+
+
+
+三、\flash\basictest.sh是启动脚本（系统启动后/etc_ro/rcS会执行这个脚本）
+   1、 启动网络接口，设置接口ip地址，就是设备可访问的ip
+       默认设置
+       ifconfig eth2.1 172.25.50.99 netmask 255.255.0.0
+       route add default gw 172.25.1.1
+       烧写到不同板子后先要改下设备的ip
+
+   2、把\flash\lib目录下的so文件 拷贝到\lib。
+
+   3、 解压\flash\apps\目录下的dagappmsp.ldf、dagwebmsp.ldf 和dsp.lzma 到 /tmp目录下。
+
+   4、执行\tmp\app & 启动aos进程。
+
+
+
+/opt/buildroot-gcc342/bin/mipsel-linux-strip dagapp.tmp
+filename = dagappmsp.tar.lzma, destfilename = dagappmsp.tar.ldf
+add filetag success.
+filename = web.tar.lzma, destfilename = web.tar.ldf
+add filetag success.
+filename = dagpkgmsp.tar, destfilename = dagpkgmsp.ldf
+add filetag success.
+filename = 02191006.tar.lzma, destfilename = 02191006.tar.ldf
+add filetag success.
+steven@misterlanbing-virtual-machine:~/work/iad-linux/tools$
+
+
+Welcome to Command Shell!
+Username:admin
+Password:*****
+ROS>en
+ROS#
+ROS#
+ROS#sh dsp i
+ Ip Address:172.25.50.99
+===================================================================================================================
+ NO. Status          DSP-CAP  DSP-MAC            Chip-Ver  Arm-Ver         SPU-Ver     Load-Fail  CMD-NoRsp  Active
+-------------------------------------------------------------------------------------------------------------------
+ 0   INIT_SUCCESS    192      00-00-00-00-00-00  0         MIPS_2_3        Jun7 2018   0          0          0
+===================================================================================================================
+
+Total Load Fail Count:0   Total Cmd NoResponse Count:0
+ROS#
+ROS#
+ROS#sh pots all
+ PH-PlayingHint, FD-FrameDuration, FS-FrameSize, TS-TESTState
+ -------------------------------------------------------------------------------------------------------
+ PotsID PotsType     PortState    DspState RtpState     PH  LockState DSPCode    FD  FS  TS  VOL CUR ReInit
+ -------------------------------------------------------------------------------------------------------
+ 0      FAULT        Unkown       Idle     Disconnected No  Unlocked  G.711-A    20  160 No  0   0   0
+ -------------------------------------------------------------------------------------------------------
+ Port Type Error: 1; Circuit Error: 0.
+ -------------------------------------------------------------------------------------------------------
+ROS#

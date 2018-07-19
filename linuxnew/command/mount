@@ -28,7 +28,7 @@ mount(选项)(参数)
 mount -t auto /dev/cdrom /mnt/cdrom
 
 挂载的nfs服务器上的目录
-mount -t  -o nolock 172.25.2.89:/home/steven/work/mount   /mnt/work
+mount -t nfs  -o nolock 172.25.2.89:/home/steven/work/mount   /mnt/work
 
 语法：
 umount (加载点)
@@ -36,3 +36,6 @@ umount (加载点)
 例子：
 将挂载在/mnt 下的 /dev/hda1 卸载
 umount /mnt
+
+mount.cifs - 挂载通用网际文件系统(Common Internet File System)，挂载到window目录, 可以挂载samba目录
+mount -t cifs -o username=steven,password=steven,dir_mode=0777,nounix,noserverino //172.25.2.89/home/steven/work   /mnt

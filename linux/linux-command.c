@@ -42,6 +42,7 @@ tar:
 压缩：zip FileName.zip DirName
 
 8. scp secure copy的缩写,基于ssh登陆进行安全的远程文件拷贝命令
+scp [参数] [原路径] [目标路径]
 (2) 复制目录：
 命令格式：
 scp -r local_folder remote_username@remote_ip:remote_folder

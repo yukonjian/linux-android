@@ -1,0 +1,6 @@
+1. aos1.8-ephone
+git@172.16.0.6:iad-linux.git
+aos1.8-ephone
+
+
+ sudo mount -t cifs -o username=steven,password=steven,dir_mode=0777,noserverino,gid=22496,uid=1810 //172.25.2.89/home/steven/work/c62_project/aos-ephone/iad-linux  /home/wuzhaoxing/steven/aos-ephone/

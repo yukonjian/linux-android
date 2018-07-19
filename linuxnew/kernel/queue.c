@@ -37,7 +37,7 @@
 
 2) 定义等待队列元素
   a) 静态定义
-    DECLARE_WAITQUEUE(name, tsk); /* tsk 会赋值给 name.private */
+    DECLARE_WAITQUEUE(name, tsk); /* tsk 会赋值给 name.private, 一般的值是：current */
 
 3) 添加和移除等待队列
   void add_wait_queue(wait_queue_head_t *q, wait_queue_t *wait);
