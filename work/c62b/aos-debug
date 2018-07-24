@@ -1,0 +1,17 @@
+登录telnet
+
+1. 输入enable 进入命令行ROS#
+2. 输入show mpe 查看所有打印选项
+3. 在ROS#下输入 ^config 进入ROS(config)#
+4. 输入debug port all 打开所有打印
+5. 输入exit退出ROS(config)#
+6. 输入 ^ada 进入 ROS(ada)#
+7. turnon num(show mpe的num) 打开相应的打印输出
+
+cp -rf /home/steven/work/iad-linux/tools/bin/dinstar-mips/dagappmsp.ldf  /home/steven/work/mount/aos-ephone
+
+cp /app/aos-ephone/dagappmsp.ldf  /flash/apps/
+
+cp /app/package/libdevctrl.so  /flash/lib/
+
+/opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -shared -fPIC devctrl_c62b.c -o libdevctrl.so

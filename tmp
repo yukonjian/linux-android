@@ -84,6 +84,7 @@ t is 214 ;
 /home/steven/work/mt7628-1/openwrt-sdk/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/bin/mipsel-openwrt-linux-gcc -Wall -DBUILD_7628  -o  pcmapp   test.c  -L. -lpcmapi.mt7628  -lpthread  -ldl
 /home/steven/work/mt7628-1/openwrt-sdk/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/bin/mipsel-openwrt-linux-gcc -Wall -DBUILD_7628 -shared -fPIC pcm_api.c  -o libpcmapi.mt7628.so
 /opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -DBUILD_7628 -shared -fPIC pcm_api.c  -o libpcmapi.mt7628.so
+/opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -shared -fPIC devctrl_c62b.c -o libdevctrl.so
 -D 表示定义宏
 
 scp steven@172.25.2.89:/home/steven/work/mt7628-1/libpcm/pcmapp ./
