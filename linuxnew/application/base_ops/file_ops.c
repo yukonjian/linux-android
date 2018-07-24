@@ -2,9 +2,15 @@
 FILE * fopen(const char * path, const char * mode);
 1) mode
 rb : 以只读方式打开一个二进制文件
+2) 二进制和文本模式的区别
+  a) 在Windows系统中，文本模式下，文件以"\r\n"代表换行。若以文本模式打开文件，并用 fputs 等函数写入换行符"\n"时，函数会自动在"\n"前面加上"\r"。即实际写入文件的是"\r\n"。
+  b) 在类 Unix/Linux 系统中文本模式下，文件以"\n"代表换行。所以 Linux 系统中在文本模式和二进制模式下并无区别。
 2. 读取文件
 size_t fread ( void *buffer, size_t size, size_t count, FILE *stream) ;
 size ： 要读的每个数据项的字节数，单位是字节
 count ：要读count个数据项，每个数据项size个字节
 stream ： 输入流
 return ： 返回真实读取的项数（小于或等于count）
+3. 写文件
+size_t fwrite(const void* buffer, size_t size, size_t count, FILE* stream);
+返回值：返回实际写入的数据块数目

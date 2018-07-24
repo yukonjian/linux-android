@@ -27,3 +27,6 @@ dmesg -c
 
 4. 查看中断
 /proc/interrupts
+
+5. CPU信息
+/proc/cpuinfo
