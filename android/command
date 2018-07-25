@@ -1,2 +1,7 @@
 1. system.img 打包
 make snod
+
+2. 编译命令
+- m:       Makes from the top of the tree.
+- mm:      Builds all of the modules in the current directory.
+- mmm:     Builds all of the modules in the supplied directories.
