@@ -1,0 +1,6 @@
+1. 查看所有网络设备
+ifconfig -a
+2. 查看启动的网络设备
+ifconfig
+3. 启动eht0网络设备
+ifconfig eth0 up

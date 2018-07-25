@@ -30,3 +30,12 @@ dmesg -c
 
 5. CPU信息
 /proc/cpuinfo
+
+6. 查看块设备分区信息
+/proc/mtd
+/proc/partitions
+
+7. 查看注册的驱动
+/proc/devices
+
+8. 
