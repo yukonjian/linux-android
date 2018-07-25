@@ -16,3 +16,4 @@
 #include <linux/workqueue.h>  /* 工作队列需要 */
 
 #include <linux/videodev2.h>
+#include <linux/gpio.h>
