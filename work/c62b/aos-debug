@@ -7,6 +7,9 @@
 5. 输入exit退出ROS(config)#
 6. 输入 ^ada 进入 ROS(ada)#
 7. turnon num(show mpe的num) 打开相应的打印输出
+8. sh int /* 产看网络相关配置 */
+9. cmd 50 69 /* 对应于drv_debug.c中添加的函数 */
+10 show dsp info 
 
 cp -rf /home/steven/work/iad-linux/tools/bin/dinstar-mips/dagappmsp.ldf  /home/steven/work/mount/aos-ephone
 
