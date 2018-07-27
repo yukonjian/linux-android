@@ -4,3 +4,15 @@ ifconfig -a
 ifconfig
 3. 启动eht0网络设备
 ifconfig eth0 up
+4. mac地址的配置
+ifconfig eth2.1 hw ether $mac
+注：一般需要先关网卡
+example:
+ifconfig eth2.1 down
+ifconfig eth2.1 hw ether $mac
+ifconfig eth2.1 up
+5. 子网掩码配置
+ifconfig eth2.1 $ipaddr netmask 255.255.0.0
+6. 添加默认路由
+route add default gw $routeaddr
+查看路由：route
