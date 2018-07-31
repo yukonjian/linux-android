@@ -1,0 +1,3 @@
+1. tcpdump抓包
+tcpdump -w /tmp/voicertp0.pcap  -s 0 -i eth2.1 &
+cmd 53 86 5

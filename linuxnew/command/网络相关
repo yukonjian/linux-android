@@ -16,3 +16,5 @@ ifconfig eth2.1 $ipaddr netmask 255.255.0.0
 6. 添加默认路由
 route add default gw $routeaddr
 查看路由：route
+7. UDHCP启动
+udhcpc -i eth2.1 -s /flash/scripts/simple.script -p /var/run/udhcpc.pid &
