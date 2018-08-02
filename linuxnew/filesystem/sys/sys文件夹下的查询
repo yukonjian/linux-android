@@ -1,0 +1,4 @@
+1. 平台相关
+/sys/devices/platform/
+/sys/bus/platform/devices/
+/sys/bus/platform/drivers/

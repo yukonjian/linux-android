@@ -1,0 +1,6 @@
+1. 设备数
+设备数是一种描述硬件的数据结构，它起源于OpenFirmware(OF);
+2. 老版本的硬件描述
+描述文件放在 arch/arm/plat-xxx 和 arch/arm/mach-xxx
+3. 设备数存放路径
+arch/arm/boot/dts

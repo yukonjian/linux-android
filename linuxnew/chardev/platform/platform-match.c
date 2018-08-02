@@ -1,4 +1,5 @@
-1. 文件路径：/drivers/base/platform.c
+1. 匹配函数源码
+文件路径：/drivers/base/platform.c
 static int platform_match(struct device *dev, struct device_driver *drv)
 {
 	struct platform_device *pdev = to_platform_device(dev);
@@ -20,20 +21,41 @@ static int platform_match(struct device *dev, struct device_driver *drv)
 	return (strcmp(pdev->name, drv->name) == 0);
 }
 
-2. tatic inline int of_driver_match_device(struct device *dev,
+2. 设备树的匹配
+static inline int of_driver_match_device(struct device *dev,
 					 const struct device_driver *drv)
 of_driver_match_device(dev, drv)
     ----of_match_device(drv->of_match_table, dev)
         ----of_match_node(matches, dev->of_node);
 struct device_node	*of_node; /* associated device tree node */
 
-3. static const struct platform_device_id *platform_match_id(
+/*
+ * Struct used for matching a device
+ */
+struct of_device_id
+{
+	char	name[32];
+	char	type[32];
+	char	compatible[128];
+	const void *data;
+};
+会在设备数中依次匹配of_device_id的name,type,compatible.
+
+3. 平台设备id号的匹配
+static const struct platform_device_id *platform_match_id(
 			const struct platform_device_id *id,struct platform_device *pdev)
 platform_match_id(pdrv->id_table, pdev)
     ----struct platform_device *pdev)
         ----strcmp(pdev->name, id->name)
 
-4. strcmp(pdev->name, drv->name)
+struct platform_device_id {
+	char name[PLATFORM_NAME_SIZE];
+	kernel_ulong_t driver_data;
+};
+平台设备专有的匹配，匹配struct platform_device_id的name,这样一个驱动可以匹配多个设备名字。
+
+4. 设备名和驱动名的匹配
+strcmp(pdev->name, drv->name)
 
 example :
 2.

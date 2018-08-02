@@ -5,7 +5,7 @@ struct platform_device {
 	struct device dev; //结构体中内嵌的device结构体。
 	u32 num_resources; //资源数。
 	struct resource * resource; //用于存放资源的数组。
-  const struct platform_device_id	*id_entry;
+  const struct platform_device_id	*id_entry;	//指向匹配的platform_device_id
 };
 
 /*
