@@ -19,3 +19,5 @@ if (IS_ERR(g_disp_drv.mclk[DISP_MOD_DE])) {
 }
 
   https://blog.csdn.net/lq496387202/article/details/79416299
+/* 宋宝华的blog */
+  https://blog.csdn.net/21cnbao
