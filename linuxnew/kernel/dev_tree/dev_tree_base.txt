@@ -1,3 +1,7 @@
+设备数详解
+https://blog.csdn.net/lq496387202/article/details/79416299
+/* 宋宝华的blog */
+https://blog.csdn.net/21cnbao
 1. 设备数
 设备数是一种描述硬件的数据结构，它起源于OpenFirmware(OF);
 2. 老版本的硬件描述

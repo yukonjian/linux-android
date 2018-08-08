@@ -1,0 +1,14 @@
+1. ssp_init.c
+m_sys_init
+aos_license_init
+2. project/eiasip_linux/mips-sp/dagsip/makefile
+                $(ROOT_PROJECT)/libs/libcrypto.so.1.0.0 \
+-               $(ROOT_PROJECT)/libs/libdevinfomipsmtk.a \
+                $(ROOT_PROJECT)/libs/libmatrixsslmipsel.a \
+
+3. 修该license获取修改
+1）dsp_soft_create_auth_file去掉
+并在该函数中添加自己的license获取
+2）注释掉mtk_save_dsp_auth_file中的/** 将license数据写入保留区 */ 和 /** 清除dsp license crc校验码，等下次启动软dsp正常之后会再行更新 */
+3）注释掉dsp_license_crc_upgrade和dsp_license_crc_check函数
+4）dsp_load_time_out 里的软dsp启动失败处理去掉
