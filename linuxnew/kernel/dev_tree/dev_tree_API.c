@@ -1,8 +1,13 @@
-1. 根据compatible属性，获得设备结点
+1. 获得设备结点
+1) 根据compatible属性
 struct device_node *of_find_compatible_node(struct device_node *from,
          const char *type, const char *compatible);
 遍历Device Tree中所有的设备结点，看看哪个结点的类型、compatible属性与本函数的输入参数匹配，
 大多数情况下，from、type为NULL。
+
+2) 根据name
+1.1 static inline struct device_node *of_find_node_by_name(struct device_node *from,
+	const char *name)
 
 2. 读取设备结点np的属性名为propname，类型为32位整型数组的属性。
 int of_property_read_u32_array(const struct device_node *np,
@@ -26,3 +31,5 @@ void __iomem *of_iomap(struct device_node *node, int index);
 5. 中断的解析和映射
 unsigned int irq_of_parse_and_map(struct device_node *dev, int index);
 从interrupts属性解析出中断号。若设备使用了多个中断，index指定中断的索引号。
+
+6. 读取gpio number
