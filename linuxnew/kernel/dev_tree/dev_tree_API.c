@@ -33,3 +33,5 @@ unsigned int irq_of_parse_and_map(struct device_node *dev, int index);
 从interrupts属性解析出中断号。若设备使用了多个中断，index指定中断的索引号。
 
 6. 读取gpio number
+int of_get_named_gpio_flags(struct device_node *np, const char *propname,
+			   int index, enum of_gpio_flags *flags);

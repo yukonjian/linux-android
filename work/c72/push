@@ -1,5 +1,6 @@
 adb push Z:\home\steven\work\lichee\out\sun8iw11p1\androidm\common\lib\modules\3.10.65\gt9xxnew_ts.ko  /system/vendor/modules
 
+adb push Z:\home\steven\work\mount\c72androidm\wakeup_test.ko  /system
 
 
 //    device_init_wakeup(&client->dev, 1);
