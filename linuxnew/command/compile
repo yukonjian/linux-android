@@ -12,9 +12,9 @@ clean:
 obj-m	+= sunxi_wdt.o
 
 2.测试应用的编译 makefile
-CC=/home/steven/work/mt7628-1/openwrt-sdk/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/bin/mipsel-openwrt-linux-gcc
+CC=xxx
 
-OBJS=pcm_api.c  pcm_func_7628.o test.c
+OBJS=pcm_api.c  test.c
 
 all:pcm_test
 
@@ -30,3 +30,4 @@ $@--目标文件，$^--所有的依赖文件，$<--第一个依赖文件。
 gcc -shared -o libshared.so   //动态库的命名形式，要加lib 和 so
 example: c62b编译动态库
 /opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -shared -fPIC devctrl_c62b.c -o libdevctrl.so
+/opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -shared -fPIC pcm_api.c pcm_func_7628.c -o libpcmapi.mt7620.so

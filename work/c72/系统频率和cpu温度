@@ -10,7 +10,7 @@ interactive conservative ondemand userspace powersave performance
 3) cat boot_lock  /* 要为0 */
 4) echo 480000 > scaling_setspeed  /* 设置系统运行的频率 */
 
-23cd /sys/class/thermal/thermal_zone0
+23 cd /sys/class/thermal/thermal_zone0
 cat temp
 
 

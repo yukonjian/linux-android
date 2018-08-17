@@ -11,8 +11,7 @@
 9. cmd 50 69 /* 对应于drv_debug.c中添加的函数 */
 10 show dsp info
 
-烧写mic
-./program  f8:a0:3d:88:09:17 00-00-00-17
+
 
 cp -rf /home/steven/work/iad-linux/tools/bin/dinstar-mips/dagappmsp.ldf  /home/steven/work/mount/aos-ephone
 
