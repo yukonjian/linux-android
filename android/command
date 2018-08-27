@@ -5,3 +5,6 @@ make snod
 - m:       Makes from the top of the tree.
 - mm:      Builds all of the modules in the current directory.
 - mmm:     Builds all of the modules in the supplied directories.
+
+2. mount 重新挂载
+mount -o remount /system
