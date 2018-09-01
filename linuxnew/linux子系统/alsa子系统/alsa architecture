@@ -1,3 +1,18 @@
 一.好的博客位置
 1. 框架接收详细，最好
 https://blog.csdn.net/DroidPhone/article/list/3
+
+二.alsa
+1. 声卡的创建
+1) 创建声卡的结构体
+err = snd_card_create(index, id, THIS_MODULE, 0, &card);
+2) 初始化声卡ID和私有数据
+3) 创建声卡的功能部件 pcm,包括control
+4) 注册声卡
+snd_card_register(card);
+
+2. pcm的建立
+pcm ：Pulse-code modulation的缩写
+1) 新建一个pcm
+int snd_pcm_new(struct snd_card *card, const char *id, int device, int playback_count, int capture_count,
+                                     struct snd_pcm ** rpcm);
