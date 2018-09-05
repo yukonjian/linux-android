@@ -1,2 +1,5 @@
-1. 烧写mic
+一. 烧写mic
+1. 将mtkauth.dat 放入/mnt文件夹下
+2. 执行烧写命令，并将mac和版本号当作参数带人
 ./program  f8:a0:3d:88:09:17 00-00-00-17
+3. 提示input some words选择1

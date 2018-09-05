@@ -15,7 +15,7 @@ test3.txt就是test.txt，而不是test2.txt 。
 如：
 # cp -d test2.txt test3.txt
 4.linux之间的文件拷贝
-cp -r /tmp/tempA/ wasadmin@10.127.40.25:/tmp/wang/
+scp -r /tmp/tempA/ wasadmin@10.127.40.25:/tmp/wang/
 
 5.linux模块的编译
 make modules  //编译所有模块文件
