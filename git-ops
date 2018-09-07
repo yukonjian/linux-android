@@ -55,3 +55,12 @@ git push origin [tagname]
 git tag -d [tagname]
 6) 删除远程标签
 git push origin :refs/tags/[tagname]
+
+8. git删除远程仓库的文件或目录
+git rm -r --cached a/2.txt
+git commit -m "rmove file"
+git push
+
+9. 删除git add 的文件
+一种是 git rm --cached "文件路径"，不删除物理文件，仅将该文件从缓存中删除；
+一种是 git rm --f "文件路径"，不仅将该文件从缓存中删除，还会将物理文件删除（不会回收到垃圾桶）。
