@@ -1,2 +1,5 @@
 1. 限制进程内存使用
-Linux Cgroup系列（04）：限制cgroup的内存使用
+操作路径：/sys/fs/cgroup/
+1. cgroup的cpu操作
+a) 在/sys/fs/cgroup/cpu/下创建一个一个目录
+b) 操作创建目录下的属性文件
