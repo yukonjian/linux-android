@@ -8,6 +8,8 @@
 
 #include <string.h>   /* 字符串处理，memset */
 
+#include <sys/types.h> /* 基本系统数据类型, dev_t,size_t,pid_t  */
+
 #include <sys/mman.h>
 #include <linux/fb.h>
 #include <linux/videodev2.h>

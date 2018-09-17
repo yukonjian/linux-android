@@ -15,7 +15,7 @@ return: 成功：0
 
 3) 设置gpio的输入还是输出
 int gpio_direction_input(unsigned gpio)
-gpiod_direction_output(struct gpio_desc *desc)
+int gpio_direction_output(struct gpio_desc *desc)
 return：成功：0
 
 4) 得到gpio的值和设置gpio的值
@@ -24,3 +24,7 @@ void gpio_set_value(unsigned int gpio, int value)
 
 5) 释放申请的gpio引脚
 void gpio_free(unsigned gpio)
+
+6) gpio当作中断口使用
+int gpio_to_irq(unsigned gpio);
+返回的值即中断编号可以传给request_irq()和free_irq()

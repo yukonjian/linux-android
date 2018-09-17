@@ -17,6 +17,9 @@ mount(选项)(参数)
 对于通常的mount操作而言，这个字段应该包括一个将被装载的块设备的设备结点(通过mknod命令来创建)或指向这类结点的连接(例如/dev/cdrom或/dev/sdb)，
 对于NFSmount操作，这个字段应该包含host:dir格式的信息，对于进程文件系统procfs，使用proc，sysfs使用sys
 
+在linux下添加共享目录：
+/etc/exports
+/home/steven/work/mount *(rw,sync,no_root_squash)
 例子：
 将 /dev/hda1 挂在 /mnt 之下。
 #mount /dev/hda1 /mnt

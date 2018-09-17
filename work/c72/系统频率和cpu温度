@@ -2,9 +2,18 @@
 cd /sys/devices/system/cpu/cpu0/cpufreq
 cat cpuinfo_cur_freq
 
-2. 查看CPU温度
-cd /sys/class/thermal/thermal_zone0
+2. 由应用程序设置cpu运行在固定频率
+cd /sys/devices/system/cpu/cpu0/cpufreq
+1) cat scaling_available_governors
+interactive conservative ondemand userspace powersave performance
+2) echo userspace > scaling_governor
+3) cat boot_lock  /* 要为0 */
+4) echo 480000 > scaling_setspeed  /* 设置系统运行的频率 */
+
+2.1 cd /sys/class/thermal/thermal_zone0
 cat temp
+
+
 
 3. sy_config.fex中频率的配置
 dvfs_table: dvfs_table {
@@ -103,3 +112,84 @@ trips{
     hysteresis = <0>;
   };
 };
+
+
+
+ntexts
+storage
+sw-device.ko
+sys
+system
+ueventd.common.rc
+ueventd.rc
+ueventd.sun8iw11p1.rc
+vendor
+verity_key
+root@t3-p1:/ #
+root@t3-p1:/ #
+root@t3-p1:/ #
+root@t3-p1:/ # cd /sys/devices/system/cpu/cpu
+cpu0/     cpu1/     cpu2/     cpu3/     cpufreq/
+root@t3-p1:/ # cd /sys/devices/system/cpu/cpu0/
+root@t3-p1:/sys/devices/system/cpu/cpu0 # ls
+cpufreq
+online
+power
+subsystem
+topology
+uevent
+root@t3-p1:/sys/devices/system/cpu/cpu0 #
+root@t3-p1:/sys/devices/system/cpu/cpu0 # cd cpufreq/
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq # ls
+affected_cpus
+boot_lock
+cpuinfo_boot_freq
+cpuinfo_cur_freq
+cpuinfo_max_freq
+cpuinfo_min_freq
+cpuinfo_transition_latency
+related_cpus
+scaling_available_frequencies
+scaling_available_governors
+scaling_cur_freq
+scaling_driver
+scaling_governor
+scaling_max_freq
+scaling_min_freq
+scaling_setspeed
+stats
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq # cat scali
+scaling_available_frequencies           scaling_governor
+scaling_available_governors             scaling_max_freq
+scaling_cur_freq                        scaling_min_freq
+scaling_driver                          scaling_setspeed
+at scaling_a                                                                  <
+scaling_available_frequencies           scaling_available_governors
+at scaling_available_governors                                                <
+interactive conservative ondemand userspace powersave performance
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+cho userspace > ./scaling_governor                                            <
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq # cat boot_lock
+0
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq # cat cpuinfo_cur_freq
+480000
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+cho 480000 > scaling_setspeed                                                 <
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+cho 1200000 > scaling_setspeed                                                <
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq # cat cpuinfo_cur_freq
+1200000
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #
+root@t3-p1:/sys/devices/system/cpu/cpu0/cpufreq #

@@ -17,3 +17,8 @@
 
 #include <linux/videodev2.h>
 #include <linux/gpio.h>
+
+#include <linux/platform_device.h>  /* 平台设备需要的头文件 */
+#include <linux/of.h>   /* 设备数操作需要的头文件 */
+#include <linux/of_gpio.h> /* 读取设备数中的gpio号 */
+#include <linux/sys_config.h> /* 包含struct gpio_config 结构体 */

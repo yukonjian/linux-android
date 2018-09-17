@@ -1,0 +1,2 @@
+1. 安装apk
+adb install -r -d 安装apk

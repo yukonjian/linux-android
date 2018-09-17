@@ -1,0 +1,11 @@
+1. frwtest <文件数> <文件大小> <测试次数> <文件名前缀> <目录>
+ 目录需要先创建，否则会执行失败
+ 文件大小使用K和M为单位。
+
+ sample:
+ 1. 将frwtest push 到/system 目录下
+ 2. 在system目录下新建一个文件夹test
+ 3. ./frwtest 5 10M 1000000 a test
+
+ 2. stress 压力测试
+ stress -c 4   /* 跑满4个cpu */

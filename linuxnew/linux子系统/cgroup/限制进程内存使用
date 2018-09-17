@@ -1,0 +1,11 @@
+子系统的目的：控制进程间资源的竞争，资源包括CPU,MEMORY,IO,DEVICE等。
+1. 限制进程内存使用
+操作路径：/sys/fs/cgroup/
+1. cgroup的cpu操作
+a) 在/sys/fs/cgroup/cpu/下创建一个一个目录
+b) 操作创建目录下的属性文件
+
+
+
+Cgroups控制cpu，内存，io示例
+https://www.cnblogs.com/yanghuahui/p/3751826.html

@@ -527,3 +527,20 @@ n.联合;
 firmware
 英 [ˈfɜ:mweə(r)]   美 [ˈfɜ:rmwer]
 n.（计算机的）固件（指存储在存储器而非软件中的指令）;稳件
+
+desired     //desired device node number
+英 [dɪ'zaɪəd]   美 [dɪ'zaɪəd]
+adj.渴望的，想得到的
+v.要求;渴望;希望( desire的过去式和过去分词 );请求
+
+acoustic
+英 [əˈku:stɪk]   美 [əˈkustɪk]
+adj.声学的;听觉的;原声的;音响的
+
+session
+英 [ˈseʃn]   美 [ˈsɛʃən]
+n.开会，会议;（法庭的）开庭;会期，学期;（进行某活动连续的）一段时间
+
+jitter
+英 ['dʒɪtə]   美 [ˈdʒɪtɚ]
+vi.抖动，

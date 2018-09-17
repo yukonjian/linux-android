@@ -10,4 +10,7 @@
 若str1<str2，则返回负数；
 若str1>str2，则返回正数。
 4. char *strcpy(char *strDestination, const char *strSource);
-复制源串strSource到目标串strDestination所指定的位置, 包含NULL结束符. 不能处理源串与目标串重叠的情况.函数返回strDestination值. 
+复制源串strSource到目标串strDestination所指定的位置, 包含NULL结束符. 不能处理源串与目标串重叠的情况.函数返回strDestination值.
+5. int atoi(const char *nptr);
+atoi (表示 ascii to integer), 把字符串转换成整型数的一个函数
+如果 nptr不能转换成 int 或者 nptr为空字符串，那么将返回 0

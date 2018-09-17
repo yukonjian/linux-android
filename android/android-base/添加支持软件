@@ -1,0 +1,2 @@
+1. 添加系统通讯录软件
+androidm\build\target\product\core.mk中添加 Contacts

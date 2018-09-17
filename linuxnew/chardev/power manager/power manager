@@ -1,0 +1,27 @@
+Linux电源管理_Generic PowerManager 之Suspend功能
+https://blog.csdn.net/wlsfling/article/details/46004939
+
+1. 三种Suspend: Freeze、Standby和STR(Suspend to RAM)
+在用户空间向”/sys/power/state”文件分别写入”freeze”、”standby”和”mem”，即可触发它们
+
+ACPI六种状态,分别是S0到S5
+S0--实际上这就是我们平常的工作状态，所有设备全开，功耗一般会超过80W；
+S1--也称为POS（Power on Suspend），这时除了通过CPU时钟控制器将CPU关闭之外，
+其他的部件仍然正常工作，这时的功耗一般在30W以下；（其实有些CPU降温软件就是利用这种工作原理）
+S2--这时CPU处于停止运作状态，总线时钟也被关闭，但其余的设备仍然运转；
+S3--这就是我们熟悉的STR（Suspend to RAM），这时的功耗不超过10W；
+STR就是把系统进入STR前的工作状态数据都存放到内存中去。
+在STR状态下，电源仍然继续为内存等最必要的设备供电，以确保数据不丢失，而其他设备均处于关闭状态，系统的耗电量极低。
+一旦我们按下Power按钮（主机电源开关），系统就被唤醒，马上从内存中读取数据并恢复到STR之前的工作状态。
+也就是休眠状态
+S4--也称为STD（Suspend to Disk），这时系统主电源关闭，但是硬盘仍然带电并可以被唤醒；
+S5--这种状态是最干脆的，就是连电源在内的所有设备全部关闭，功耗为0。
+
+2. ARM WFI和WFE指令
+http://www.wowotech.net/armv8a_arch/wfe_wfi.html
+WFI(Wait for interrupt)和WFE(Wait for event)是两个让ARM核进入low-power standby模式的指令
+WFI和WFE实现为“put the core in a low-power state by disabling the clocks in the core while keeping the core powered up”，
+即我们通常所说的standby模式，保持供电，关闭clock。
+
+3. linux驱动中声明唤醒的中断
+https://blog.csdn.net/u012719256/article/details/52775937
