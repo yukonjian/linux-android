@@ -17,7 +17,3 @@ g_disp_drv.mclk[DISP_MOD_DE] = of_clk_get(pdev->dev.of_node, counter);
 if (IS_ERR(g_disp_drv.mclk[DISP_MOD_DE])) {
   dev_err(&pdev->dev, "fail to get clk for de\n");
 }
-
-  https://blog.csdn.net/lq496387202/article/details/79416299
-/* 宋宝华的blog */
-  https://blog.csdn.net/21cnbao
