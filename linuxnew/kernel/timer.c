@@ -28,3 +28,6 @@ void mdelay(unsigned long msecs);
 2) sleep
 void msleep(unsigned int msecs)
 void usleep_range(unsigned long min, unsigned long max)
+
+3. 得到系统时间
+void do_gettimeofday(struct timeval *tv);
