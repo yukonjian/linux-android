@@ -64,3 +64,11 @@ git push
 9. 删除git add 的文件
 一种是 git rm --cached "文件路径"，不删除物理文件，仅将该文件从缓存中删除；
 一种是 git rm --f "文件路径"，不仅将该文件从缓存中删除，还会将物理文件删除（不会回收到垃圾桶）。
+
+10. 指定主机，和私钥
+1)在.ssh文件夹下新建config文件
+2)在config文件中添加如下信息
+host gitsrv
+user git
+hostname 172.16.0.6
+identityfile ~/.ssh/steven
