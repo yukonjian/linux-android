@@ -25,3 +25,9 @@ off_t offset：被映射对象内容的起点。offset参数一般设为0，表�
 不成功返回MAP_FAILED ((void*)-1)
 
 example : mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd,0);
+
+2. fcntl
+fcntl是计算机中的一种函数，通过fcntl可以改变已打开的文件性质。fcntl针对描述符提供控制。
+参数fd是被参数cmd操作的描述符。针对cmd的值，fcntl能够接受第三个参数int arg。
+#include <fcntl.h>
+int fcntl(int fd, int cmd, long arg);
