@@ -1,0 +1,8 @@
+1. webrtc项目编译
+1) cd src
+2) gn gen out/Debug --args='target_os="android" target_cpu="arm" fatal_linker_warnings=false is_debug=false'
+3) ninja -C out/Debug AppRTCMobile
+4) gn clean out/Debug
+
+2. phone项目替换
+so库就一个libjingle_peerconnection_so.so，jar包有三个base_java、audio_device_java和libjingle_peerconnection_java三个jar包
