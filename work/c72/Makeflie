@@ -14,7 +14,7 @@ obj-m	+= sunxi_wdt.o
 2.应用编译
 CC=/home/steven/work/lichee/out/sun8iw11p1/androidm/common/buildroot/external-toolchain/bin/arm-linux-gnueabi-gcc
 
-OBJS=frwtest.c
+OBJS=frwtest.o
 
 all:frwtest
 
