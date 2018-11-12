@@ -1,7 +1,9 @@
 1. 查看 .a 和 .so 库文件中的接口
 查看.a文件都包含了那些文件
 ar -t xxx.a
-查看.so文件都包含了那些文件
+查看.a文件都包含了那些文件和函数
+nm -g --defined-only libxxx.a
+查看.so文件都包含了那些函数
 nm -D xxx.so
 
 
