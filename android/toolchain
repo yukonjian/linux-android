@@ -1,0 +1,8 @@
+1.android 工具链的安装
+https://blog.csdn.net/smilefyx/article/details/73692126
+
+2. 总结：
+1）使用android提供的脚本工具定制一套工具链 (执行 make-standalone-toolchain.sh --help 查看帮助。)
+$NDK/build/tools/make-standalone-toolchain.sh --platform=android-5 --install-dir=/tmp/my-android-toolchain
+
+2）在/etc/profile 中添加PATH指向bin目录
