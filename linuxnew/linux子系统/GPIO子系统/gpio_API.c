@@ -28,3 +28,9 @@ void gpio_free(unsigned gpio)
 6) gpio当作中断口使用
 int gpio_to_irq(unsigned gpio);
 返回的值即中断编号可以传给request_irq()和free_irq()
+
+2. GPIO 号的获取
+1）经典的存放在：arch/arm/mach-s5pv210/include/mach/gpio.h
+2）放在设备树中
+ a) 获取设备树中的gpio number的API
+ int of_get_named_gpio(struct device_node *np,const char *propname, int index)
