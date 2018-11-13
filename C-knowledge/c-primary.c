@@ -6,4 +6,6 @@
   int tmp = a + b;
   其中输出tmp = 1700;
 
-2. 
+2. C++ 中的string 类型转换未char型使用
+srting name; //定义srting类型
+name.c_str(); //将string转换未char类型

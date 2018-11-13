@@ -31,6 +31,6 @@ int gpio_to_irq(unsigned gpio);
 
 2. GPIO 号的获取
 1）经典的存放在：arch/arm/mach-s5pv210/include/mach/gpio.h
-2）放在设备树中
+2）放在设备树中：arch/arm/boot/dts
  a) 获取设备树中的gpio number的API
  int of_get_named_gpio(struct device_node *np,const char *propname, int index)
