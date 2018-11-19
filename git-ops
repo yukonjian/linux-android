@@ -34,12 +34,15 @@ error: failed to push some refs to 'git@xxxxxxx'
 此报错意思为git不知道您当前提交的版本
 解决办法：git push origin master
 
-5.git add -f
+5.拉远程仓库
+git pull origin master
 
-6.在git中不检查文件权限
+6.git add -f
+
+7.在git中不检查文件权限
 在git库中 .git文件夹下的config文件中的filemode = false
 
-7.git tag 打标签
+8.git tag 打标签
 1) 显示所有的tag
 git tag
 2) 打标签
@@ -56,16 +59,16 @@ git tag -d [tagname]
 6) 删除远程标签
 git push origin :refs/tags/[tagname]
 
-8. git删除远程仓库的文件或目录
+9. git删除远程仓库的文件或目录
 git rm -r --cached a/2.txt
 git commit -m "rmove file"
 git push
 
-9. 删除git add 的文件
+10. 删除git add 的文件
 一种是 git rm --cached "文件路径"，不删除物理文件，仅将该文件从缓存中删除；
 一种是 git rm --f "文件路径"，不仅将该文件从缓存中删除，还会将物理文件删除（不会回收到垃圾桶）。
 
-10. 指定主机，和私钥
+11. 指定主机，和私钥
 1)在.ssh文件夹下新建config文件
 2)在config文件中添加如下信息
 host gitsrv
