@@ -12,3 +12,5 @@ id                字符串，声卡的标识符
 card             返回所创建的snd_card实例的指针
 二 其他目录
 https://blog.csdn.net/DroidPhone/article/list/3
+
+https://blog.csdn.net/zyuanyun/article/category/6752337
