@@ -25,4 +25,4 @@ clean:
 	rm -f frwtest *.o
 
 3. android 编译要添加 -pie -fPIE
-arm-linux-androideabi-gcc -pie -fPIE  -o frwtest frwtest_nor.c
+/opt/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc -pie -fPIE -o lcdtest lcdtest.c
