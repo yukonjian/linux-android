@@ -1,0 +1,14 @@
+1. 将lcdtest文件push到/tmp下
+2.修改tmp下的文件为可执行
+root@t3-p1:/tmp # chmod 777 ./lcdtest
+3.运行命令lcdtest
+root@t3-p1:/tmp # ./lcdtest  50 50 90 50
+运行打印：
+The input brinhtness: 50; contrast: 50; saturation: 90; hue: 50;
+命令分析：
+./lcdtest  50 50 90 50
+第一个参数是亮度
+第二个参数是对比度
+第三个是饱和度
+第四个参数是色调
+调整范围均为（1-100）
