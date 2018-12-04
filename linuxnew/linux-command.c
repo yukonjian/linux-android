@@ -57,23 +57,7 @@ ifconfig eth0 down
 ifconfig eth0 hw ether 52:54:00:66:66:66   #设置eth0的MAC地址
 ifconfig eth0 up
 
-ifconfig br-lan up
-ifconfig br-lan hw ether 00:0C:43:28:81:AB
-ifconfig br-lan up
-
-ifconfig eth0 down
-ifconfig eth0 hw ether 00:0C:43:28:82:AB
-ifconfig eth0 up
-
-ifconfig eth0.1 down
-ifconfig eth0.1 hw ether 00:0C:43:28:83:AB
-ifconfig eth0.1 up
-
-ifconfig eth0.2 down
-ifconfig eth0.2 hw ether 00:0C:43:28:84:AB
-ifconfig eth0.2 up
-
-
+ethernet 以太网
 
 10.启动脚本 rc.local
 11. openwrt加载模块
