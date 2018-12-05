@@ -8,3 +8,12 @@ struct snd_soc_card *card = &snd_soc_sunxi_card;
 
 
 autodesk sketchbook
+
+3. 通过函数设置de_base的值,这样就可以不同将变量de_base通过extern放到其他文件中并进行赋值
+static void __iomem *de_base;
+s32 de_clk_set_reg_base(uintptr_t reg_base)
+{
+	de_base = (void __iomem *)reg_base;
+
+	return 0;
+}
