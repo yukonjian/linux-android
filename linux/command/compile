@@ -31,4 +31,6 @@ gcc -shared -o libshared.so   //动态库的命名形式，要加lib 和 so
 example: c62b编译动态库
 /opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -shared -fPIC devctrl_c62b.c -o libdevctrl.so
 /opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -shared -fPIC pcm_api.c pcm_func_7628.c -o libpcmapi.mt7620.so
-/opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -L. -lpcmapi.mt7620 test.c -o libtest
+/opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -L. -lpcmapi.mt7628 pcm_test.c -o libtest
+
+/opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -DBUILD_7628 pcm_test.c pcm_api_7628.c pcm_func_7628.c -o pcm_test

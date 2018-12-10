@@ -41,3 +41,16 @@ devpts on /dev/pts type devpts (rw,relatime,mode=600,ptmxmode=000)
 /dev/mtdblock5 on /flash type jffs2 (rw,relatime)
 /dev/mtdblock5 on /etc_ro type jffs2 (rw,relatime)
 #
+
+#R50 分区描述
+# cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00030000 00010000 "u-boot"
+mtd1: 00010000 00010000 "u-bootenv"
+mtd2: 00160000 00010000 "kernel"
+mtd3: 00180000 00010000 "rootfs"
+mtd4: 00060000 00010000 "config"
+mtd5: 00020000 00010000 "basic"
+mtd6: 00460000 00010000 "app"
+mtd7: 00800000 00010000 "whole flash"
+#
