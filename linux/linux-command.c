@@ -120,3 +120,5 @@ mount -t proc /proc /proc
 echo /sbin/mdev > /proc/sys/kernel/hotplug
 /sbin/mdev -s
 才能在加载驱动时，自动生成节点
+
+16. tail -f messages | grep "seg dma"
