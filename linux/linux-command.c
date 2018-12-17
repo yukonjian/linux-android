@@ -122,3 +122,5 @@ echo /sbin/mdev > /proc/sys/kernel/hotplug
 才能在加载驱动时，自动生成节点
 
 16. tail -f messages | grep "seg dma"
+
+17. lzma
