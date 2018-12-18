@@ -6,3 +6,5 @@ adb push E:\room\simple		/system 			//推送文件夹里的所有文件
 adb pull <src> <des>
 adb pull /system/simple/simple.ko		E:\room\simple
 adb pull /system/simple		E:\room\simple	//推送文件夹里的所有文件
+
+adb logcat -c           //清楚logcat缓存

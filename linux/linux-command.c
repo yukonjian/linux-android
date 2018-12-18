@@ -124,3 +124,15 @@ echo /sbin/mdev > /proc/sys/kernel/hotplug
 16. tail -f messages | grep "seg dma"
 
 17. lzma
+
+18. uname -a //查看虚拟机 Linux的版本信息
+
+19. lsb_release -a  //查看ubuntu的版本信息
+
+20. kill 和 killall
+kill是Linux下常见的命令。其man手册的功能定义如下：
+kill – send a signal to a process
+明朗了，其实kill就是给某个进程id发送了一个信号。默认发送的信号是SIGTERM，而kill -9发送的信号是SIGKILL，即exit。exit信号不会被系统阻塞，所以kill -9能顺利杀掉进程。当然你也可以使用kill发送其他信号给进程。
+经常使用的killall呢？
+killall – kill processes by name
+即，通过指定进程名的方式杀死进程。
