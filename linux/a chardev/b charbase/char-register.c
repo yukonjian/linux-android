@@ -21,8 +21,9 @@ void unregister_chrdev_region(dev_t from, unsigned count)
 3.注册字符设备（一般用于知道设备号）
 int register_chrdev (unsigned int major, const  char *name, struct file_operations*fops)
 major:主设备号；如果等于0，则表示采用系统动态分配的主设备号。
+注：指定注册的主设备号，次设备号均可以使用
 
-void unregister_chrdev(unsigned int major, const char *name); 
+void unregister_chrdev(unsigned int major, const char *name);
 
 2. 查看设备号
 设备号长度为32位，12位表示主设备号，20位表示次设备号
