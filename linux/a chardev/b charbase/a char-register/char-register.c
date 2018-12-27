@@ -6,7 +6,7 @@ count:连续分配设备号的个数
 name:主设备号的名字    //cat /proc/devices
 注：多次调用，会分配多个主设备号
 int register_chrdev_region(dev_t first,unsigned int count,char *name)
-first :要分配的设备编号范围的初始值(次设备号常设为0);
+first :已知的起始设备号的值(次设备号通常设为0);
 count:连续编号范围.
 name:编号相关联的设备名称. (/proc/devices);
 
@@ -18,7 +18,7 @@ int cdev_add(struct cdev *p, dev_t dev, unsigned count)
 void cdev_del(struct cdev *p)
 void unregister_chrdev_region(dev_t from, unsigned count)
 
-3.注册字符设备（一般用于知道设备号）
+5.以前的字符设备注册（一般用于知道设备号）
 int register_chrdev (unsigned int major, const  char *name, struct file_operations*fops)
 major:主设备号；如果等于0，则表示采用系统动态分配的主设备号。
 注：指定注册的主设备号，次设备号均可以使用
