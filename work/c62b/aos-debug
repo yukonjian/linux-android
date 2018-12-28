@@ -20,3 +20,7 @@ cp /app/aos-ephone/dagappmsp.ldf  /flash/apps/
 cp /app/package/libdevctrl.so  /flash/lib/
 
 /opt/buildroot-gcc463/usr/bin/mipsel-buildroot-linux-uclibc-gcc -Wall -shared -fPIC devctrl_c62b.c -o libdevctrl.so
+
+2. aos编译
+sudo ./makeall.sh  dinstar-mips
+cp /app/aos-ephone/dagappmsp.ldf  /flash/apps/
