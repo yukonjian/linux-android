@@ -137,3 +137,8 @@ kill – send a signal to a process
 经常使用的killall呢？
 killall – kill processes by name
 即，通过指定进程名的方式杀死进程。
+
+21. 修改文件的时间
+修改时间为：2015年10月13
+d 使用指定的日期时间，而非现在的时间。
+touch -d “10/13/2013” *.sh
