@@ -68,6 +68,17 @@ git push
 一种是 git rm --cached "文件路径"，不删除物理文件，仅将该文件从缓存中删除；
 一种是 git rm --f "文件路径"，不仅将该文件从缓存中删除，还会将物理文件删除（不会回收到垃圾桶）。
 
+当我们需要删除暂存区或分支上的文件, 同时工作区也不需要这个文件了, 可以使用
+
+1 git rm file_path
+2 git commit -m 'delete somefile'
+3 git push
+当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制, 可以使用
+
+git rm --cached file_path
+git commit -m 'delete remote somefile'
+git push
+
 11. 指定主机，和私钥
 1)在.ssh文件夹下新建config文件
 2)在config文件中添加如下信息
@@ -82,3 +93,6 @@ git log -p 文件名
 13. 产看某次提交的修改
 git show <commit-hashId> 便可以显示某次提交的修改内容
 git show <commit-hashId> filename 可以显示某次提交的某个内容的修改信息。
+
+14. 空文件夹的提交
+1. 必须在空文件夹下面有文件.gitkeep文件后缀就是天生来解决这个问题的。

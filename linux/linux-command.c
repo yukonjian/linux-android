@@ -1,4 +1,4 @@
-1.查看文件夹的大小
+1.查看文件夹的大小,计算每个文件的磁盘用量，目录则取总用量。
 du -h --max-depth=1 ./
 -h 表示加，K,M,G
 --max-depth 表示查看的深度
@@ -142,3 +142,34 @@ killall – kill processes by name
 修改时间为：2015年10月13
 d 使用指定的日期时间，而非现在的时间。
 touch -d “10/13/2013” *.sh
+
+22. 递归删除某一个文件夹
+find . -name .svn -exec rm -rf {} \;
+
+23.
+# find ./ -exec rm {} \;
+# find ./ | xargs rm -rf
+两者都可以把find命令查找到的结果删除，其区别简单的说是前者是把find发现的结果一次性传给exec选项，这样当文件数量较多的时候，就可能会出现“参数太多”之类的错误，相比较而言，
+后者就可以避免这个错误，因为xargs命令会分批次的处理结果。这样看来，“find ./| xargs rm -rf”是更通用的方法，推荐使用！
+rm不接受标准输入，所以不能用find / -name "*.txt" ｜rm
+
+-exec 必须由一个 ; 结束，而因为通常 shell 都会对 ; 进行处理，所以用 \; 防止这种情况。
+{} 可能需要写做 '{}'，也是为了避免被 shell 过滤
+
+find ./ -type f -exec grep txt {} /dev/null \;
+./表示从当前目录找
+-type f，表示只找file，文件类型的，目录和其他字节啥的不要
+-exec 把find到的文件名作为参数传递给后面的命令行，代替{}的部分
+-exec后便跟的命令行，必须用“ \;”结束
+
+# find ./ -type f -name "*.txt"|xargs grep "test" -n
+# find . -name "*.txt" -exec grep "test" {} \; -print
+
+23. telnet 中去掉 用户名和密码
+telnetd -l /bin/sh &
+
+24. 改变文件属主
+chown -R steven ./
+
+25. 显示每个文件所在的文件系统的信息，默认是显示所有文件系统。
+df -T

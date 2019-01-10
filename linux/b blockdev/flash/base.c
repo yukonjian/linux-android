@@ -1,4 +1,4 @@
-1. flash 总类
+/proc/partitions1. flash 总类
 NorFlash、NandFlash、eMMC
 
 2. NOR Flash 需要很长的时间进行抹写，但是它提供完整的寻址与数据总线，并允许随机存取存储器上的任何区域，

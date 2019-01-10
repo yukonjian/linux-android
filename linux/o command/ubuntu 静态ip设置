@@ -1,0 +1,10 @@
+steven@ubuntu:~$ cat /etc/network/interfaces
+# interfaces(5) file used by ifup(8) and ifdown(8)
+auto lo
+iface lo inet loopback
+auto eth0
+iface eth0 inet static
+address 172.25.2.88
+netmask 255.255.0.0
+gateway 172.25.1.1
+dns-nameservers 8.8.8.8
