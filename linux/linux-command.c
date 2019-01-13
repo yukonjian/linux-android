@@ -173,3 +173,6 @@ chown -R steven ./
 
 25. 显示每个文件所在的文件系统的信息，默认是显示所有文件系统。
 df -T
+
+26. 查看工具链的库和头文件搜索路径
+echo 'main(){}'| mipsel-openwrt-linux-gcc -E -v -
