@@ -34,7 +34,7 @@ __u32 vmode; /* see FB_VMODE_* */
 __u32 reserved[6]; /* Reserved for future compatibility */
 };
 
-2. fb_fix_screeninfon   /* 显示卡的属性，并且系统运行时不能被修改 */
+2. fb_fix_screeninfo   /* 显示卡的属性，并且系统运行时不能被修改 */
 
 struct fb_fix_screeninfo {
 char id[16]; /* identification string eg "TT Builtin" */
