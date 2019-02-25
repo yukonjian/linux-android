@@ -45,30 +45,3 @@ http://www.cnblogs.com/lifexy/p/7661454.html
 2)释放mtd
 3)释放nand flash寄存器
 4)释放nand_chip
-一、引脚介绍
-
-引脚名称
-
-引脚功能
-
-CLE 命令锁存功能
-
-ALE 地址锁存功能
-
-/CE 芯片使能
-
-/RE 读使能
-
-/WE 写使能
-
-/WP 写保护
-
-R/B 就绪/忙输出信号
-
-ALE 是英文"Address Latch Enable"的缩写
-1. 命令、地址、数据都通过8个I/O口传输
-2. 写命令、地址、数据时，都需要将WE、CE信号同时拉低
-3. 数据在WE信号的上升沿被NAND Flash锁存
-4. 命令锁存信号CLE和地址锁存信号ALE用来分辨、锁存命令或地址
-5. 在CLE上升沿，命令被锁存
-6. 在ALE上升沿，地址被锁存
