@@ -176,3 +176,12 @@ df -T
 
 26. 查看工具链的库和头文件搜索路径
 echo 'main(){}'| mipsel-openwrt-linux-gcc -E -v -
+
+27. 查看IO映射
+
+# cat /proc/iomem
+00000000-143cafff : reserved
+  140c0000-1430373b : Kernel code
+  1430373c-143704ff : Kernel data
+143cb000-15f9ffff : System RAM
+a8640000-a865ffff : esw0
