@@ -185,3 +185,31 @@ echo 'main(){}'| mipsel-openwrt-linux-gcc -E -v -
   1430373c-143704ff : Kernel data
 143cb000-15f9ffff : System RAM
 a8640000-a865ffff : esw0
+
+28. linux环境变量
+命令或可执行文件搜索路径
+export PATH=$PATH:$FFMPEG/bin:$X264/bin:$YASM/bin
+编译时库文件的搜索路径
+export LD_LIBRARY_PATH=$YASM/lib:$X264/lib:$FFMPEG/lib:$LD_LIBRARY_PATH
+编译时头文件的搜索路径
+gcc找到头文件的路径
+export C_INCLUDE_PATH
+g++找到头文件的路径
+export CPLUS_INCLUDE_PATH
+
+29. linux添加用户和密码
+useradd testuser  创建用户testuser
+passwd testuser  给已创建的用户testuser设置密码
+
+userdel testuser  删除用户testuser
+rm -rf testuser  删除用户testuser所在目录
+
+密码保存位置为：
+/etc/shadow
+/etc/passwd
+
+在输入密码时提示：passwd: unknown uid 0
+# cat passwd
+root:x:1000:1000:Linux User,,,:/home/root:/bin/sh
+将passwd修改为
+root:x:0:0:Linux User,,,:/home/root:/bin/sh
