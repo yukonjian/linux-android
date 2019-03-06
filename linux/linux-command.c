@@ -213,3 +213,5 @@ rm -rf testuser  删除用户testuser所在目录
 root:x:1000:1000:Linux User,,,:/home/root:/bin/sh
 将passwd修改为
 root:x:0:0:Linux User,,,:/home/root:/bin/sh
+
+30. ls -lh //可以查看当前文件大小，使用k,M为单位进行显示
