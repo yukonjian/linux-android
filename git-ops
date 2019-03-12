@@ -36,6 +36,14 @@ error: failed to push some refs to 'git@xxxxxxx'
 
 5.拉远程仓库
 git pull origin master
+5.1 推送本地分支到远程仓库
+git push --set-upstream origin 分支名
+5.2 将远程git仓库里的指定分支拉取到本地
+git checkout -b 本地分支名 origin/远程分支名
+注：如果出现提示：
+fatal: Cannot update paths and switch to branch 'dev2' at the same time.
+Did you intend to checkout 'origin/dev2' which can not be resolved as commit?
+需要先执行 git fetch （更新远程代码到本地仓库）
 
 6.git add -f
 
