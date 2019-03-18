@@ -4,6 +4,12 @@
 3.子网掩码：子网掩码(subnet mask)又叫网络掩码、地址掩码、子网络遮罩，它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，
 以及哪些位标识的是主机的位掩码。
 子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。
+4. IGMP（Internet Group Management Protocol）
+因特网协议家族中的一个组播协议。
+该协议运行在主机和组播路由器之间。IGMP协议共有三个版本，即IGMPv1、v2 和v3。
+5. QOS 服务质量（Quality of Service）
+6. MIB 管理信息库（Management Information Base）
+
 
 
 二、命令
@@ -23,6 +29,9 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         10.0.0.254      0.0.0.0         UG    0     0        0 eth0
 系统的默认网关信息，表示去任何地方（0.0.0.0），都发给10.0.0.254，因为是默认网关，所以，
 放在了最后一条。路由也是有顺序的，如果不符合任何一条规则就交给默认网关处理。
+2. ifconfig
+1)设置ip、掩码、网关
+ifconfig eth0 192.168.5.40 netmask 255.255.255.0
 
 三. VLAN 参考文献：https://blog.51cto.com/6930123/2115373
 1. VLAN：在二层交换机上分割广播域的技术。

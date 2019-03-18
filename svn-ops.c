@@ -19,3 +19,5 @@ svn diff -r 版本号1:版本号2 //查看版本号1和版本号2的不同
 这种情况下revert会取消之前的修改
 
 用法：#svn revert [-R] xxx_file_dir
+7. 版本回退
+svn up -r 版本号
