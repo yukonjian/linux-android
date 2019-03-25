@@ -1,7 +1,7 @@
 #include <linux/module.h>
 #include <linux/init.h>
 
-#include <linux/fs.h>		/* struct file_operations */
+
 #include <linux/cdev.h>		/* cdev_add */
 
 #include <linux/slab.h>		/* kmalloc */
