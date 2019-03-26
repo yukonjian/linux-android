@@ -7,7 +7,7 @@
 #define CONFIG_DRVTEST_DEBUG
 
 #ifdef  CONFIG_DRVTEST_DEBUG
-#define printk_dbg(fmt, args...)  printk(KERN_DEBUG"[DRVTEST] : ""Fun is %s; Line: %d;" fmt, __FUNCTION__, __LINE__, ##args)
+#define printk_dbg(fmt, args...)  do {printk(KERN_DEBUG"[DRVTEST] : ""Fun is %s; Line: %d;" fmt, __FUNCTION__, __LINE__, ##args)}while(0)
 #else
 #define printk_dbg(fmt, args...)  do{ }while(0)
 #endif

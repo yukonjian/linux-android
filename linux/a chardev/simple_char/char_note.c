@@ -1,23 +1,23 @@
 /************************************************************
-** Çı¶¯²¿·Ö 
+** é©±åŠ¨éƒ¨åˆ†
 *************************************************************/
 
-/*ÎÄ¼ş²Ù×÷*/
+/*æ–‡ä»¶æ“ä½œ*/
 struct file_operations {
 	struct module *owner;
 	int (*open) (struct inode *, struct file *);
 	ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
 	ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
-	long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);	
-//long (*ioctl) (struct file *, unsigned int, unsigned long);			//ÀÏµÄÄÚºËÊ¹ÓÃ
+	long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
+//long (*ioctl) (struct file *, unsigned int, unsigned long);			//è€çš„å†…æ ¸ä½¿ç”¨
   loff_t (*llseek) (struct file *, loff_t, int);
 }
 /*************************************************************/
-/* µ÷ÊÔ´òÓ¡ */
+/* è°ƒè¯•æ‰“å° */
 static int pat_debug_enable = 1;
 #define dprintk(fmt, arg...) \
 	do { if (pat_debug_enable) printk(KERN_DEBUG fmt, ##arg); } while (0)
-		
+
 /*************************************************************/
 /* open */
 static int test_open(struct inode *inode, struct file *file)
@@ -39,16 +39,16 @@ static int test_close(struct inode *node, struct file *filp)
 /*************************************************************/
 /* read */
 ssize_t test_read(struct file *filp, char __user *buf, size_t count, loff_t *offset)
-/* BUF_SIZE 10; data[BUF_SIZE]; *offset×îĞ¡ÖµÊÇ0£¬×î´óÖµÊÇBUF_SIZE£¬¶ÁÈ¡³É¹¦ºó*offset += count; */
+/* BUF_SIZE 10; data[BUF_SIZE]; *offsetæœ€å°å€¼æ˜¯0ï¼Œæœ€å¤§å€¼æ˜¯BUF_SIZEï¼Œè¯»å–æˆåŠŸå*offset += count; */
 copy_to_user(void __user *to, const void *from, unsigned long n)
 copy_from_user(void *to, const void __user *from, unsigned long n)
-·µ»Ø£º³É¹¦¶ÁÈ¡µÄ×Ö½ÚÊı
+è¿”å›ï¼šæˆåŠŸè¯»å–çš„å­—èŠ‚æ•°
 
 /*************************************************************/
 /* write */
-ssize_t test_write(struct file *filp, const char __user *buf, size_t count, loff_t *offset)  
-/* ¶ÁĞ´¶Ô*offset´¦ÀíÒ»Ñù */
-·µ»Ø£º³É¹¦Ğ´ÈëµÄ×Ö½ÚÊı
+ssize_t test_write(struct file *filp, const char __user *buf, size_t count, loff_t *offset)
+/* è¯»å†™å¯¹*offsetå¤„ç†ä¸€æ · */
+è¿”å›ï¼šæˆåŠŸå†™å…¥çš„å­—èŠ‚æ•°
 
 /*************************************************************/
 /* llseek */
@@ -60,16 +60,16 @@ loff_t test_llseek (struct file *filp, loff_t offset, int whence)
 /*************************************************************/
 /* ioctal */
 int test_ioctl (struct inode *node, struct file *filp, unsigned int cmd, unsigned long arg)
-_IO(type,nr) //Ã»ÓĞ²ÎÊıµÄÃüÁî
-_IOR(type,nr,size) //¸ÃÃüÁîÊÇ´ÓÇı¶¯¶ÁÈ¡Êı¾İ
-_IOW(type,nr,size) //¸ÃÃüÁîÊÇ´ÓÇı¶¯Ğ´ÈëÊı¾İ
-_IOWR(type,nr,size) //Ë«ÏòÊı¾İ´«Êä
-type:»ÃÊı  nr:ĞòÊı  size:Êı¾İ´óĞ¡£¬Ö»ĞèÒªÌîĞ´Êı¾İÀàĞÍ example:int,struct test;
-_IOC_DIR(cmd) //´ÓÃüÁîÖĞÌáÈ¡·½Ïò
-_IOC_TYPE(cmd) //´ÓÃüÁîÖĞÌáÈ¡»ÃÊı
-_IOC_NR(cmd) //´ÓÃüÁîÖĞÌáÈ¡ĞòÊı
-_IOC_SIZE(cmd) //´ÓÃüÁîÖĞÌáÈ¡Êı¾İ´óĞ¡
-²ÎÊıarg¿ÉÒÔ´«µİ Êı¾İ»òÖ¸Õë£¬ÔÚ´«µİÖ¸ÕëÊ±Òª½øĞĞÊı¾İµÄ¿½±´£ºcopy_from_user, copy_to_user
+_IO(type,nr) //æ²¡æœ‰å‚æ•°çš„å‘½ä»¤
+_IOR(type,nr,size) //è¯¥å‘½ä»¤æ˜¯ä»é©±åŠ¨è¯»å–æ•°æ®
+_IOW(type,nr,size) //è¯¥å‘½ä»¤æ˜¯ä»é©±åŠ¨å†™å…¥æ•°æ®
+_IOWR(type,nr,size) //åŒå‘æ•°æ®ä¼ è¾“
+type:å¹»æ•°  nr:åºæ•°  size:æ•°æ®å¤§å°ï¼Œåªéœ€è¦å¡«å†™æ•°æ®ç±»å‹ example:int,struct test;
+_IOC_DIR(cmd) //ä»å‘½ä»¤ä¸­æå–æ–¹å‘
+_IOC_TYPE(cmd) //ä»å‘½ä»¤ä¸­æå–å¹»æ•°
+_IOC_NR(cmd) //ä»å‘½ä»¤ä¸­æå–åºæ•°
+_IOC_SIZE(cmd) //ä»å‘½ä»¤ä¸­æå–æ•°æ®å¤§å°
+å‚æ•°argå¯ä»¥ä¼ é€’ æ•°æ®æˆ–æŒ‡é’ˆï¼Œåœ¨ä¼ é€’æŒ‡é’ˆæ—¶è¦è¿›è¡Œæ•°æ®çš„æ‹·è´ï¼šcopy_from_user, copy_to_user
 copy_from_user(&val, (struct ioctl_data *)arg, sizeof(struct ioctl_data))
 
 /*************************************************************/
@@ -77,19 +77,19 @@ copy_from_user(&val, (struct ioctl_data *)arg, sizeof(struct ioctl_data))
 int alloc_chrdev_region(dev_t *dev, unsigned baseminor, unsigned count,
 			const char *name)
 void cdev_init(struct cdev *cdev, const struct file_operations *fops)
-int cdev_add(struct cdev *p, dev_t dev, unsigned count)									
-void cdev_del(struct cdev *p)	
-void unregister_chrdev_region(dev_t from, unsigned count)	
+int cdev_add(struct cdev *p, dev_t dev, unsigned count)
+void cdev_del(struct cdev *p)
+void unregister_chrdev_region(dev_t from, unsigned count)
 
 /*************************************************************/
-/* ÄÚ´æ·ÖÅäºÍÄÚ´æÓ³Éä */
+/* å†…å­˜åˆ†é…å’Œå†…å­˜æ˜ å°„ */
 static inline void *kmalloc(size_t s, gfp_t gfp)   !!
 static inline void kfree(void *p)
 static inline void __iomem *ioremap(phys_addr_t offset, unsigned long size)
 static inline void iounmap(void __iomem *addr)
 
 /*************************************************************/
-/* ÖĞ¶Ï */
+/* ä¸­æ–­ */
 int request_irq(unsigned int irq, irq_handler_t handler, unsigned long flags,
 	    const char *name, void *dev_id)
 typedef irqreturn_t (*irq_handler_t)(int, void *);
@@ -106,130 +106,130 @@ flags:
 #define IRQF_TRIGGER_HIGH	0x00000004
 #define IRQF_TRIGGER_LOW	0x00000008
 name:
-ÏÔÊ¾ÔÚ/proc/interrupts	
-17: 11 s3c-ext0 key INT_EINT1 ÏÔÊ¾ÎÒ×¢²áºÍÖĞ¶ÏÃû×Ö
-µÚÒ»´¦£ºS3C2440ËùÓĞµÄÖĞ¶ÏºÅÔÚÔ­À´µÄ»ùÖµÉÏ¼ÓÁË16¹¹³ÉÖĞ¶ÏºÅ
-µÚ¶şÁĞ¡°11¡±ÊÇ¶ÔÓ¦´¦ÀíÆ÷ÏìÓ¦¸ÃÖĞ¶ÏµÄ´ÎÊı¡£
-µÚÈıÁĞ¡°s3c-ext0¡±ÊÇ´¦ÀíÕâ¸öÖĞ¶ÏµÄÖĞ¶Ï¿ØÖÆÆ÷
-µÚËÄÁĞÒ»¿´¾ÍÖªµÀµ÷ÓÃirq_request()Ê±¶¨ÒåµÄÖĞ¶ÏÃû×Ö¡£
-ÓĞ¹ØµÚ¶şÁĞ£¬µ±ÖĞ¶ÏÊÇÓ²¼ş¹²ÏíµÄÊ±ºò£¬µÚ¶şÁĞÎª¹²ÏíÖĞ¶ÏºÅ£¨Ò²¿ÉÒÔÖ±½ÓÊ¹ÓÃÄÚºË·Ö¿ªµÄÖĞ¶ÏºÅ£©£¬Í¨¹ıÖĞ¶Ïº¯ÊıµÄµÚÒ»¸ö²ÎÊı´øÈë
+æ˜¾ç¤ºåœ¨/proc/interrupts
+17: 11 s3c-ext0 key INT_EINT1 æ˜¾ç¤ºæˆ‘æ³¨å†Œå’Œä¸­æ–­åå­—
+ç¬¬ä¸€å¤„ï¼šS3C2440æ‰€æœ‰çš„ä¸­æ–­å·åœ¨åŸæ¥çš„åŸºå€¼ä¸ŠåŠ äº†16æ„æˆä¸­æ–­å·
+ç¬¬äºŒåˆ—â€œ11â€æ˜¯å¯¹åº”å¤„ç†å™¨å“åº”è¯¥ä¸­æ–­çš„æ¬¡æ•°ã€‚
+ç¬¬ä¸‰åˆ—â€œs3c-ext0â€æ˜¯å¤„ç†è¿™ä¸ªä¸­æ–­çš„ä¸­æ–­æ§åˆ¶å™¨
+ç¬¬å››åˆ—ä¸€çœ‹å°±çŸ¥é“è°ƒç”¨irq_request()æ—¶å®šä¹‰çš„ä¸­æ–­åå­—ã€‚
+æœ‰å…³ç¬¬äºŒåˆ—ï¼Œå½“ä¸­æ–­æ˜¯ç¡¬ä»¶å…±äº«çš„æ—¶å€™ï¼Œç¬¬äºŒåˆ—ä¸ºå…±äº«ä¸­æ–­å·ï¼ˆä¹Ÿå¯ä»¥ç›´æ¥ä½¿ç”¨å†…æ ¸åˆ†å¼€çš„ä¸­æ–­å·ï¼‰ï¼Œé€šè¿‡ä¸­æ–­å‡½æ•°çš„ç¬¬ä¸€ä¸ªå‚æ•°å¸¦å…¥
 dev_id:
-·ÖÏíÖĞ¶Ï£¬flags ÒªÉèÖÃ IRQF_SHARED, ´øÈë²»Í¬µÄdev_id×¢²áÖĞ¶Ï
-·µ»ØÖµ£º
-³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎóÂë
+åˆ†äº«ä¸­æ–­ï¼Œflags è¦è®¾ç½® IRQF_SHARED, å¸¦å…¥ä¸åŒçš„dev_idæ³¨å†Œä¸­æ–­
+è¿”å›å€¼ï¼š
+æˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ç 
 
 void free_irq(unsigned int irq, void *dev_id)
 
 /*************************************************************/
-/* ¹¤×÷¶ÓÁĞ */
-¹¤×÷¶ÓÁĞÔËĞĞÔÚ½ø³Ì¿Õ¼ä£¬¿ÉÒÔĞİÃß
-1.´´½¨¹¤×÷¶ÓÁĞ£¬µÚ¶ş¸öÓÃÓÚ¶àÄÚºË
+/* å·¥ä½œé˜Ÿåˆ— */
+å·¥ä½œé˜Ÿåˆ—è¿è¡Œåœ¨è¿›ç¨‹ç©ºé—´ï¼Œå¯ä»¥ä¼‘çœ 
+1.åˆ›å»ºå·¥ä½œé˜Ÿåˆ—ï¼Œç¬¬äºŒä¸ªç”¨äºå¤šå†…æ ¸
 struct workqueue_struct *create_workqueue(const char *name)
 struct workqueue_struct *create_singlethread_workqueue(const char *name)
-2.´´½¨¹¤×÷
-	¾²Ì¬´´½¨,¶¨Òå²¢³õÊ¼»¯Ò»¸öwork_struct¹¤×÷½á¹¹Ìå
+2.åˆ›å»ºå·¥ä½œ
+	é™æ€åˆ›å»º,å®šä¹‰å¹¶åˆå§‹åŒ–ä¸€ä¸ªwork_structå·¥ä½œç»“æ„ä½“
 #define	DECLARE_WORK(work_struct,func)
 static void func(struct work_struct *work);
-	¶¯Ì¬´´½¨,ĞèÒªÏÈ¶¨ÒåÒ»¸östruct work_struct ¹¤×÷½á¹¹Ìå£¬ÔÙ½«ÆäÖ¸Õë´øÈë½øĞĞ³õÊ¼»¯
-#define INIT_WORK(work_structp, func)	
-3.µ÷¶È¹¤×÷
+	åŠ¨æ€åˆ›å»º,éœ€è¦å…ˆå®šä¹‰ä¸€ä¸ªstruct work_struct å·¥ä½œç»“æ„ä½“ï¼Œå†å°†å…¶æŒ‡é’ˆå¸¦å…¥è¿›è¡Œåˆå§‹åŒ–
+#define INIT_WORK(work_structp, func)
+3.è°ƒåº¦å·¥ä½œ
 int queue_work(struct workqueue_struct *wq, struct work_struct *work)
-4.ÔÚĞ¶ÔØÄ£¿éÊÇ£¬ĞèË¢ĞÂ²¢×¢Ïú¹¤×÷¶ÓÁĞ
+4.åœ¨å¸è½½æ¨¡å—æ˜¯ï¼Œéœ€åˆ·æ–°å¹¶æ³¨é”€å·¥ä½œé˜Ÿåˆ—
 void flush_workqueue(struct workqueue_struct *wq)
 void destroy_workqueue(struct workqueue_struct *wq)
-5.Ê¹ÓÃÏµÍ³µÄ¹¤×÷¶ÓÁĞ
+5.ä½¿ç”¨ç³»ç»Ÿçš„å·¥ä½œé˜Ÿåˆ—
 static inline bool schedule_work(struct work_struct *work)
 {
 	return queue_work(system_wq, work);
 }
 
 /*************************************************************/
-/* µÈ´ı¶ÓÁĞ */
-ÈÃ³ÌĞò½øÈëĞİÃß£¬µÈ´ı³ÌĞòÔÙ´Î±»»½ĞÑ
-1.¶¨Òå²¢³õÊ¼»¯µÈ´ı¶ÓÁĞÍ·
+/* ç­‰å¾…é˜Ÿåˆ— */
+è®©ç¨‹åºè¿›å…¥ä¼‘çœ ï¼Œç­‰å¾…ç¨‹åºå†æ¬¡è¢«å”¤é†’
+1.å®šä¹‰å¹¶åˆå§‹åŒ–ç­‰å¾…é˜Ÿåˆ—å¤´
 typedef struct __wait_queue_head wait_queue_head_t;
 #define init_waitqueue_head(qp)
-2.½ø³Ì½øÈëĞİÃß
-#define wait_event_interruptible(wq, condition)	
-·µ»Ø0£ºÕı³£±»»½ĞÑ£»
-·µ»Ø·Ç0£ºĞİÃß±»ÖĞ¶Ï£¬Çı¶¯·µ»Ø -ERESTARTSYS
+2.è¿›ç¨‹è¿›å…¥ä¼‘çœ 
+#define wait_event_interruptible(wq, condition)
+è¿”å›0ï¼šæ­£å¸¸è¢«å”¤é†’ï¼›
+è¿”å›é0ï¼šä¼‘çœ è¢«ä¸­æ–­ï¼Œé©±åŠ¨è¿”å› -ERESTARTSYS
 wait_event_interruptible_timeout(wq, condition, timeout) //timeout = s*HZ;
-·µ»Ø0£ºÕı³£±»»½ĞÑºÍÊ±¼ä³¬Ê±£»
-·µ»Ø·Ç0£ºĞİÃß±»ÖĞ¶Ï£¬Çı¶¯·µ»Ø -ERESTARTSYS
-3.»½ĞÑ½ø³Ì
+è¿”å›0ï¼šæ­£å¸¸è¢«å”¤é†’å’Œæ—¶é—´è¶…æ—¶ï¼›
+è¿”å›é0ï¼šä¼‘çœ è¢«ä¸­æ–­ï¼Œé©±åŠ¨è¿”å› -ERESTARTSYS
+3.å”¤é†’è¿›ç¨‹
 void wake_up_interruptible(wait_queue_head_t *queue);
 
 /*************************************************************/
-/* ÄÚºËÊ±¼äÓë¶¨Ê±Æ÷ */
-jiffies(unsigned long)£¬ jiffies/HZ(Ãë£©£»
+/* å†…æ ¸æ—¶é—´ä¸å®šæ—¶å™¨ */
+jiffies(unsigned long)ï¼Œ jiffies/HZ(ç§’ï¼‰ï¼›
 
 #define time_before_eq(a,b) time_after_eq(b,a)
 time_before(jiffies, delay)  //delay = jiffies + HZ;
 while(time_before(jiffies, delay))
-schedule(); //ÈÃ³ö´¦ÀíÆ÷
+schedule(); //è®©å‡ºå¤„ç†å™¨
 
 set_current_state(TASK_INTERRUPTIBLE);
 schedule_timeout(s*HZ);
 
-void udelay(unsigned long usecs);	//¸ÃÖÖÑÓÊ±ÊôÓÚÃ¦µÈ´ı
+void udelay(unsigned long usecs);	//è¯¥ç§å»¶æ—¶å±äºå¿™ç­‰å¾…
 void mdelay(unsigned long msecs);
 
 struct timer_list {
-	unsigned long expires; //ÉèÖÃÔÚÖ´ĞĞ¶¨Ê±Æ÷´¦Àíº¯ÊıµÄÊ±¼ä
-	void (*function)(unsigned long); //¶¨Ê±Æ÷´¦Àíº¯Êı
-	unsigned long data; //´¦Àíº¯ÊıµÄ´«²Î
+	unsigned long expires; //è®¾ç½®åœ¨æ‰§è¡Œå®šæ—¶å™¨å¤„ç†å‡½æ•°çš„æ—¶é—´
+	void (*function)(unsigned long); //å®šæ—¶å™¨å¤„ç†å‡½æ•°
+	unsigned long data; //å¤„ç†å‡½æ•°çš„ä¼ å‚
 }
 
-1.¶¨Òå²¢³õÊ¼»¯¶¨Ê±Æ÷
+1.å®šä¹‰å¹¶åˆå§‹åŒ–å®šæ—¶å™¨
 #include <linux/timer.h>
 struct timer_list mytimer;
 #define init_timer(timerp)
-2.³õÊ¼»¯¶¨Ê±Æ÷½á¹¹ÌåµÄ ³¬Ê±Ê±¼ä ¶¨Ê±Æ÷´¦Àíº¯Êı ´¦Àíº¯Êı´«²Î
-void timer_func(unsigned long data) //¶¨Òå¶¨Ê±Æ÷´¦Àíº¯Êı
-my_timer.expires = jiffies + 5*HZ; 
-my_timer.function = timer_func; 
+2.åˆå§‹åŒ–å®šæ—¶å™¨ç»“æ„ä½“çš„ è¶…æ—¶æ—¶é—´ å®šæ—¶å™¨å¤„ç†å‡½æ•° å¤„ç†å‡½æ•°ä¼ å‚
+void timer_func(unsigned long data) //å®šä¹‰å®šæ—¶å™¨å¤„ç†å‡½æ•°
+my_timer.expires = jiffies + 5*HZ;
+my_timer.function = timer_func;
 my_timer.data = (unsigned long)99;
-3.¼¤»î¶¨Ê±Æ÷£¬Ö»Ö´ĞĞÒ»´Î´¦Àíº¯Êı
+3.æ¿€æ´»å®šæ—¶å™¨ï¼Œåªæ‰§è¡Œä¸€æ¬¡å¤„ç†å‡½æ•°
 void add_timer(struct timer_list *timer)
 
-printk("time out![%d] [%s]\n", (int)data, current->comm);  //´òÓ¡µ±Ç°½ø³Ì
+printk("time out![%d] [%s]\n", (int)data, current->comm);  //æ‰“å°å½“å‰è¿›ç¨‹
 
-4.ÔÙ´Î¼¤»î¶¨Ê±Æ÷
-my_timer.expires = jiffies + 5*HZ; 
-add_timer(&my_timer); 
+4.å†æ¬¡æ¿€æ´»å®šæ—¶å™¨
+my_timer.expires = jiffies + 5*HZ;
+add_timer(&my_timer);
 or:
 int mod_timer(struct timer_list *timer, unsigned long expires)
-5.ÈôÏëÔÚ¶¨Ê±Æ÷Ã»ÓĞ³¬Ê±Ç°È¡Ïû¶¨Ê±Æ÷,×¢ÏúÄ£¿éÊ±ÒªÊ¹ÓÃ
+5.è‹¥æƒ³åœ¨å®šæ—¶å™¨æ²¡æœ‰è¶…æ—¶å‰å–æ¶ˆå®šæ—¶å™¨,æ³¨é”€æ¨¡å—æ—¶è¦ä½¿ç”¨
 int del_timer(struct timer_list *timer)
 
 /*************************************************************/
-/* ĞÅºÅÁ¿ */
-1.¶¨Òå²¢³õÊ¼»¯
+/* ä¿¡å·é‡ */
+1.å®šä¹‰å¹¶åˆå§‹åŒ–
 struct semaphore sem;
 sema_init(&sem, count);
-2.Ê¹ÓÃĞÅºÅÁ¿
-voud down(struct semaphore *sem)	//Èç¹û²»ÄÜ»ñÈ¡£¬ÇĞ»»×´Ì¬ÖÁTASK_UNINTERRUPTIBLE*/
-int down_interruputible(struct semaphore *sem)	//Èç¹û²»ÄÜ»ñÈ¡£¬ÇĞ»»×´Ì¬ÖÁTASK_INTERRUPTIBLE£¬Èç¹ûË¯ÃßÆÚ¼ä±»ÖĞ¶Ï´ò¶Ï£¬º¯Êı·µ»Ø·Ç0Öµ*/
-Çı¶¯Ğè·µ»Ø ¨CERESTARTSYS;
+2.ä½¿ç”¨ä¿¡å·é‡
+voud down(struct semaphore *sem)	//å¦‚æœä¸èƒ½è·å–ï¼Œåˆ‡æ¢çŠ¶æ€è‡³TASK_UNINTERRUPTIBLE*/
+int down_interruputible(struct semaphore *sem)	//å¦‚æœä¸èƒ½è·å–ï¼Œåˆ‡æ¢çŠ¶æ€è‡³TASK_INTERRUPTIBLEï¼Œå¦‚æœç¡çœ æœŸé—´è¢«ä¸­æ–­æ‰“æ–­ï¼Œå‡½æ•°è¿”å›é0å€¼*/
+é©±åŠ¨éœ€è¿”å› â€“ERESTARTSYS;
 void up(struct semaphore *sem);
 
 /*************************************************************/
 /* platform */
 struct platform_device {
-	const char * name; //Éè±¸µÄÃû×Ö£¬Õâ½«´úÌædevice->dev_id£¬ÓÃ×÷sys/deviceÏÂÏÔÊ¾µÄÄ¿Â¼Ãû
-	int id; //Éè±¸id£¬ÓÃÓÚ¸ø²åÈë¸ø¸Ã×ÜÏß²¢ÇÒ¾ßÓĞÏàÍ¬nameµÄÉè±¸±àºÅ£¬Èç¹ûÖ»ÓĞÒ»¸öÉè±¸µÄ»°Ìî-1¡£
-	struct device dev; //½á¹¹ÌåÖĞÄÚÇ¶µÄdevice½á¹¹Ìå¡£
-	u32 num_resources; //×ÊÔ´Êı¡£
-	struct resource * resource; //ÓÃÓÚ´æ·Å×ÊÔ´µÄÊı×é¡£
+	const char * name; //è®¾å¤‡çš„åå­—ï¼Œè¿™å°†ä»£æ›¿device->dev_idï¼Œç”¨ä½œsys/deviceä¸‹æ˜¾ç¤ºçš„ç›®å½•å
+	int id; //è®¾å¤‡idï¼Œç”¨äºç»™æ’å…¥ç»™è¯¥æ€»çº¿å¹¶ä¸”å…·æœ‰ç›¸åŒnameçš„è®¾å¤‡ç¼–å·ï¼Œå¦‚æœåªæœ‰ä¸€ä¸ªè®¾å¤‡çš„è¯å¡«-1ã€‚
+	struct device dev; //ç»“æ„ä½“ä¸­å†…åµŒçš„deviceç»“æ„ä½“ã€‚
+	u32 num_resources; //èµ„æºæ•°ã€‚
+	struct resource * resource; //ç”¨äºå­˜æ”¾èµ„æºçš„æ•°ç»„ã€‚
 };
-int platform_device_register(struct platform_device *pdev) //Í¬ÑùµÄ£¬ĞèÒªÅĞ¶Ï·µ»ØÖµ
+int platform_device_register(struct platform_device *pdev) //åŒæ ·çš„ï¼Œéœ€è¦åˆ¤æ–­è¿”å›å€¼
 void platform_device_unregister(struct platform_device *pdev)
 
 struct platform_driver {
 	int (*probe)(struct platform_device *);
 	int (*remove)(struct platform_device *);
 	struct device_driver driver;
-}	 
+}
 int platform_driver_register(struct platform_driver *drv)
 void platform_driver_unregister(struct platform_driver *drv)
 
@@ -243,7 +243,4 @@ struct resource {
 	 resource_size_t end;
 	 unsigned long flags;
 }
-flags £ºIORESOURCE_MEM  IORESOURCE_IRQ
-
-
-
+flags ï¼šIORESOURCE_MEM  IORESOURCE_IRQ
