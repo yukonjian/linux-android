@@ -8,7 +8,11 @@ perm：内核参数的权限S_I(R/W/X)UGO(对模块参数具有读权限)
 带入： insmod xxx.ko name=xxx ;
 查看： /sys/module/xxx/parameter
 
-2. 内核间的函数调用
+2. 设备节点的创建
+mknod path c/b major minor
+mknod /dev/led c 45 0
+
+3. 内核间的函数调用
 1） 把需要调用的函数编译进模块，与C语言的静态库类似。
 Makefile ：
 obj-m += test_haha.o //生成test_haha.ko
@@ -22,7 +26,3 @@ xxx-y 可以根据CONFIG_XXX决定是否编译到xxx.o 文件中。
 如：
 xxx-y     += xx1.o
 xxx-($CONFIG_XXX) += xx2.o
-
-3. 设备节点的创建
-mknod path c/b major minor
-mknod /dev/led c 45 0

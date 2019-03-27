@@ -63,6 +63,7 @@ void up(struct semaphore *sem);
 struct mutex xxx_mutex;
 void mutex_init(struct mutex *lock);
 void mutex_lock(struct mutex *lock);
+int mutex_trylock(struct mutex *lock);	//成功返回1；失败返回0
 void mutex_unlock(struct mutex *lock);
 
 8.定时器
