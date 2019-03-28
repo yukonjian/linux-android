@@ -8,6 +8,7 @@
 1.2 工作的创建
 1.2.1 静态创建工作队列
 DECLARE_WORK(name,void (*func) (void *), void *data);
+#define DECLARE_WORK(n, f) struct work_struct n = __WORK_INITIALIZER(n, f)
 1.2.2 动态创建工作队列
 struct work_struct  commit_work;
 INIT_WORK(struct work_struct * work, work_func);

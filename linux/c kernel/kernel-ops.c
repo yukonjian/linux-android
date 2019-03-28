@@ -1,47 +1,8 @@
 
 
-11.中断
-int request_irq(unsigned int irq, irq_handler_t handler, unsigned long flags,
-	    const char *name, void *dev_id)
-typedef irqreturn_t (*irq_handler_t)(int, void *);
-static irqreturn_t intr_handler(int irq, void *dev_id)
-enum irqreturn {
-	IRQ_NONE		= (0 << 0),
-	IRQ_HANDLED		= (1 << 0),
-	IRQ_WAKE_THREAD		= (1 << 1),
-};
-typedef enum irqreturn irqreturn_t;
-flags:
-IRQF_TRIGGER_RISING; IRQF_TRIGGER_FALLING; IRQF_TRIGGER_HIGH; IRQF_TRIGGER_LOW; IRQF_SHARED;
 
-void free_irq(unsigned int irq, void *dev_id)
 
-查看中断信息：cat /proc/interrupts
 
-设备树中的中断的使用
-
-unsigned int irq_of_parse_and_map(struct device_node *dev, int index)；
-unsigned int irq_of_parse_and_map(struct device_node *dev, int index)
-{
-    struct of_phandle_args oirq;
-    if (of_irq_parse_one(dev, index, &oirq))－－－－分析device node中的interrupt相关属性
-        return 0;
-    return irq_create_of_mapping(&oirq);－－－－－创建映射，并返回对应的IRQ number
-}
-
-12.内核与用户空间的数据拷贝
-unsigned long copy_from_user(void *to, const void __user *from, unsigned long n)
-unsigned long copy_to_user(void __user *to, const void *from, unsigned long n)
-Returns number of bytes that could not be copied.
-On success, this will be zero.
-if (copy_from_user(&ax25_ctl, arg, sizeof(ax25_ctl)))
-  return -EFAULT;
-
-get_user(to, pfrom); put_user(to, pfrom);
-复制的内存是简单类型，如char,int ,long等
-int val;
-return put_user(val, (int __user *)arg);
-Returns zero on success, or -EFAULT on error.
 
 13.调试打印信息
 cat /proc/sys/kernel/printk
