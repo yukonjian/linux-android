@@ -6,12 +6,13 @@ set_bit告诉input子系统它支持哪些事件(按键，滑动，重复......)
 4）驱动事件报告,硬件相关；(申请中断，添加定时器...)
 5）释放和注销设备；
 
+struct input_dev；
 /* 1. 分配一个input_dev结构体 */
-buttons_dev = input_allocate_device();;
+buttons_dev = input_allocate_device();
 
 /* 2. 设置 */
 /* 2.1 能产生哪类事件 */
-set_bit(EV_KEY, buttons_dev->evbit);
+set_bit(EV_KEY, buttons_dev->evbit);  /* 将数组的第EV_KEY位设置为1 */
 set_bit(EV_REP, buttons_dev->evbit);
 
 /* 2.2 能产生这类操作里的哪些事件: L,S,ENTER,LEFTSHIT */
@@ -31,3 +32,5 @@ add_timer(&buttons_timer);
 /* 5. 硬件相关的操作 */
 input_unregister_device(buttons_dev);
 input_free_device(buttons_dev);
+
+2. 相关函数

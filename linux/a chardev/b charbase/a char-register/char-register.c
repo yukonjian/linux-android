@@ -12,10 +12,10 @@ name:编号相关联的设备名称. (/proc/devices);
 
 2.注册字符设备
 void cdev_init(struct cdev *cdev, const struct file_operations *fops)
-int cdev_add(struct cdev *p, dev_t dev, unsigned count)
+int cdev_add(struct cdev *cdev, dev_t dev, unsigned count)
 
 4.字符设备的删除和设备号的注销
-void cdev_del(struct cdev *p)
+void cdev_del(struct cdev *cdev)
 void unregister_chrdev_region(dev_t from, unsigned count)
 
 5.以前的字符设备注册（一般用于知道设备号）
