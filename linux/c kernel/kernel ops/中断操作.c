@@ -26,3 +26,21 @@ unsigned int irq_of_parse_and_map(struct device_node *dev, int index)
         return 0;
     return irq_create_of_mapping(&oirq);－－－－－创建映射，并返回对应的IRQ number
 }
+
+2. 中断的低半步操作 tasklet
+#include <linux/interrupt.h>
+tasklet是使用软中断实现的，无法睡眠
+2.1 定义并初始化 struct tasklet_struct结构体
+struct tasklet_struct
+{
+	void (*func)(unsigned long);	//tasklet处理函数
+	unsigned long data;	//给处理函数的传参
+}
+2.1.1 静态定义
+ #define DECLARE_TASKLET(name, func, data) \
+ struct tasklet_struct name = { NULL, 0, ATOMIC_INIT(0), func, data }
+2.2.2 动态定义
+struct tasklet_struct xxx_tasklet;
+void tasklet_init(struct tasklet_struct *t, void (*func)(unsigned long), unsigned long data);
+2.2 调度tasklet
+tasklet_schedule(struct tasklet_struct *tasklet);
