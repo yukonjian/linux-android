@@ -120,44 +120,6 @@ dev_id:
 
 void free_irq(unsigned int irq, void *dev_id)
 
-/*************************************************************/
-/* 工作队列 */
-工作队列运行在进程空间，可以休眠
-1.创建工作队列，第二个用于多内核
-struct workqueue_struct *create_workqueue(const char *name)
-struct workqueue_struct *create_singlethread_workqueue(const char *name)
-2.创建工作
-	静态创建,定义并初始化一个work_struct工作结构体
-#define	DECLARE_WORK(work_struct,func)
-static void func(struct work_struct *work);
-	动态创建,需要先定义一个struct work_struct 工作结构体，再将其指针带入进行初始化
-#define INIT_WORK(work_structp, func)
-3.调度工作
-int queue_work(struct workqueue_struct *wq, struct work_struct *work)
-4.在卸载模块是，需刷新并注销工作队列
-void flush_workqueue(struct workqueue_struct *wq)
-void destroy_workqueue(struct workqueue_struct *wq)
-5.使用系统的工作队列
-static inline bool schedule_work(struct work_struct *work)
-{
-	return queue_work(system_wq, work);
-}
-
-/*************************************************************/
-/* 等待队列 */
-让程序进入休眠，等待程序再次被唤醒
-1.定义并初始化等待队列头
-typedef struct __wait_queue_head wait_queue_head_t;
-#define init_waitqueue_head(qp)
-2.进程进入休眠
-#define wait_event_interruptible(wq, condition)
-返回0：正常被唤醒；
-返回非0：休眠被中断，驱动返回 -ERESTARTSYS
-wait_event_interruptible_timeout(wq, condition, timeout) //timeout = s*HZ;
-返回0：正常被唤醒和时间超时；
-返回非0：休眠被中断，驱动返回 -ERESTARTSYS
-3.唤醒进程
-void wake_up_interruptible(wait_queue_head_t *queue);
 
 /*************************************************************/
 /* 内核时间与定时器 */

@@ -22,10 +22,13 @@ return ：mod_timer() of an inactive timer returns 0, mod_timer() of an  active 
 int del_timer(struct timer_list *timer)
 return : del_timer() of an inactive timer returns 0, del_timer() of an  active timer returns 1
 
-2.延时
-#include <linux/delay.h>
-void msleep(unsigned int msecs);
-void usleep_range(unsigned long min, unsigned long max);
-mdelay
-udelay
-ndelay
+2. 时间延时
+1) delay 忙等待
+void udelay(unsigned long usecs);	//该种延时属于忙等待
+void mdelay(unsigned long msecs);
+2) sleep 睡眠等待
+void msleep(unsigned int msecs)
+void usleep_range(unsigned long min, unsigned long max)
+
+3. 得到系统时间
+void do_gettimeofday(struct timeval *tv);

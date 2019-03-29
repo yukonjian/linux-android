@@ -26,3 +26,19 @@ queue_delayed_work
 1.5 在卸载模块时，需刷新并注销工作队列
 void flush_workqueue(struct workqueue_struct *wq)
 void destroy_workqueue(struct workqueue_struct *wq)
+
+2. 等待队列
+每一个等待队列项代表一个睡眠进程，该进程等待某一事件的发生。
+2.1 定义并初始化等待队列头
+typedef struct __wait_queue_head wait_queue_head_t;
+wait_queue_head_t *wq；
+#define init_waitqueue_head(wq)
+2.2 进程进入休眠
+#define wait_event_interruptible(wq, condition) //wq为等待队列头结构体，并不是指针
+返回0：正常被唤醒；
+返回非0：休眠被中断，驱动返回 -ERESTARTSYS
+wait_event_interruptible_timeout(wq, condition, timeout) //timeout = s*HZ;
+返回0：正常被唤醒和时间超时；
+返回非0：休眠被中断，驱动返回 -ERESTARTSYS
+2.3 唤醒进程
+#define wake_up_interruptible(x)	__wake_up(x, TASK_INTERRUPTIBLE, 1, NULL)  //参数x为等待对了头的指针
