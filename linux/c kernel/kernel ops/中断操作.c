@@ -9,15 +9,21 @@ enum irqreturn {
 	IRQ_WAKE_THREAD		= (1 << 1),
 };
 typedef enum irqreturn irqreturn_t;
+
+1.1 参数
+irq：中断编号（每个中断源有唯一编号）,这里的中断编号不是看硬件手册，与裸机不同。由内核分配。
+可以在如下文件中查找: irqs.h \linux-3.5\arch\arm\mach-exynos\include\mach
 flags:
 IRQF_TRIGGER_RISING; IRQF_TRIGGER_FALLING; IRQF_TRIGGER_HIGH; IRQF_TRIGGER_LOW; IRQF_SHARED;
-
+name: 中断名字，在cat /proc/interrupts中可以看到此名称，同时会有/proc/irq/irq号/name的文件夹
+dev_id:
+硬件中断号共享：
+在中断服务程序中读取寄存器的状态判断是哪一个中断。
+分享中断号：
+与硬件上的共享中断不一样，当一个中断信号来了，一个中断的到来可以调用多个中断处理程序，每个中断处理函数均会被调用。
+1.2 中断的释放
 void free_irq(unsigned int irq, void *dev_id)
-
-查看中断信息：cat /proc/interrupts
-
-设备树中的中断的使用
-
+1.3 设备树中的中断的使用
 unsigned int irq_of_parse_and_map(struct device_node *dev, int index)；
 unsigned int irq_of_parse_and_map(struct device_node *dev, int index)
 {
@@ -28,8 +34,9 @@ unsigned int irq_of_parse_and_map(struct device_node *dev, int index)
 }
 
 2. 中断的低半步操作 tasklet
+http://blog.chinaunix.net/uid-28236237-id-3450753.html
 #include <linux/interrupt.h>
-tasklet是使用软中断实现的，无法睡眠
+tasklet是使用软中断实现的，无法睡眠,同一个tasklet不能在两个CPU上同时运行，但是不同tasklet可能在不同CPU上同时运行，则需要注意共享数据的保护。
 2.1 定义并初始化 struct tasklet_struct结构体
 struct tasklet_struct
 {
@@ -43,4 +50,4 @@ struct tasklet_struct
 struct tasklet_struct xxx_tasklet;
 void tasklet_init(struct tasklet_struct *t, void (*func)(unsigned long), unsigned long data);
 2.2 调度tasklet
-tasklet_schedule(struct tasklet_struct *tasklet);
+void tasklet_schedule(struct tasklet_struct *tasklet);
