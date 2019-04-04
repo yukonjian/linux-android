@@ -36,3 +36,13 @@ struct timeval {
 	__kernel_suseconds_t	tv_usec;	/* microseconds */
 };
 void do_gettimeofday(struct timeval *tv);
+
+4. 应用中获得系统时间
+#include<sys/time.h>
+struct  timeval{
+       long  tv_sec;  /*秒*/
+       long  tv_usec; /*微妙*/
+}；
+int gettimeofday(struct  timeval*tv,struct  timezone *tz )
+在gettimeofday()函数中tv或者tz都可以为空。如果为空则就不返回其对应的结构体。
+函数执行成功后返回0，失败后返回-1，错误代码存于errno中。
