@@ -1,8 +1,8 @@
 1. Input驱动编写步骤：
-1）分配一个输入设备(input_dev): >> buttons_dev=input_allocate_devices;
-2）设置驱动支持什么事件：>> set_bit(EV_KEY,button_dev.evbit)
+1）分配一个输入设备(input_dev):  buttons_dev=input_allocate_devices;
+2）设置驱动支持什么事件：set_bit(EV_KEY,button_dev.evbit)
 set_bit告诉input子系统它支持哪些事件(按键，滑动，重复......)
-3）注册一个输入设备；>> input_register_device(buttons_dev);
+3）注册一个输入设备； input_register_device(buttons_dev);
 4）驱动事件报告,硬件相关；(申请中断，添加定时器...)
 5）释放和注销设备；
 
