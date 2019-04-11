@@ -2,6 +2,7 @@
 struct semaphore sem;
 sema_init(&sem, count);
 void down(struct semaphore *sem)	//如果不能获取，切换状态至TASK_UNINTERRUPTIBLE*/
+void down_interruputible(struct semaphore *sem)
 void up(struct semaphore *sem);
 
 2.互斥量
