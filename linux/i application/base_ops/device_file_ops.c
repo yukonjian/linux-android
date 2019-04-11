@@ -4,6 +4,7 @@ int munmap(void* start,size_t length);
 
 mmap()必须以PAGE_SIZE为单位进行映射，而内存也只能以页为单位进行映射，若要映射非
 PAGE_SIZE整数倍的地址范围，要先进行内存对齐，强行以PAGE_SIZE的倍数大小进行映射。
+#define PAGE_ALIGN(addr)    (((addr)+PAGE_SIZE-1)&PAGE_MASK)
 start：映射区的开始地址，设置为0时表示由系统决定映射区的起始地址。
 length:
 port可以通过or运算合理地组合在一起
