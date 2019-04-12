@@ -206,3 +206,8 @@ struct resource {
 	 unsigned long flags;
 }
 flags ：IORESOURCE_MEM  IORESOURCE_IRQ
+
+
+在调试c62液晶屏遇到的问题
+1. 在proc文件的写函数中调用copy_from_user函数，拷贝应用程序空间固定地址的数据到内核
+2. 使用echo "1" >> /proc/fliew 触发写函数调用拷贝
