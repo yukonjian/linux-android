@@ -14,7 +14,3 @@
 5. int atoi(const char *nptr);
 atoi (表示 ascii to integer), 把字符串转换成整型数的一个函数
 如果 nptr不能转换成 int 或者 nptr为空字符串，那么将返回 0
-6. snprintf(char *str, size_t size, const char *format, ...)
-(1) 如果格式化后的字符串长度 < size，则将此字符串全部复制到str中，并给其后添加一个字符串结束符('\0')；
-(2) 如果格式化后的字符串长度 >= size，则只将其中的(size-1)个字符复制到str中，并给其后添加一个字符串结束符('\0')，返回值为欲写入的字符串长度。
-7. int sscanf(const char *buffer, const char *format, [ argument ] ... )

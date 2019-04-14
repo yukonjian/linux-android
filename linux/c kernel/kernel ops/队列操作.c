@@ -7,23 +7,26 @@
  也就是说，这个下半部分可以在进程上下文中执行。
 1.1.3 最重要的就是工作队列允许被重新调度甚至是睡眠。
 1.2 工作的创建
-1.2.1 静态创建工作队列
+1.2.1 静态创建工作
 DECLARE_WORK(name,void (*func) (void *), void *data);
 #define DECLARE_WORK(n, f) struct work_struct n = __WORK_INITIALIZER(n, f)
-1.2.2 动态创建工作队列
+1.2.2 动态创建工作
 struct work_struct  commit_work;
 INIT_WORK(struct work_struct * work, work_func);
+INIT_DELAYED_WORK(struct delayed_work *dwork, work_func);
 typedef void (*work_func_t)(void *work);
-1.3 工作队列的创建
+1.3 创建工作队列
 struct workqueue_struct *Display_commit_work;
-1.2.1 只创建一个内核线程。
+1.3.1 只创建一个内核线程。
 struct workqueue_struct *create_singlethread_workqueue(const char *name)
-1.2.2 为系统中的每个CPU都创建一个内核线程
-create_workqueue
+1.3.2 为系统中的每个CPU都创建一个内核线程
+struct workqueue_struct *create_workqueue(const char *name)
 1.4 工作的调度
+int schedule_work(struct work_struct *work);
 int queue_work(struct workqueue_struct *wq, struct work_struct *work)
 延时工作调度
-queue_delayed_work
+unsigned long msecs_to_jiffies(const unsigned int m) //用于delay的时间
+static inline bool queue_delayed_work(struct workqueue_struct *wq, struct delayed_work *dwork, unsigned long delay)
 1.5 在卸载模块时，需刷新并注销工作队列
 void flush_workqueue(struct workqueue_struct *wq)
 void destroy_workqueue(struct workqueue_struct *wq)
@@ -35,11 +38,14 @@ typedef struct __wait_queue_head wait_queue_head_t;
 wait_queue_head_t *wq；
 #define init_waitqueue_head(wq)
 2.2 进程进入休眠
+wait_event(queue, condition)
 #define wait_event_interruptible(wq, condition) //wq为等待队列头结构体，并不是指针
 返回0：正常被唤醒；
 返回非0：休眠被中断，驱动返回 -ERESTARTSYS
+wait_event_timeout(queue, timeout)
 wait_event_interruptible_timeout(wq, condition, timeout) //timeout = s*HZ;
 返回0：正常被唤醒和时间超时；
 返回非0：休眠被中断，驱动返回 -ERESTARTSYS
 2.3 唤醒进程
-#define wake_up_interruptible(x)	__wake_up(x, TASK_INTERRUPTIBLE, 1, NULL)  //参数x为等待对了头的指针
+void wake_up(wait_queue_head_t *q);
+#define wake_up_interruptible(x)	__wake_up(x, TASK_INTERRUPTIBLE, 1, NULL)  //参数x为等待队列头的指针

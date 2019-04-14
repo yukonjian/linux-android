@@ -1,13 +1,3 @@
-struct fileoperations {
-  int (*open) (struct inode *, struct file *);
-  int (*release) (struct inode *, struct file *);
-  ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
-  ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
-  long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
-  int (*mmap) (struct file *, struct vm_area_struct *);
-};
-
-
 1. mmap
 /**
  * remap_pfn_range - remap kernel memory to userspace

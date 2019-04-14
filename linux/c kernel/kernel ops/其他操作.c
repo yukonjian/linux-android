@@ -61,6 +61,15 @@ cat /proc/sys/kernel/printk
 不够打印级别的信息会被写到日志中可通过dmesg 命令来查看
 KERN_DEBUG; KERN_INFO; KERN_WARNING; KERN_ERR;
 #define xxx_inf(fmt,msg...)     do { printk(KERN_WARNING "[XXX] %s,line:%d:"fmt,__func__,__LINE__,##msg);}while(0)
+文件的4个数字值含义， 如下所示：
+1) 控制台（一般是串口） 日志级别： 当前的打印级别， 优先级高于该值的消息将被打印至控制台。
+2) 默认的消息日志级别： 将用该优先级来打印没有优先级前缀的消息， 也就是在直接写printk（“xxx”） 而不带打印
+级别的情况下， 会使用该打印级别。
+3) 最低的控制台日志级别： 控制台日志级别可被设置的最小值（一般都是1） 。
+4) 默认的控制台日志级别： 控制台日志级别的默认值。
+echo >> /proc/sys/kernel/printk
+>: 会重写文件，如果文件里面有内容会覆盖。
+>>这个是将输出内容追加到目标文件中。如果文件不存在，就创建文件。
 
 3.链表
 #include <linux/list.h>
@@ -92,6 +101,12 @@ static inline void list_del(struct list_head *entry)
     entry->prev = LIST_POISON2;
 }
 
+struct list_entry_test
+{
+  struct list_head member;
+}
+struct list_entry_test *pos;
+head = &pos->member
 /**
  * list_for_each_entry	-	iterate over list of given type
  * @pos:	the type * to use as a loop cursor.

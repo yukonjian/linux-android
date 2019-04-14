@@ -1,4 +1,18 @@
-1. map
+1. 虚拟内存区域(virtual memory areas)
+进程的虚拟内存空间会被分成不同的若干区域,linux内核中，这样的区域被称之为虚拟内存区域
+其中的每一个vma节点对应着一段连续的进程内存。这里的连续是指在进程空间中连续，物理空间中不一定连续。
+如果使用malloc等申请一段内存，则内核会给进程增加vma节点。
+struct vm_area_struct {
+	unsigned long vm_start;    /* vma的起始地址 */
+	unsigned long vm_end;		/* vma的结束地址 */
+  pgprot_t vm_page_prot;		/* vma的访问权限 */
+  unsigned long vm_flags;    /* 标识集 */
+
+  unsigned long vm_pgoff;		/* 映射文件的偏移量，以PAGE_SIZE为单位 */
+  struct file * vm_file;		    /* 映射的文件，没有则为NULL */
+}
+
+2. map
 void* mmap(void* start,size_t length,int prot,int flags,int fd,off_t offset);
 int munmap(void* start,size_t length);
 
@@ -22,36 +36,3 @@ off_t offset：被映射对象内容的起点。offset参数一般设为0，表�
 不成功返回MAP_FAILED ((void*)-1)
 
 example : mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd,0);
-
-2. open
-int open(const char *pathname, int oflag, ... );
-oflag:
-O_RDONLY　　只读模式
-O_WRONLY　　只写模式
-O_RDWR　　读写模式
-
-3. read
-ssize_t read(int filedes, void *buf, size_t nbytes);
-返回：若成功则返回读到的字节数，若已到文件末尾则返回0，若出错则返回-1
-filedes：文件描述符
-buf:读取数据缓存区
-nbytes:要读取的字节数
-
-4. write
-ssize_t write(int filedes, void *buf, size_t nbytes);
-返回：若成功则返回写入的字节数，若出错则返回-1
-filedes：文件描述符
-buf:待写入数据缓存区
-nbytes:要写入的字节数
-
-5. ioctl
-int ioctl( int fd, int cmd, int arg );
-返回：若成功则返回0，若出错则返回-1
-fd：文件描述符
-cmd:ioctl命令
-arg:带入的参数
-
-2. fcntl
-fcntl是计算机中的一种函数，通过fcntl可以改变已打开的文件性质。fcntl针对描述符提供控制。
-参数fd是被参数cmd操作的描述符。针对cmd的值，fcntl能够接受第三个参数int arg。
-int fcntl(int fd, int cmd, long arg);
