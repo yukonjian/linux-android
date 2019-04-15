@@ -3,13 +3,22 @@
 struct semaphore sem;
 sema_init(&sem, count);
 void down(struct semaphore *sem)	//如果不能获取，切换状态至TASK_UNINTERRUPTIBLE*/
-void down_interruputible(struct semaphore *sem)
+int down_interruptible(struct semaphore *sem)
+返回0：成功获得信号量
+返回-EINTR：没有获得信号量
 void up(struct semaphore *sem);
+/* Unlike mutex_trylock, this function can be used from interrupt context,
+ * and the semaphore can be released by any task or interrupt.
+ */
+int down_trylock ( struct  semaphore * sem )
+返回0：成功获得信号量
+返回1：没有获得信号量
 
 2.互斥量
 struct mutex xxx_mutex;
 void mutex_init(struct mutex *lock);
 void mutex_lock(struct mutex *lock);
+/* This function must not be used in interrupt context */
 int mutex_trylock(struct mutex *lock);	//成功返回1；失败返回0
 void mutex_unlock(struct mutex *lock);
 

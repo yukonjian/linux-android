@@ -8,13 +8,13 @@
 1.1.3 最重要的就是工作队列允许被重新调度甚至是睡眠。
 1.2 工作的创建
 1.2.1 静态创建工作
-DECLARE_WORK(name,void (*func) (void *), void *data);
+DECLARE_WORK(name,void (*func) (struct work_struct *work));
 #define DECLARE_WORK(n, f) struct work_struct n = __WORK_INITIALIZER(n, f)
 1.2.2 动态创建工作
 struct work_struct  commit_work;
 INIT_WORK(struct work_struct * work, work_func);
 INIT_DELAYED_WORK(struct delayed_work *dwork, work_func);
-typedef void (*work_func_t)(void *work);
+typedef void (*work_func_t)(struct work_struct *work);
 1.3 创建工作队列
 struct workqueue_struct *Display_commit_work;
 1.3.1 只创建一个内核线程。
