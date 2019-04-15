@@ -15,7 +15,7 @@ name就是要创建的文件名。
 mode是文件的访问权限，以UGO的模式表示。
 parent与proc_mkdir中的parent类似。也是父文件夹的proc_dir_entry对象。
 proc_fops就是该文件的操作函数了。
-sample: struct proc_dir_entry *mytest_file = proc_create("mytest", 0x0644, mytest_dir, &mytest_proc_fops);
+sample: struct proc_dir_entry *mytest_file = proc_create("mytest", 00644, mytest_dir, &mytest_proc_fops);
 4. 删掉创建的目录
 remove_proc_entry(name, parent);
 
