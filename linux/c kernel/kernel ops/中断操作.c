@@ -17,7 +17,7 @@ flags:
 IRQF_DISABLED; IRQF_TRIGGER_RISING; IRQF_TRIGGER_FALLING; IRQF_TRIGGER_HIGH; IRQF_TRIGGER_LOW; IRQF_SHARED;
 name: 中断名字，在cat /proc/interrupts中可以看到此名称，同时会有/proc/irq/irq号/name的文件夹
 dev_id:
-硬件中断号共享：
+硬件中断号共享(带入可以读取寄存器的值)：
 在中断服务程序中读取寄存器的状态判断是哪一个中断。
 分享中断号：
 与硬件上的共享中断不一样，当一个中断信号来了，一个中断的到来可以调用多个中断处理程序，每个中断处理函数均会被调用。

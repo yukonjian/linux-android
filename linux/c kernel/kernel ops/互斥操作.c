@@ -1,4 +1,5 @@
 1.信号量
+#include <linux/semaphore.h>
 struct semaphore sem;
 sema_init(&sem, count);
 void down(struct semaphore *sem)	//如果不能获取，切换状态至TASK_UNINTERRUPTIBLE*/

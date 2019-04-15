@@ -9,7 +9,7 @@ struct device_node *of_find_compatible_node(struct device_node *from,
 1.1 static inline struct device_node *of_find_node_by_name(struct device_node *from,
 	const char *name)
 
-2. 读取设备结点np的属性名为propname，类型为32位整型数组的属性。
+2. 读取设备结点np的属性名为property name，类型为32位整型数组的属性。
 int of_property_read_u32_array(const struct device_node *np,
                       const char *propname, u32 *out_values, size_t sz);
 
