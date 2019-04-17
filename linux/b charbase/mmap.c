@@ -36,3 +36,25 @@ off_t offset：被映射对象内容的起点。offset参数一般设为0，表�
 不成功返回MAP_FAILED ((void*)-1)
 
 example : mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd,0);
+
+static int glcdfb_mmap(struct fb_info *info, struct file *file,
+	struct vm_area_struct *vma)
+{
+	unsigned long start, len, off = vma->vm_pgoff << PAGE_SHIFT;
+
+	start = info->fix.smem_start;
+	len = PAGE_ALIGN((start & ~PAGE_MASK) + info->fix.smem_len);
+
+	if ((vma->vm_end - vma->vm_start + off) > len)
+	return -EINVAL;
+
+	off += start & PAGE_MASK;
+	vma->vm_pgoff >>= PAGE_SHIFT;
+	vma->vm_flags |= VM_IO;
+
+	//vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+
+	return remap_pfn_range(vma, vma->vm_start, off >> PAGE_SHIFT,
+		vma->vm_end - vma->vm_start,
+		vma->vm_page_prot);
+}

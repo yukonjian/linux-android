@@ -1,4 +1,5 @@
 1.用于函数返回值的错误检查。
+#include <linux/err.h>
 在linux/err.h中包含了这一机制的处理，主要通过IS_ERR, PTR_ERR, ERR_PTR几个宏。
 #define MAX_ERRNO       4095
 #define IS_ERR_VALUE(x) unlikely((x) >= (unsigned long)-MAX_ERRNO)

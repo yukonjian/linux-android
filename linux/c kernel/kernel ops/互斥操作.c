@@ -1,3 +1,4 @@
+https://blog.csdn.net/lilichang11106/article/details/84069357
 1.信号量
 #include <linux/semaphore.h>
 struct semaphore sem;
