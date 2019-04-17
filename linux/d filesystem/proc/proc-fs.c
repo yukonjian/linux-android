@@ -17,9 +17,21 @@ parent与proc_mkdir中的parent类似。也是父文件夹的proc_dir_entry对�
 proc_fops就是该文件的操作函数了。
 sample: struct proc_dir_entry *mytest_file = proc_create("mytest", 00644, mytest_dir, &mytest_proc_fops);
 4. 删掉创建的目录
-remove_proc_entry(name, parent);
+remove_proc_entry(char *, struct proc_dir_entry *);
+/* 删除 /proc/base/base 文件，dir_base为/proc/base目录entry指针 */
+remove_proc_entry("base/base", NULL);
+remove_proc_entry("base", dir_base);
+/* 删除/Proc/base目录 */
+remove_proc_entry("base", NULL);
 
-5. 2.6.x内核的创建方法
+5. 使用echo和cat操作文件
+在命令行下cat /proc/base文件和使用systen("cat /proc/base"),会先打开文件，然后调用read函数；
+在命令行下cat /dev/base文件，会包错误，并未打开文件。
+使用systen("cat /dev/base"),则会先打开文件，然后再调用read函数；
+注：cat调用的read函数，如果read函数没有返回0；则会一直调用。
+    echo调用write函数，若返回值小于count，则会多次调用；若返回0，则会不停调用。
+
+6. 2.6.x内核的创建方法
 #define  MKENTRY(name,rp,wp,pri,parent)     \
     do{                                     \
 struct proc_dir_entry *proc;        \
