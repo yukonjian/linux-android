@@ -20,12 +20,8 @@ mknod /dev/led c 45 0
 Makefile ：
 obj-m += test_haha.o //生成test_haha.ko
 test_haha-objs += haha.o test.o //test_haha.ko有haha.o和test.o组成
+注：xxx-objs 和 xxx-y 功能一样，在多文件生成一个模块时用
 2） 把被调用的函数导出到符号表，方便模块使用，与C语言的动态库类似
 查看： /proc/kallsyms
 将函数编译为模块并使用EXPORT_SYMBOL(fun_name)导出符号;
 编译的模块不一定需要init和exit函数。
-3） xxx-objs, xxx-y 的使用区别
-xxx-y 可以根据CONFIG_XXX决定是否编译到xxx.o 文件中。
-如：
-xxx-y     += xx1.o
-xxx-($CONFIG_XXX) += xx2.o

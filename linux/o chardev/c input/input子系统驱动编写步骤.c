@@ -1,3 +1,4 @@
+https://www.cnblogs.com/andyfly/p/9566692.html
 1. Input驱动编写步骤：
 1）分配一个输入设备(input_dev):  buttons_dev=input_allocate_devices;
 2）设置驱动支持什么事件：set_bit(EV_KEY,button_dev.evbit)
