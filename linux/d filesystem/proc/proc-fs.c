@@ -30,6 +30,9 @@ remove_proc_entry("base", NULL);
 使用systen("cat /dev/base"),则会先打开文件，然后再调用read函数；
 注：cat调用的read函数，如果read函数没有返回0；则会一直调用。
     echo调用write函数，若返回值小于count，则会多次调用；若返回0，则会不停调用。
+在命令行下cat /sys/bus/test_bus/test下的文件，会直接调用read函数，可能有调用的open函数，其未有打印信息。
+注：cat调用的read函数，其对read的函数返回值没有要求。0,99都可以，单还是建议返回0；
+    echo调用write函数，若返回值小于count，则会多次调用；若返回0，则会不停调用。
 
 6. 2.6.x内核的创建方法
 #define  MKENTRY(name,rp,wp,pri,parent)     \
