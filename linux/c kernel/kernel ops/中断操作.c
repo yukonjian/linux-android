@@ -9,6 +9,7 @@ enum irqreturn {
 	IRQ_WAKE_THREAD		= (1 << 1),
 };
 typedef enum irqreturn irqreturn_t;
+cat /proc/interrupts 可以看到申请了的中断号
 
 1.1 参数
 irq：中断编号（每个中断源有唯一编号）,这里的中断编号不是看硬件手册，与裸机不同。由内核分配。

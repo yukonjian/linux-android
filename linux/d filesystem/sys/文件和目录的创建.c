@@ -6,7 +6,13 @@ sys 文件系统的使用
  ssize_t xxx_store(struct device *d, struct device_attribute*attr,const char *buf,size_t count)  //对应write
 2)创建属性结构体
  static DEVICE_ATTR(xxxtest, S_IWUSR |S_IRUGO, xxx_show, xxx_store);
- 这是一个宏定义,将定义一个 dev_attr_xxxtest,类型为struct attribute的结构体。
+#define DEVICE_ATTR(_name, _mode, _show, _store) \
+	struct device_attribute dev_attr_##_name = __ATTR(_name, _mode, _show, _store)
+#define __ATTR(_name,_mode,_show,_store) { 				\
+.attr = {.name = __stringify(_name), .mode = _mode },		\
+.show	= _show,						\
+.store	= _store,						\
+}
  xxxtest为要创建的sys文件名
  读写函数若不使用，可以带入NULL参数
 3)调用sysfs_create_file创建文件
