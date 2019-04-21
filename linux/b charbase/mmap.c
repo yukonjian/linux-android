@@ -48,25 +48,27 @@ prot：页保护标志
 关于虚存管理的最基本的管理单元应该是struct vm_area_struct了，它描述的是一段连续的、具有相同访问属性的虚存空间，
 该虚存空间的大小为物理内存页面的整数倍。
 在将地址映射到用户空间，需先将其设置为保留页。
-
-static int glcdfb_mmap(struct fb_info *info, struct file *file,
-	struct vm_area_struct *vma)
+sample:
+static int remap_pfn_mmap(struct file *file, struct vm_area_struct *vma)
 {
-	unsigned long start, len, off = vma->vm_pgoff << PAGE_SHIFT;
+    unsigned long offset = vma->vm_pgoff << PAGE_SHIFT;
+    unsigned long pfn_start = (virt_to_phys(kbuff) >> PAGE_SHIFT) + vma->vm_pgoff;
+    unsigned long virt_start = (unsigned long)kbuff + offset;
+    unsigned long size = vma->vm_end - vma->vm_start;
+    int ret = 0;
 
-	start = info->fix.smem_start;
-	len = PAGE_ALIGN((start & ~PAGE_MASK) + info->fix.smem_len);
+    printk("phy: 0x%lx, offset: 0x%lx, size: 0x%lx\n", pfn_start << PAGE_SHIFT, offset, size);
 
-	if ((vma->vm_end - vma->vm_start + off) > len)
-	return -EINVAL;
+    ret = remap_pfn_range(vma, vma->vm_start, pfn_start, size, vma->vm_page_prot);
+    if (ret)
+        printk("%s: remap_pfn_range failed at [0x%lx  0x%lx]\n",
+            __func__, vma->vm_start, vma->vm_end);
+    else
+        printk("%s: map 0x%lx to 0x%lx, size: 0x%lx\n", __func__, virt_start,
+            vma->vm_start, size);
 
-	off += start & PAGE_MASK;
-	vma->vm_pgoff >>= PAGE_SHIFT;
-	vma->vm_flags |= VM_IO;
-
-	//vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-
-	return remap_pfn_range(vma, vma->vm_start, off >> PAGE_SHIFT,
-		vma->vm_end - vma->vm_start,
-		vma->vm_page_prot);
+    return ret;
 }
+remap_pfn_range将物理页帧号pfn_start对应的物理内存映射到用户空间的vm->vm_start处，映射长度为该虚拟内存区的长度。
+由于这里的内核缓冲区是用kzalloc分配的，保证了物理地址的连续性，
+所以会将物理页帧号从pfn_start开始的（size >> PAGE_SHIFT）个连续的物理页帧依次按序映射到用户空间。
