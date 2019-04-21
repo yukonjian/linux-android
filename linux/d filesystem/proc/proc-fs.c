@@ -25,14 +25,11 @@ remove_proc_entry("base", dir_base);
 remove_proc_entry("base", NULL);
 
 5. 使用echo和cat操作文件
-在命令行下cat /proc/base文件和使用systen("cat /proc/base"),会先打开文件，然后调用read函数；
-在命令行下cat /dev/base文件，会包错误，并未打开文件。
-使用systen("cat /dev/base"),则会先打开文件，然后再调用read函数；
-注：cat调用的read函数，如果read函数没有返回0；则会一直调用。
-    echo调用write函数，若返回值小于count，则会多次调用；若返回0，则会不停调用。
-在命令行下cat /sys/bus/test_bus/test下的文件，会直接调用read函数，可能有调用的open函数，其未有打印信息。
-注：cat调用的read函数，其对read的函数返回值没有要求。0,99都可以，单还是建议返回0；
-    echo调用write函数，若返回值小于count，则会多次调用；若返回0，则会不停调用。
+cat 命令：先打开文件，再调用read函数，一直调用read函数，直到read函数返回0（read读取到文件末尾会返回0）；
+echo 命令：先打开文件，再调用write函数，一直调用write函数，直到wriet返回的值的和 与 写入的字节数一致；
+注：1.cat和echo无法在串口调用/dev/xxx的文件节点。只能在app中用system("cat /dev/xxx")调用
+    2. 在cat /sys/device/file（读sys系统下的文件）下的文件时，只会触发一次read函数，read函数返回的值，
+    即为有效的读取个数，会被显示出来。
 
 6. 2.6.x内核的创建方法
 #define  MKENTRY(name,rp,wp,pri,parent)     \

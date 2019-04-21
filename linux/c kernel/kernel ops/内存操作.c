@@ -25,6 +25,7 @@ static inline void __iomem *ioremap(phys_addr_t offset, unsigned long size)
 static inline void iounmap(void __iomem *addr)
 
 3.内核与用户空间的数据拷贝
+#include <asm/uaccess.h>
 unsigned long copy_from_user(void *to, const void __user *from, unsigned long n)
 unsigned long copy_to_user(void __user *to, const void *from, unsigned long n)
 Returns number of bytes that could not be copied.
