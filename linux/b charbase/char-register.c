@@ -36,7 +36,7 @@ void unregister_chrdev(unsigned int major, const char *name);
 2. 查看设备号
 2.1 设备号长度为32位，12位表示主设备号，20位表示次设备号,主次设备号范围均为：0~255
 cat /proc/devices   //查看分配了的主设备号，及设备号的名字
-ls -al /dev/        //查看设备文件的主设备号和次设备号
+ls -l /dev/devfile        //查看设备文件的主设备号和次设备号
 
 2.2 设备号中获取主次设备号
 MKDEV：  是用来将主设备号和次设备号，转换成设备号。(主设备号其实是次设备号为零的设备号)
