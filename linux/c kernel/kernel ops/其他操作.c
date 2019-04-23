@@ -102,12 +102,15 @@ static inline void list_del(struct list_head *entry)
     entry->prev = LIST_POISON2;
 }
 
-struct list_entry_test
+struct xxx_test
 {
   struct list_head member;
 }
-struct list_entry_test *pos;
-head = &pos->member
+struct list_head xxx_head;
+struct xxx_test *pos;
+head = INIT_LIST_HEAD(xxx_head);
+list_add(&pos->member, xxx_head); /* 将其链表放入链表头 */
+遍历xxx_head链表，获取xxx_test指针；
 /**
  * list_for_each_entry	-	iterate over list of given type
  * @pos:	the type * to use as a loop cursor.
