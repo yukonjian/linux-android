@@ -9,16 +9,8 @@ struct file_operations input_fops；    /* 打开设备文件后，调用的file
 struct input_handler *input_table[8]; /* 保存所有的已经注册的input_handler的指针 */
 
 struct evdev *evdev_table[EVDEV_MINORS];
-/* 事件设备表，在调用open函数时，根据次设备号，选择相应的evdev传递给evdev_list */
-
-
-
-
-
-
-
-
-
+/* 事件设备表，在调用open函数时，根据次设备号，选择相应的evdev传递给evdev_list
+  每一个evdev对应一个设备文件*/
 
 ////////////////////////////////////////////////////////////////////////////////
 设备文件的打开流程

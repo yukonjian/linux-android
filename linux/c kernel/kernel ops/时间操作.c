@@ -14,6 +14,8 @@ void add_timer(struct timer_list *timer)
 my_timer.expires = jiffies + 5*HZ;
 add_timer(&my_timer);
 or:
+mod_timer(&my_timer, jiffies + 5*HZ);
+
 int mod_timer(struct timer_list *timer, unsigned long expires)
 可以修改并未结束的定时器相当于：
 del_timer(timer); timer->expires = expires; add_timer(timer);
