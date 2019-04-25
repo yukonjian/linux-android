@@ -12,6 +12,13 @@ NorFlash、NandFlash、eMMC
 NAND供应商来说，同样的重要。
 eMMC由一个嵌入式存储解决方案组成，带有MMC（多媒体卡）接口、快闪存储器设备（Nand Flash）及主控制器，所有都在一个小型的BGA 封装。
 接口速度高达每秒52MBytes，eMMC具有快速、可升级的性能。同时其接口电压可以是 1.8v 或者是 3.3v。
+6. spi flash  https://blog.csdn.net/m0_37580896/article/details/79686004
+SPI一种通信接口。那么严格的来说SPI Flash是一种使用SPI通信的Flash，即，可能指NOR也可能是NAND。
+但现在大部分情况默认下人们说的SPI Flash指的是SPI NorFlash。早期Norflash的接口是parallel的形式，
+即把数据线和地址线并排与IC的管脚连接。但是后来发现不同容量的Norflash不能硬件上兼容
+（数据线和地址线的数量不一样），并且封装比较大，占用了较大的PCB板位置，所以后来逐渐被SPI（串行接口）Norflash所取代。
+同时不同容量的SPI Norflash管脚也兼容封装也更小。，至于现在很多人说起NOR flash直接都以SPI flash来代称。
+
 5. Nand flash 的通用接口
 引脚名称
 
