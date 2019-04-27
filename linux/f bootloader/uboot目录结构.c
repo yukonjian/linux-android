@@ -15,6 +15,10 @@ chpart  - change active partition
 3.4.1 ls  - list files in a directory (default /)
 3.4.2 从jffs2文件系统中加载文件
 fsload  - load binary file from a filesystem image
+3.5 md - memory display; b=1byte; w=2byte; l=4byte;
+md[.b, .w, .l] address [of objects(读取的个数,不填会连续读取16次)]
+3.6 mw - write memory
+mw[.b, .w, .l] address value [count]
 
 一、uboot指令
 
