@@ -19,6 +19,11 @@ fsload  - load binary file from a filesystem image
 md[.b, .w, .l] address [of objects(读取的个数,不填会连续读取16次)]
 3.6 mw - write memory
 mw[.b, .w, .l] address value [count]
+3.7 fsload - load binary file from a filesystem image
+fsload addr(内存地址) 文件路径
+fsload 0x20280000 /Uboot/ubootmap.bin
+3.8 sf read - 从spi flash总读取数据
+sf read addr(内存地址) offset(在flash中的地址) len(读取的字节长度)
 
 一、uboot指令
 
