@@ -1,5 +1,18 @@
 1. 目录结构
 https://blog.csdn.net/itxiebo/article/details/50935248
+uboot/include/config.mk     //自动生成的ARCH灯信息
+uboot/include/config.h      //自动生成的配置信息，在makefile中可以添加
+uboot/include/configs/firetux.h //相应的开发版的配置头文件，大部分配置均在这里
+
+uboot/arch/arm/lib/board.c //第二阶段运行的程序
+uboot/arch/arm/cpu/arm926ejs/start.S //第一阶段运行的程序
+
+uboot/board/dspg/firetux/config.mk //记录了程序运行地址TEXT_BASE = 0x20780000
+uboot/board/dspg/firetux/u-boot.lds    //链接文件
+
+
+
+
 2. uboot对于jffs2的支持
 #define CONFIG_CMD_JFFS2
 #define CONFIG_JFFS2_CMDLINE
