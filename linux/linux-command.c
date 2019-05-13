@@ -146,7 +146,7 @@ touch -d “10/13/2013” *.sh
 22. 递归删除某一个文件夹
 find . -name .svn -exec rm -rf {} \;
 
-23.
+21.1
 # find ./ -exec rm {} \;
 # find ./ | xargs rm -rf
 两者都可以把find命令查找到的结果删除，其区别简单的说是前者是把find发现的结果一次性传给exec选项，这样当文件数量较多的时候，就可能会出现“参数太多”之类的错误，相比较而言，
@@ -164,6 +164,12 @@ find ./ -type f -exec grep txt {} /dev/null \;
 
 # find ./ -type f -name "*.txt"|xargs grep "test" -n
 # find . -name "*.txt" -exec grep "test" {} \; -print
+
+22.2 在查找多个文件时；要用双引号或双引号
+find . -name "*.o"
+find . -name '*.o'
+find . -name \*.o
+因为 *.o 表示所有的.o文件；\*.o使用一个文件*.o表示所有.o文件
 
 23. telnet 中去掉 用户名和密码
 telnetd -l /bin/sh &
