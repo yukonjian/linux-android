@@ -10,7 +10,12 @@ uboot/arch/arm/cpu/arm926ejs/start.S //第一阶段运行的程序
 uboot/board/dspg/firetux/config.mk //记录了程序运行地址TEXT_BASE = 0x20780000
 uboot/board/dspg/firetux/u-boot.lds    //链接文件
 
-
+1.1 架构相关
+uboot/arch/arm/
+1.2 CPU相关
+uboot/arch/arm/cpu/arm926ejs/
+1.3 板子相关
+uboot/board/dspg/
 
 
 2. uboot对于jffs2的支持
