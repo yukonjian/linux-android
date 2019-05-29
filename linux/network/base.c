@@ -9,8 +9,12 @@
 该协议运行在主机和组播路由器之间。IGMP协议共有三个版本，即IGMPv1、v2 和v3。
 5. QOS 服务质量（Quality of Service）
 6. MIB 管理信息库（Management Information Base）
-
-
+7. 802.3简介
+https://wenku.baidu.com/view/6cbb14ed998fcc22bcd10da5.html
+8. RMII时序
+https://wenku.baidu.com/view/064b5da5a32d7375a41780fb.html
+9. 前导码、帧开始定界符
+https://blog.csdn.net/hrl7752/article/details/86411007
 
 二、命令
 1. route
