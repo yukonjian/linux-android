@@ -17,3 +17,6 @@
 
     /* 接收mac流控制 */
     athrs17_reg_write(0x7c  , 0x0000007e);
+
+    /* phy */
+    AUTO-NEGOTIATION:
