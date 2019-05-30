@@ -11,11 +11,10 @@
 6. MIB 管理信息库（Management Information Base）
 7. 802.3简介
 https://wenku.baidu.com/view/6cbb14ed998fcc22bcd10da5.html
-8. RMII时序
+8.RMII时序
 https://wenku.baidu.com/view/064b5da5a32d7375a41780fb.html
-9. 前导码、帧开始定界符
-https://blog.csdn.net/hrl7752/article/details/86411007
-
+9. 以太网帧格式
+https://baike.baidu.com/item/%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E6%A0%BC%E5%BC%8F/10290427?fr=aladdin
 二、命令
 1. route
 1)查看有多少路由
