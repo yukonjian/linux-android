@@ -107,8 +107,8 @@ Installation directories:
 如果在板子上无法执行，可能是没有执行权限或者是编译选项不对，可参考相应开发环境修改编译选项。
 2) Usage
 perf是client端向server端发送数据;
-server端显示的是接收速率，最好加i参数，进行速率跟踪
-client 显示的是接收速率,server 显示发送速率
+server端显示的是发送速率，最好加i参数，进行速率跟踪
+client 显示的是发送速率,server 显示接收速率
 
 udp :server:iperf -s -u -P 0 -i 1 -p 5001
      client:iperf -u -c 172.25.2.86 -P 1 -i 1 -p 5001 -n 500M -b 100M -l 1300
