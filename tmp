@@ -18,6 +18,28 @@ scp steven@172.25.2.89:/home/steven/work/mt7628-1/audio_driver/pcm_drv/pcm-ctrl.
 
 
 
+BusyBox v1.22.1 (2019-05-27 10:26:27 CST) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+********************************************
+*         Welcome to Command Shell         *
+*                                          *
+*      WARNING: Authorised Access Only     *
+********************************************
+
+> enable
+admin@uc100 enable# su
+Password: shY4$k#h^2x8
+root@uc100 enable# sh
+
+root@uc100:~# arping  -q -A -I eth1  192.168.12.1 -c 1
+root@uc100:~#
+f8:a0:3d:98:34:58
+
+root@uc100:~# rawsocksend.mips eth1 00:11:22:33:44:55 F8:A0:3D:98:34:58
+root@uc100:~# rawsocksend.mips eth1 f0:f0:f0:f0:f0:55 F8:A0:3D:98:34:58
+
+
 
 
 

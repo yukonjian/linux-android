@@ -67,9 +67,73 @@ netmask 255.255.255.0
 gateway 192.168.1.1
 
 然后修改DNS
-/etc/resolv.conf 
+/etc/resolv.conf
 nameserver 8.8.8.8
 
 重启网络连接
 /etc/init.d/networking restart
 ifconfig 察看网络配置信息
+
+9. 应用编译
+1）查看configure的参数
+./configure --help
+Defaults for the options are specified in brackets.
+Configuration:
+  -h, --help              display this help and exit
+      --help=short        display options specific to this package
+      --help=recursive    display the short help of all the included packages
+  -V, --version           display version information and exit
+  -q, --quiet, --silent   do not print `checking...' messages
+      --cache-file=FILE   cache test results in FILE [disabled]
+  -C, --config-cache      alias for `--cache-file=config.cache'
+  -n, --no-create         do not create output files
+      --srcdir=DIR        find the sources in DIR [configure dir or `..']
+Installation directories:
+  --prefix=PREFIX         install architecture-independent files in PREFIX
+                          [/usr/local]
+  --exec-prefix=EPREFIX   install architecture-dependent files in EPREFIX
+                          [PREFIX]
+下载：http://sourceforge.net/projects/iperf
+1. 先把iperf-2.0.4.tar.gz解压到你的目录下。
+2. cd iperf-2.0.4
+3. ./configure --host=arm  CXX=arm-uclinux-g++ CC=arm-uclinux-gcc
+   这里的arm-uclinux -改成你自己的交叉编译器的前缀。
+4. make
+5. 如果make通不过的话就到 config.h 中把 #define malloc rpl_malloc 注释掉。
+6. make
+7. 这时候会生成一个iperf的文件。
+8. 把这个文件copy到你的board上去。
+
+如果在板子上无法执行，可能是没有执行权限或者是编译选项不对，可参考相应开发环境修改编译选项。
+2) Usage
+perf是client端向server端发送数据;
+server端显示的是接收速率，最好加i参数，进行速率跟踪
+client 显示的是接收速率,server 显示发送速率
+
+udp :server:iperf -s -u -P 0 -i 1 -p 5001
+     client:iperf -u -c 172.25.2.86 -P 1 -i 1 -p 5001 -n 500M -b 100M -l 1300
+
+-s :server模式启动;
+-c :client模式启动
+172.16.52.6 :服务器的地址
+-u :使用udp协议
+-p :指定服务器端使用的端口或客户端所连接的端口
+-i :秒为单位显示报告间隔
+-P :number of parallel client threads to run
+-b :指定发送带宽，默认是1Mbit/s
+-t :测试时间，默认10秒
+-n :number of bytes to transmit (instead of -t)
+-l :length of buffer to read or write (default 8 KB)
+
+3) iperf交叉编译
+1. 先把iperf-2.0.4.tar.gz解压到你的目录下。
+2. cd iperf-2.0.4
+3. ./configure --host=arm  CXX=arm-uclinux-g++ CC=arm-uclinux-gcc
+   这里的arm-uclinux -改成你自己的交叉编译器的前缀。
+4. make
+5. 如果make通不过的话就到 config.h 中把 #define malloc rpl_malloc 注释掉。
+6. make
+7. 这时候会生成一个iperf的文件。
+8. 把这个文件copy到你的board上去。
+
+如果在板子上无法执行，可能是没有执行权限或者是编译选项不对，可参考相应开发环境修改编译选项。
