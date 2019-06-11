@@ -15,6 +15,10 @@ https://wenku.baidu.com/view/6cbb14ed998fcc22bcd10da5.html
 https://wenku.baidu.com/view/064b5da5a32d7375a41780fb.html
 9. 以太网帧格式
 https://baike.baidu.com/item/%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E6%A0%BC%E5%BC%8F/10290427?fr=aladdin
+10. 以太网报文格式
+https://www.cnblogs.com/yongren1zu/p/6274460.html
+11. 链路层常见报文格式及长度
+http://blog.chinaunix.net/uid-20530497-id-2878069.html
 二、命令
 1. route
 1)查看有多少路由
