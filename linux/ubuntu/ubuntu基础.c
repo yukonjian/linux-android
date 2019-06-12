@@ -125,6 +125,9 @@ udp :server:iperf -s -u -P 0 -i 1 -p 5001
 -n :number of bytes to transmit (instead of -t)
 -l :length of buffer to read or write (default 8 KB)
 
+./iperf -s  -P 0 -i 1 -p 5001
+./iperf -c 172.25.2.86 -P 1 -i 1 -p 5001 -n 500M -b 20M -l 1300
+
 3) iperf交叉编译
 1. 先把iperf-2.0.4.tar.gz解压到你的目录下。
 2. cd iperf-2.0.4

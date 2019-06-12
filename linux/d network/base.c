@@ -19,6 +19,13 @@ https://baike.baidu.com/item/%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E6%A0%BC%E5%BC
 https://www.cnblogs.com/yongren1zu/p/6274460.html
 11. 链路层常见报文格式及长度
 http://blog.chinaunix.net/uid-20530497-id-2878069.html
+12. IEEE 802.1
+IEEE 802.1是一组协议的集合，如生成树协议、VLAN协议等。为了将各个协议区别开来，IEEE在制定某一个协议时，就在IEEE 802.1后面加上不同的小写字母，
+例如：IEEE 802.1a定义局域网体系结构；IEEE 802.1q定义VLAN标记协议；
+13. IEEE 802.1q协议
+“Virtual Bridged Local Area Networks”（虚拟桥接局域网，简称“虚拟局域网”）协议，
+主要规定了VLAN的实现方法。
+https://baike.baidu.com/item/802.1q/6914548
 二、命令
 1. route
 1)查看有多少路由
