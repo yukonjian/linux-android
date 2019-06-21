@@ -26,6 +26,13 @@ IEEE 802.1是一组协议的集合，如生成树协议、VLAN协议等。为了
 “Virtual Bridged Local Area Networks”（虚拟桥接局域网，简称“虚拟局域网”）协议，
 主要规定了VLAN的实现方法。
 https://baike.baidu.com/item/802.1q/6914548
+14. 交换机access与trunk口
+https://www.cnblogs.com/weiyikang/p/4945914.html
+https://www.cnblogs.com/sddai/p/8941757.html
+ 以太网端口二种链路类型：Access 和Trunk。
+Access 类型的端口：只能属于1 个VLAN，一般用于连接计算机的端口；
+Access 端口可接受并转发的数据来源：来自PC的无VLAN信息数据包；从一个Access口入打上VLAN标记在交换机内转交给相同VLAN的access口
+Trunk 类型的端口：可以允许多个VLAN 通过，可以接收和发送多个VLAN 的报文，一般用于交换机之间连接的端口；
 二、命令
 1. route
 1)查看有多少路由
