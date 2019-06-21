@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://www.cnblogs.com/xudong-bupt/p/3483059.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园</title>
+    <meta property="og:description" content="部分转自：http://goodcandle.cnblogs.com/archive/2005/12/10/294652.aspx1. 什么是TCP/IP、UDP？2. Socket在哪里呢？3. S">
+    <link type="text/css" rel="stylesheet" href="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/bundle-AnotherEon001.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/bundle-AnotherEon001-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/xudong-bupt/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/xudong-bupt/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/xudong-bupt/wlwmanifest.xml">
+    <script src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/amp4ads-host-v0.js"></script><script src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/pubads_impl_rendering_2019061301.js"></script><script async="" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/analytics.js"></script><script type="text/javascript" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/encoder.js"></script><script src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/jquery-2.2.0.min.js"></script>
+    <script>var currentBlogId=134009;var currentBlogApp='xudong-bupt',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<link rel="preload" href="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/integrator.js" as="script"><script type="text/javascript" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/integrator.js"></script><script src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/pubads_impl_2019061301.js" async=""></script></head>
+<body>
+<a name="top"></a>
+
+
+<div id="wrapper">
+<div id="header">
+
+<div id="top">
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/xudong-bupt/">旭东的博客</a></h1>
+<div id="subtitle">并行计算，架构，C++/PHP/Python</div>
+</div>
+<div id="sub"><div id="blog_stats">
+<div class="BlogStats">随笔 - 236, 文章 - 0, 评论 - 232, 引用 - 0</div>
+</div></div>
+
+
+
+</div>
+<div id="main_container">
+<div id="main_content">
+<div id="content">
+	
+        <div id="post_detail">
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="https://www.cnblogs.com/xudong-bupt/p/3483059.html">Linux C Socket编程原理及简单实例</a>
+		</h2>
+		<div class="postbody">
+		<div id="cnblogs_post_body" class="blogpost-body"><p>部分转自：http://goodcandle.cnblogs.com/archive/2005/12/10/294652.aspx</p>
+<p><span lang="EN-US"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp; </span></span><span>什么是</span><span lang="EN-US">TCP/IP</span><span>、</span><span lang="EN-US">UDP</span><span>？</span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp; </span></span><span lang="EN-US">Socket</span><span>在哪里呢？</span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp; </span></span><span lang="EN-US">Socket</span><span>是什么呢？</span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span>4.<span>&nbsp;&nbsp; </span></span><span lang="EN-US">有很多的框架，为什么还在从Socket开始？</span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span>5.&nbsp;&nbsp; Linux C Socket简单示例<br></span></span></span></span></span></span></p>
+<p>&nbsp;</p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><strong><span>1.什么是</span><span lang="EN-US">TCP/IP</span></strong><strong><span>、</span><span lang="EN-US">UDP</span></strong><strong><span>？</span></strong></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span lang="EN-US">　　<span lang="EN-US">TCP/IP</span><span>（</span><span lang="EN-US">Transmission Control Protocol/Internet Protocol</span><span>）即传输控制协议</span><span lang="EN-US">/</span><span>网间协议，是一个工业标准的协议集，它是为广域网（</span><span lang="EN-US">WANs</span><span>）设计的。<br></span><span lang="EN-US"><span lang="EN-US">　　UDP</span><span>（</span><span lang="EN-US">User Data Protocol</span><span>，用户数据报协议）是与</span><span lang="EN-US">TCP</span><span>相对应的协议。它是属于</span><span lang="EN-US">TCP/IP</span><span>协议族中的一种。<br></span><span lang="EN-US">　　<span>下面的图表明了这些协议的关系。</span></span></span></span></p>
+<p style="text-align: center;">&nbsp;<img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/27111530-6d4641d32e944b98b698e167f72a263f.png" alt=""></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><strong><span lang="EN-US">2.Socket</span></strong><strong><span>在哪里呢？</span></strong></span></span></span></span></span></p>
+<p style="text-align: center;"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><strong><span><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/27111710-a88a3bab25064f0480b41f22b50d6f76.png" alt=""></span></strong></span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><strong><span><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><strong><span lang="EN-US">3.Socket</span></strong><strong><span>是什么呢？</span></strong></span></span></span></span></span></span></span></strong></span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">　　Socket</span>是应用层与<span lang="EN-US">TCP/IP</span>协议族通信的中间软件抽象层，它是一组接口。在设计模式中，<span lang="EN-US">Socket</span>其实就是一个门面模式，它把复杂的<span lang="EN-US">TCP/IP</span>协议族隐藏在<span lang="EN-US">Socket</span>接口后面，对用户来说，一组简单的接口就是全部，让<span lang="EN-US">Socket</span>去组织数据，以符合指定的协议。</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">　　<span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">门面模式</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>，用自己的话说，就是系统对外界提供单一的接口，外部不需要了解内部的实现。</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><strong><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">4.<span lang="EN-US">有很多的框架，为什么还在从Socket开始？</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></strong></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">　　现在的跨平台网络编程框架很多，如Java的SSH，C/C++的Boost等。</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">　　现在的分布式框架很多，如Hadoop等。</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">　　我的任务是把一个C/C++程序做成分布式，要求的不配环境，基本属于纯计算的，结果很小。所以选择了Socket。</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">　　重要的是Socket是分布式、云计算、网络编程的基础，对Socket的学习有利于对其他框架的理解。</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">　　下图是Socket编程的基本流程：</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p style="text-align: center;"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/27113109-ad8f7a2ce6d64ae39706ef7db3aa07cd.png" alt=""></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><strong>5.<span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span>Linux C Socket简单实例与详细注释</span></span></span></span></span></span><br></strong></p>
+<p><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US"><span lang="EN-US">&nbsp;程序为简单的“回射”，客户端将控制台输入的信息发送给服务器端，服务器原样返回信息。</span></span></span></span></span></p>
+<p>&nbsp;服务器端：</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;a7507ff0-60eb-4482-9bf0-a73846b160b3&#39;)"><img id="code_img_closed_a7507ff0-60eb-4482-9bf0-a73846b160b3" class="code_img_closed" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_a7507ff0-60eb-4482-9bf0-a73846b160b3" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;a7507ff0-60eb-4482-9bf0-a73846b160b3&#39;,event)" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_a7507ff0-60eb-4482-9bf0-a73846b160b3" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> #include &lt;sys/types.h&gt;
+<span style="color: #008080;"> 2</span> #include &lt;sys/socket.h&gt;
+<span style="color: #008080;"> 3</span> #include &lt;stdio.h&gt;
+<span style="color: #008080;"> 4</span> #include &lt;netinet/<span style="color: #0000ff;">in</span>.h&gt;
+<span style="color: #008080;"> 5</span> #include &lt;arpa/inet.h&gt;
+<span style="color: #008080;"> 6</span> #include &lt;unistd.h&gt;
+<span style="color: #008080;"> 7</span> #include &lt;<span style="color: #0000ff;">string</span>.h&gt;
+<span style="color: #008080;"> 8</span> #include &lt;stdlib.h&gt;
+<span style="color: #008080;"> 9</span> #include &lt;fcntl.h&gt;
+<span style="color: #008080;">10</span> #include &lt;sys/shm.h&gt;
+<span style="color: #008080;">11</span> 
+<span style="color: #008080;">12</span> <span style="color: #0000ff;">#define</span> MYPORT  8887
+<span style="color: #008080;">13</span> <span style="color: #0000ff;">#define</span> QUEUE   20
+<span style="color: #008080;">14</span> <span style="color: #0000ff;">#define</span> BUFFER_SIZE 1024
+<span style="color: #008080;">15</span> 
+<span style="color: #008080;">16</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;">17</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">18</span>     <span style="color: #808080;">///</span><span style="color: #008000;">定义sockfd</span>
+<span style="color: #008080;">19</span>     <span style="color: #0000ff;">int</span> server_sockfd = socket(AF_INET,SOCK_STREAM, <span style="color: #800080;">0</span><span style="color: #000000;">);
+</span><span style="color: #008080;">20</span> 
+<span style="color: #008080;">21</span>     <span style="color: #808080;">///</span><span style="color: #008000;">定义sockaddr_in</span>
+<span style="color: #008080;">22</span>     <span style="color: #0000ff;">struct</span><span style="color: #000000;"> sockaddr_in server_sockaddr;
+</span><span style="color: #008080;">23</span>     server_sockaddr.sin_family =<span style="color: #000000;"> AF_INET;
+</span><span style="color: #008080;">24</span>     server_sockaddr.sin_port =<span style="color: #000000;"> htons(MYPORT);
+</span><span style="color: #008080;">25</span>     server_sockaddr.sin_addr.s_addr =<span style="color: #000000;"> htonl(INADDR_ANY);
+</span><span style="color: #008080;">26</span> 
+<span style="color: #008080;">27</span>     <span style="color: #808080;">///</span><span style="color: #008000;">bind，成功返回0，出错返回-1</span>
+<span style="color: #008080;">28</span>     <span style="color: #0000ff;">if</span>(bind(server_sockfd,(<span style="color: #0000ff;">struct</span> sockaddr *)&amp;server_sockaddr,<span style="color: #0000ff;">sizeof</span>(server_sockaddr))==-<span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">29</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">30</span>         perror(<span style="color: #800000;">"</span><span style="color: #800000;">bind</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">31</span>         exit(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">32</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">33</span> 
+<span style="color: #008080;">34</span>     <span style="color: #808080;">///</span><span style="color: #008000;">listen，成功返回0，出错返回-1</span>
+<span style="color: #008080;">35</span>     <span style="color: #0000ff;">if</span>(listen(server_sockfd,QUEUE) == -<span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">36</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">37</span>         perror(<span style="color: #800000;">"</span><span style="color: #800000;">listen</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">38</span>         exit(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">39</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">40</span> 
+<span style="color: #008080;">41</span>     <span style="color: #808080;">///</span><span style="color: #008000;">客户端套接字</span>
+<span style="color: #008080;">42</span>     <span style="color: #0000ff;">char</span><span style="color: #000000;"> buffer[BUFFER_SIZE];
+</span><span style="color: #008080;">43</span>     <span style="color: #0000ff;">struct</span><span style="color: #000000;"> sockaddr_in client_addr;
+</span><span style="color: #008080;">44</span>     socklen_t length = <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(client_addr);
+</span><span style="color: #008080;">45</span> 
+<span style="color: #008080;">46</span>     <span style="color: #808080;">///</span><span style="color: #008000;">成功返回非负描述字，出错返回-1</span>
+<span style="color: #008080;">47</span>     <span style="color: #0000ff;">int</span> conn = accept(server_sockfd, (<span style="color: #0000ff;">struct</span> sockaddr*)&amp;client_addr, &amp;<span style="color: #000000;">length);
+</span><span style="color: #008080;">48</span>     <span style="color: #0000ff;">if</span>(conn&lt;<span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">49</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">50</span>         perror(<span style="color: #800000;">"</span><span style="color: #800000;">connect</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">51</span>         exit(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">52</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">53</span> 
+<span style="color: #008080;">54</span>     <span style="color: #0000ff;">while</span>(<span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">55</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">56</span>         memset(buffer,<span style="color: #800080;">0</span>,<span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(buffer));
+</span><span style="color: #008080;">57</span>         <span style="color: #0000ff;">int</span> len = recv(conn, buffer, <span style="color: #0000ff;">sizeof</span>(buffer),<span style="color: #800080;">0</span><span style="color: #000000;">);
+</span><span style="color: #008080;">58</span>         <span style="color: #0000ff;">if</span>(strcmp(buffer,<span style="color: #800000;">"</span><span style="color: #800000;">exit\n</span><span style="color: #800000;">"</span>)==<span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">59</span>             <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;">60</span> <span style="color: #000000;">        fputs(buffer, stdout);
+</span><span style="color: #008080;">61</span>         send(conn, buffer, len, <span style="color: #800080;">0</span><span style="color: #000000;">);
+</span><span style="color: #008080;">62</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">63</span> <span style="color: #000000;">    close(conn);
+</span><span style="color: #008080;">64</span> <span style="color: #000000;">    close(server_sockfd);
+</span><span style="color: #008080;">65</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">66</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<span class="cnblogs_code_collapse" style="display: none;">View Code </span></div>
+<p>客户端：</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;830a81a3-2668-49b1-bcd6-00527d5993cb&#39;)"><img id="code_img_closed_830a81a3-2668-49b1-bcd6-00527d5993cb" class="code_img_closed" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_830a81a3-2668-49b1-bcd6-00527d5993cb" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;830a81a3-2668-49b1-bcd6-00527d5993cb&#39;,event)" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_830a81a3-2668-49b1-bcd6-00527d5993cb" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> #include &lt;sys/types.h&gt;
+<span style="color: #008080;"> 2</span> #include &lt;sys/socket.h&gt;
+<span style="color: #008080;"> 3</span> #include &lt;stdio.h&gt;
+<span style="color: #008080;"> 4</span> #include &lt;netinet/<span style="color: #0000ff;">in</span>.h&gt;
+<span style="color: #008080;"> 5</span> #include &lt;arpa/inet.h&gt;
+<span style="color: #008080;"> 6</span> #include &lt;unistd.h&gt;
+<span style="color: #008080;"> 7</span> #include &lt;<span style="color: #0000ff;">string</span>.h&gt;
+<span style="color: #008080;"> 8</span> #include &lt;stdlib.h&gt;
+<span style="color: #008080;"> 9</span> #include &lt;fcntl.h&gt;
+<span style="color: #008080;">10</span> #include &lt;sys/shm.h&gt;
+<span style="color: #008080;">11</span> 
+<span style="color: #008080;">12</span> <span style="color: #0000ff;">#define</span> MYPORT  8887
+<span style="color: #008080;">13</span> <span style="color: #0000ff;">#define</span> BUFFER_SIZE 1024
+<span style="color: #008080;">14</span> 
+<span style="color: #008080;">15</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;">16</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">17</span>     <span style="color: #808080;">///</span><span style="color: #008000;">定义sockfd</span>
+<span style="color: #008080;">18</span>     <span style="color: #0000ff;">int</span> sock_cli = socket(AF_INET,SOCK_STREAM, <span style="color: #800080;">0</span><span style="color: #000000;">);
+</span><span style="color: #008080;">19</span> 
+<span style="color: #008080;">20</span>     <span style="color: #808080;">///</span><span style="color: #008000;">定义sockaddr_in</span>
+<span style="color: #008080;">21</span>     <span style="color: #0000ff;">struct</span><span style="color: #000000;"> sockaddr_in servaddr;
+</span><span style="color: #008080;">22</span>     memset(&amp;servaddr, <span style="color: #800080;">0</span>, <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(servaddr));
+</span><span style="color: #008080;">23</span>     servaddr.sin_family =<span style="color: #000000;"> AF_INET;
+</span><span style="color: #008080;">24</span>     servaddr.sin_port = htons(MYPORT);  <span style="color: #808080;">///</span><span style="color: #008000;">服务器端口</span>
+<span style="color: #008080;">25</span>     servaddr.sin_addr.s_addr = inet_addr(<span style="color: #800000;">"</span><span style="color: #800000;">127.0.0.1</span><span style="color: #800000;">"</span>);  <span style="color: #808080;">///</span><span style="color: #008000;">服务器ip
+</span><span style="color: #008080;">26</span> 
+<span style="color: #008080;">27</span>     <span style="color: #808080;">///</span><span style="color: #008000;">连接服务器，成功返回0，错误返回-1</span>
+<span style="color: #008080;">28</span>     <span style="color: #0000ff;">if</span> (connect(sock_cli, (<span style="color: #0000ff;">struct</span> sockaddr *)&amp;servaddr, <span style="color: #0000ff;">sizeof</span>(servaddr)) &lt; <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">29</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">30</span>         perror(<span style="color: #800000;">"</span><span style="color: #800000;">connect</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">31</span>         exit(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">32</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">33</span> 
+<span style="color: #008080;">34</span>     <span style="color: #0000ff;">char</span><span style="color: #000000;"> sendbuf[BUFFER_SIZE];
+</span><span style="color: #008080;">35</span>     <span style="color: #0000ff;">char</span><span style="color: #000000;"> recvbuf[BUFFER_SIZE];
+</span><span style="color: #008080;">36</span>     <span style="color: #0000ff;">while</span> (fgets(sendbuf, <span style="color: #0000ff;">sizeof</span>(sendbuf), stdin) !=<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;">37</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">38</span>         send(sock_cli, sendbuf, strlen(sendbuf),<span style="color: #800080;">0</span>); <span style="color: #808080;">///</span><span style="color: #008000;">发送</span>
+<span style="color: #008080;">39</span>         <span style="color: #0000ff;">if</span>(strcmp(sendbuf,<span style="color: #800000;">"</span><span style="color: #800000;">exit\n</span><span style="color: #800000;">"</span>)==<span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">40</span>             <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;">41</span>         recv(sock_cli, recvbuf, <span style="color: #0000ff;">sizeof</span>(recvbuf),<span style="color: #800080;">0</span>); <span style="color: #808080;">///</span><span style="color: #008000;">接收</span>
+<span style="color: #008080;">42</span> <span style="color: #000000;">        fputs(recvbuf, stdout);
+</span><span style="color: #008080;">43</span> 
+<span style="color: #008080;">44</span>         memset(sendbuf, <span style="color: #800080;">0</span>, <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(sendbuf));
+</span><span style="color: #008080;">45</span>         memset(recvbuf, <span style="color: #800080;">0</span>, <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(recvbuf));
+</span><span style="color: #008080;">46</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">47</span> 
+<span style="color: #008080;">48</span> <span style="color: #000000;">    close(sock_cli);
+</span><span style="color: #008080;">49</span>     <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">50</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<span class="cnblogs_code_collapse" style="display: none;">View Code </span></div>
+<p>执行：</p>
+<p>客户端</p>
+<p><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/29163938-e5b43a8d3501467d8723b2de7392ab49.x-png" alt=""></p>
+<p>服务器端</p>
+<p><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/29163855-55c0a397cda04d4a9f46ada36149af3b.x-png" alt=""></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/xudong-bupt/category/466263.html" target="_blank">Linux下C编程</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3483059,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;10bd0daf-3b2b-e211-aa8f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/xudong-bupt/" target="_blank"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/20141018152801.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/xudong-bupt/">旭东的博客</a><br>
+            <a href="https://home.cnblogs.com/u/xudong-bupt/followees">关注 - 13</a><br>
+            <a href="https://home.cnblogs.com/u/xudong-bupt/followers">粉丝 - 454</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;10bd0daf-3b2b-e211-aa8f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3483059,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">11</span>
+    </div>
+    <div class="buryit" onclick="votePost(3483059,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/xudong-bupt/p/3463456.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/xudong-bupt/p/3463456.html" title="发布于2013-12-24 09:07">使用递归哈希进行精确模式串匹配</a><br><a href="https://www.cnblogs.com/xudong-bupt/p/3504442.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/xudong-bupt/p/3504442.html" title="发布于2014-01-04 13:15">Linux C 读取文件夹下所有文件（包括子文件夹）的文件名</a><br></div>
+</div>
+
+
+		</div>
+		<p class="postfoot">
+			posted on <span id="post-date">2013-12-29 16:46</span> <a href="https://www.cnblogs.com/xudong-bupt/">旭东的博客</a> 阅读(<span id="post_view_count">68398</span>) 评论(<span id="post_comment_count">10</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3483059" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#" onclick="AddToWz(3483059);return false;">收藏</a>
+		</p>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=134009,cb_entryId=3483059,cb_blogApp=currentBlogApp,cb_blogUserGuid='10bd0daf-3b2b-e211-aa8f-842b2b196315',cb_entryCreatedDate='2013/12/29 16:46:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+	</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<a name="评论"></a>
+<div id="comments">
+<h3>评论</h3>
+	
+	
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3323160" class="layer">#1楼</a><a name="3323160" id="comment_anchor_3323160"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3323160" class="blog_comment_body">程序好用，挺经典的一个程序！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3323160,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3323160,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3323160_avatar" style="display:none;">http://pic.cnblogs.com/face/841469/20151120100301.png</span>
+				<div class="postfoot">
+					 <span class="comment_date">2015-12-08 20:55</span> | <a id="a_comment_author_3323160" href="https://www.cnblogs.com/zuilehongdou/" target="_blank">贫贫贫贫僧</a> <a href="http://msg.cnblogs.com/send/%E8%B4%AB%E8%B4%AB%E8%B4%AB%E8%B4%AB%E5%83%A7" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3345683" class="layer">#2楼</a><a name="3345683" id="comment_anchor_3345683"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3345683" class="blog_comment_body">没整明白这个是怎样运行的？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3345683,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3345683,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3345683_avatar" style="display:none;">http://pic.cnblogs.com/face/773905/20160301213945.png</span>
+				<div class="postfoot">
+					 <span class="comment_date">2016-01-11 20:50</span> | <a id="a_comment_author_3345683" href="https://www.cnblogs.com/insist-novel/" target="_blank">羊毛剪刀咔嚓响。</a> <a href="http://msg.cnblogs.com/send/%E7%BE%8A%E6%AF%9B%E5%89%AA%E5%88%80%E5%92%94%E5%9A%93%E5%93%8D%E3%80%82" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3420164" class="layer">#3楼</a><a name="3420164" id="comment_anchor_3420164"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3420164" class="blog_comment_body">感谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3420164,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3420164,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3420164_avatar" style="display:none;">http://pic.cnblogs.com/face/947059/20160428155224.png</span>
+				<div class="postfoot">
+					 <span class="comment_date">2016-04-29 15:12</span> | <a id="a_comment_author_3420164" href="https://www.cnblogs.com/lvminzhe/" target="_blank">mingzhe521</a> <a href="http://msg.cnblogs.com/send/mingzhe521" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3423333" class="layer">#4楼</a><a name="3423333" id="comment_anchor_3423333"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3423333" class="blog_comment_body">程序好用，谢谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3423333,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3423333,&#39;Bury&#39;,this)">反对(0)</a></div>
+				<div class="postfoot">
+					 <span class="comment_date">2016-05-05 10:48</span> | <a id="a_comment_author_3423333" href="https://www.cnblogs.com/linux-home/" target="_blank">hello,AI</a> <a href="http://msg.cnblogs.com/send/hello%2CAI" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3459522" class="layer">#5楼</a><a name="3459522" id="comment_anchor_3459522"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3459522" class="blog_comment_body">楼主讲的非常清楚</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3459522,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3459522,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3459522_avatar" style="display:none;">http://pic.cnblogs.com/face/938690/20160418094146.png</span>
+				<div class="postfoot">
+					 <span class="comment_date">2016-06-27 16:15</span> | <a id="a_comment_author_3459522" href="https://www.cnblogs.com/clover-siyecao/" target="_blank">绽放的四叶草</a> <a href="http://msg.cnblogs.com/send/%E7%BB%BD%E6%94%BE%E7%9A%84%E5%9B%9B%E5%8F%B6%E8%8D%89" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3545062" class="layer">#6楼</a><a name="3545062" id="comment_anchor_3545062"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3545062" class="blog_comment_body">简单明了，可以</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3545062,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3545062,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3545062_avatar" style="display:none;">http://pic.cnblogs.com/face/966193/20161121104724.png</span>
+				<div class="postfoot">
+					 <span class="comment_date">2016-10-31 21:10</span> | <a id="a_comment_author_3545062" href="https://www.cnblogs.com/sylz/" target="_blank">苏羽垄</a> <a href="http://msg.cnblogs.com/send/%E8%8B%8F%E7%BE%BD%E5%9E%84" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3703612" class="layer">#7楼</a><a name="3703612" id="comment_anchor_3703612"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3703612" class="blog_comment_body">您好，我复制了您的代码，在一个虚拟机里开两个终端可以实现通信，但是换成两个虚拟机就在connect函数那里失败了，返回-1，输出的错误提示是：connect:connection timed out。我在网上搜了很久都解决不了。我的设备是virtualbox里的两台ubuntu虚拟机，ip地址分别为10.0.2.15和10.0.3.15，能上网，能ping通，防火墙已关闭，端口没被占用，还能是啥原因呀？您能不指点一下我？或者说，以上代码在您的两台机器上可以正常通信么？困扰好久了，期待您的回复，谢谢！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3703612,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3703612,&#39;Bury&#39;,this)">反对(0)</a></div>
+				<div class="postfoot">
+					 <span class="comment_date">2017-05-30 23:37</span> | <a id="a_comment_author_3703612" href="http://home.cnblogs.com/u/991426/" target="_blank">pzcnz</a> <a href="http://msg.cnblogs.com/send/pzcnz" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3731091" class="layer">#8楼</a><a name="3731091" id="comment_anchor_3731091"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3731091" class="blog_comment_body"><a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3703612" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3703612);">@</a>
+pzcnz<br>虽然我最近才开始学习这些，但是我知道网络通信的一些问题，你问的是两个IP之间的通信，也就是说你的客户机需要知道服务机的IP，楼主在代码中用了127.0.0.1，也就是本地ip地址，所以他是在一个电脑上进行运行的，所以说你如果想要在两个电脑上运行，你需要将服务机的ip地址进行修改。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3731091,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3731091,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3731091_avatar" style="display:none;">http://pic.cnblogs.com/face/1057419/20161115184435.png</span>
+				<div class="postfoot">
+					 <span class="comment_date">2017-07-08 22:37</span> | <a id="a_comment_author_3731091" href="https://www.cnblogs.com/hixkill/" target="_blank">TulLing</a> <a href="http://msg.cnblogs.com/send/TulLing" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3731092" class="layer">#9楼</a><a name="3731092" id="comment_anchor_3731092"></a>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_3731092" class="blog_comment_body"><a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#3703612" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3703612);">@</a>
+pzcnz<br>你可以加我的QQ：523980553一起学习。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3731092,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3731092,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3731092_avatar" style="display:none;">http://pic.cnblogs.com/face/1057419/20161115184435.png</span>
+				<div class="postfoot">
+					 <span class="comment_date">2017-07-08 22:38</span> | <a id="a_comment_author_3731092" href="https://www.cnblogs.com/hixkill/" target="_blank">TulLing</a> <a href="http://msg.cnblogs.com/send/TulLing" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+			<div class="post">
+				<h2>
+					<a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#4171195" class="layer">#10楼</a><a name="4171195" id="comment_anchor_4171195"></a><span id="comment-maxId" style="display:none;">4171195</span><span id="comment-maxDate" style="display:none;">2019/1/25 14:10:44</span>
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</h2>
+				<div id="comment_body_4171195" class="blog_comment_body">这篇博客我认为比我的一篇博客讲的好，而且通俗易懂，所以点赞；但是，程序稍显复杂，而且服务端没有回信；</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4171195,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4171195,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_4171195_avatar" style="display:none;">http://pic.cnblogs.com/face/981603/20170104095738.png</span>
+				<div class="postfoot">
+					 <span class="comment_date">2019-01-25 14:10</span> | <a id="a_comment_author_4171195" href="https://www.cnblogs.com/renfanzi/" target="_blank">我当道士那儿些年</a> <a href="http://msg.cnblogs.com/send/%E6%88%91%E5%BD%93%E9%81%93%E5%A3%AB%E9%82%A3%E5%84%BF%E4%BA%9B%E5%B9%B4" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+			</div>
+		
+</div>
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/xudong-bupt/p/3483059.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://www.grapecity.com.cn/developer/spreadjs?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-SpreadJS&#39;)">【前端】SpreadJS表格控件，可嵌入系统开发的在线Excel</a><br><a href="https://q.cnblogs.com/" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-博问&#39;)">【推荐】程序员问答平台，解决您开发中遇到的技术难题</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/gpt.js"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CLWvm8HR9OICFcmylgodzPsDmQ"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_news"><div class="recomm-block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/lihaibo-Leao/p/3981955.html" target="_blank" onclick="clickRecomItmem(3981955)">Linux C Socket编程原理及简单实例</a><br>·  <a href="https://www.cnblogs.com/xiaoleiel/p/8295872.html" target="_blank" onclick="clickRecomItmem(8295872)">Linux C Socket编程原理及简单实例</a><br>·  <a href="https://www.cnblogs.com/jiftle/p/6921330.html" target="_blank" onclick="clickRecomItmem(6921330)">Linux C Socket编程原理及简单实例</a><br>·  <a href="https://www.cnblogs.com/jiangzhaowei/p/8258715.html" target="_blank" onclick="clickRecomItmem(8258715)">Linux  Socket</a><br>·  <a href="https://www.cnblogs.com/muahao/p/9486584.html" target="_blank" onclick="clickRecomItmem(9486584)">LinuxCSocket编程原理及简单实例</a><br></div></div>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CM7tnMHR9OICFcmylgodzPsDmQ"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="2" data-load-complete="true" src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/saved_resource(1).html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/627066/" target="_blank">波音乐了：国际航空集团要采购200架737 MAX</a><br> ·  <a href="https://news.cnblogs.com/n/627065/" target="_blank">旧金山即将立法禁止制造销售电子烟 称为救青少年</a><br> ·  <a href="https://news.cnblogs.com/n/627064/" target="_blank">NASA科学家模拟早期太阳自转史：自转速度是当今3倍</a><br> ·  <a href="https://news.cnblogs.com/n/627056/" target="_blank">太阳系的真正强者：木星</a><br> ·  <a href="https://news.cnblogs.com/n/627063/" target="_blank">一线丨京东618手机战报：荣耀数项第一 OPPO系冲击华为</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+</div>
+</div>
+<div id="leftmenu">
+
+
+<h3>导航</h3>
+<ul>
+<li>
+<a id="blog_nav_sitehome" href="https://www.cnblogs.com/">博客园</a></li>
+<li>
+<a id="blog_nav_myhome" class="two_words" href="https://www.cnblogs.com/xudong-bupt/">首页</a></li>
+<li>
+<a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li>
+<a id="blog_nav_contact" accesskey="9" class="two_words" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%97%AD%E4%B8%9C%E7%9A%84%E5%8D%9A%E5%AE%A2">联系</a></li>
+<li>
+<a id="blog_nav_rss" class="two_words" href="https://www.cnblogs.com/xudong-bupt/rss">订阅</a>
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/xudong-bupt/rss"><img src="./Linux C Socket编程原理及简单实例 - 旭东的博客 - 博客园_files/xml.gif" alt="订阅"></a>
+</li>
+<li>
+<a id="blog_nav_admin" class="two_words" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/05/01&#39;);return false;">&lt;</a></td><td align="center">2019年6月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/07/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center"><a href="https://www.cnblogs.com/xudong-bupt/archive/2019/06/02.html"><u>2</u></a></td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td class="CalTodayDay" align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+<meta name="vs_showGrid" content="False">
+
+<h3>公告</h3>
+<div id="blog-news"><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/xudong-bupt/">旭东的博客</a><br>园龄：<a href="https://home.cnblogs.com/u/xudong-bupt/" title="入园时间：2012-11-10">6年7个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/xudong-bupt/followers/">454</a><br>关注：<a href="https://home.cnblogs.com/u/xudong-bupt/followees/">13</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;10bd0daf-3b2b-e211-aa8f-842b2b196315&#39;)">+加关注</a></div><script>getFollowStatus('10bd0daf-3b2b-e211-aa8f-842b2b196315')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+
+<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+		<h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/xudong-bupt/category/489888.html">C/C++学习(59)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/xudong-bupt/category/1348985.html">Golang(5)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/xudong-bupt/category/538895.html">GPU/CUDA(3)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/xudong-bupt/category/557603.html">GPU/OpenCL(8)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/xudong-bupt/category/1118303.html">Hadoop(2)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/xudong-bupt/category/475258.html">Html/JS(13)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/xudong-bupt/category/466259.html">java编程(28)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_7" href="https://www.cnblogs.com/xudong-bupt/category/466263.html">Linux下C编程(10)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_8" href="https://www.cnblogs.com/xudong-bupt/category/466265.html">Linux学习(26)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_9" href="https://www.cnblogs.com/xudong-bupt/category/539307.html">OpenMP(3)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_10" href="https://www.cnblogs.com/xudong-bupt/category/478265.html">PHP(6)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_11" href="https://www.cnblogs.com/xudong-bupt/category/593035.html">Python(14)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_12" href="https://www.cnblogs.com/xudong-bupt/category/1261581.html">RPC(1)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_13" href="https://www.cnblogs.com/xudong-bupt/category/794102.html">Shell(9)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_14" href="https://www.cnblogs.com/xudong-bupt/category/474264.html">SQL(7)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_15" href="https://www.cnblogs.com/xudong-bupt/category/467554.html">SSH框架学习(2)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_16" href="https://www.cnblogs.com/xudong-bupt/category/480042.html">概念(8)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_17" href="https://www.cnblogs.com/xudong-bupt/category/1076199.html">工具使用(1)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_18" href="https://www.cnblogs.com/xudong-bupt/category/534584.html">模式匹配(5)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_19" href="https://www.cnblogs.com/xudong-bupt/category/466268.html">其他(2)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_20" href="https://www.cnblogs.com/xudong-bupt/category/534582.html">设计模式(6)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_21" href="https://www.cnblogs.com/xudong-bupt/category/466267.html">算法学习(37)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_22" href="https://www.cnblogs.com/xudong-bupt/category/1143372.html">网络编程(1)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_23" href="https://www.cnblogs.com/xudong-bupt/category/540146.html">网页爬虫(2)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_24" href="https://www.cnblogs.com/xudong-bupt/category/584137.html">文本压缩(4)</a></li>
+			
+				<li><a id="CatList_LinkList_0_Link_25" href="https://www.cnblogs.com/xudong-bupt/category/477718.html">总结汇总(8)</a></li>
+			
+				</ul>
+			
+	
+		<h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_1_Link_0" href="https://www.cnblogs.com/xudong-bupt/archive/2019/06.html">2019年6月 (2)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_1" href="https://www.cnblogs.com/xudong-bupt/archive/2019/04.html">2019年4月 (2)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_2" href="https://www.cnblogs.com/xudong-bupt/archive/2018/12.html">2018年12月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_3" href="https://www.cnblogs.com/xudong-bupt/archive/2018/11.html">2018年11月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_4" href="https://www.cnblogs.com/xudong-bupt/archive/2018/08.html">2018年8月 (4)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_5" href="https://www.cnblogs.com/xudong-bupt/archive/2018/07.html">2018年7月 (3)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_6" href="https://www.cnblogs.com/xudong-bupt/archive/2018/06.html">2018年6月 (5)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_7" href="https://www.cnblogs.com/xudong-bupt/archive/2018/05.html">2018年5月 (7)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_8" href="https://www.cnblogs.com/xudong-bupt/archive/2018/04.html">2018年4月 (3)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_9" href="https://www.cnblogs.com/xudong-bupt/archive/2018/03.html">2018年3月 (4)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_10" href="https://www.cnblogs.com/xudong-bupt/archive/2018/02.html">2018年2月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_11" href="https://www.cnblogs.com/xudong-bupt/archive/2018/01.html">2018年1月 (5)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_12" href="https://www.cnblogs.com/xudong-bupt/archive/2017/12.html">2017年12月 (2)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_13" href="https://www.cnblogs.com/xudong-bupt/archive/2017/11.html">2017年11月 (5)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_14" href="https://www.cnblogs.com/xudong-bupt/archive/2017/10.html">2017年10月 (3)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_15" href="https://www.cnblogs.com/xudong-bupt/archive/2017/09.html">2017年9月 (3)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_16" href="https://www.cnblogs.com/xudong-bupt/archive/2017/08.html">2017年8月 (10)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_17" href="https://www.cnblogs.com/xudong-bupt/archive/2017/07.html">2017年7月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_18" href="https://www.cnblogs.com/xudong-bupt/archive/2017/06.html">2017年6月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_19" href="https://www.cnblogs.com/xudong-bupt/archive/2017/05.html">2017年5月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_20" href="https://www.cnblogs.com/xudong-bupt/archive/2017/04.html">2017年4月 (4)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_21" href="https://www.cnblogs.com/xudong-bupt/archive/2017/03.html">2017年3月 (6)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_22" href="https://www.cnblogs.com/xudong-bupt/archive/2017/02.html">2017年2月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_23" href="https://www.cnblogs.com/xudong-bupt/archive/2016/11.html">2016年11月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_24" href="https://www.cnblogs.com/xudong-bupt/archive/2016/05.html">2016年5月 (2)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_25" href="https://www.cnblogs.com/xudong-bupt/archive/2016/03.html">2016年3月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_26" href="https://www.cnblogs.com/xudong-bupt/archive/2015/09.html">2015年9月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_27" href="https://www.cnblogs.com/xudong-bupt/archive/2014/11.html">2014年11月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_28" href="https://www.cnblogs.com/xudong-bupt/archive/2014/10.html">2014年10月 (7)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_29" href="https://www.cnblogs.com/xudong-bupt/archive/2014/09.html">2014年9月 (8)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_30" href="https://www.cnblogs.com/xudong-bupt/archive/2014/08.html">2014年8月 (5)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_31" href="https://www.cnblogs.com/xudong-bupt/archive/2014/07.html">2014年7月 (3)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_32" href="https://www.cnblogs.com/xudong-bupt/archive/2014/06.html">2014年6月 (8)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_33" href="https://www.cnblogs.com/xudong-bupt/archive/2014/05.html">2014年5月 (10)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_34" href="https://www.cnblogs.com/xudong-bupt/archive/2014/04.html">2014年4月 (10)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_35" href="https://www.cnblogs.com/xudong-bupt/archive/2014/03.html">2014年3月 (17)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_36" href="https://www.cnblogs.com/xudong-bupt/archive/2014/02.html">2014年2月 (5)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_37" href="https://www.cnblogs.com/xudong-bupt/archive/2014/01.html">2014年1月 (8)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_38" href="https://www.cnblogs.com/xudong-bupt/archive/2013/12.html">2013年12月 (15)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_39" href="https://www.cnblogs.com/xudong-bupt/archive/2013/11.html">2013年11月 (7)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_40" href="https://www.cnblogs.com/xudong-bupt/archive/2013/10.html">2013年10月 (2)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_41" href="https://www.cnblogs.com/xudong-bupt/archive/2013/09.html">2013年9月 (3)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_42" href="https://www.cnblogs.com/xudong-bupt/archive/2013/07.html">2013年7月 (7)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_43" href="https://www.cnblogs.com/xudong-bupt/archive/2013/06.html">2013年6月 (1)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_44" href="https://www.cnblogs.com/xudong-bupt/archive/2013/05.html">2013年5月 (11)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_45" href="https://www.cnblogs.com/xudong-bupt/archive/2013/04.html">2013年4月 (12)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_46" href="https://www.cnblogs.com/xudong-bupt/archive/2013/03.html">2013年3月 (14)</a></li>
+			
+				<li><a id="CatList_LinkList_1_Link_47" href="https://www.cnblogs.com/xudong-bupt/archive/2013/01.html">2013年1月 (2)</a></li>
+			
+				</ul>
+			
+	</div><div id="sidebar_scorerank" class="sidebar-block">
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		452576
+	</li><li>
+		排名 -
+		450
+	</li>
+</ul>
+</div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/xudong-bupt/p/3721210.html">1. [转]linux awk命令详解(490907)</a></li><li><a href="https://www.cnblogs.com/xudong-bupt/p/3758136.html">2. Java 读写Properties配置文件(377483)</a></li><li><a href="https://www.cnblogs.com/xudong-bupt/p/3168618.html">3. Java Arrays类进行数组排序(215394)</a></li><li><a href="https://www.cnblogs.com/xudong-bupt/p/3509567.html">4. C++  const用法  尽可能使用const(155901)</a></li><li><a href="https://www.cnblogs.com/xudong-bupt/archive/2013/03/23/2976793.html">5. linux下的find文件查找命令与grep文件内容查找命令(140790)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/xudong-bupt/p/3758136.html">1. Java 读写Properties配置文件(28)</a></li><li><a href="https://www.cnblogs.com/xudong-bupt/p/3509567.html">2. C++  const用法  尽可能使用const(24)</a></li><li><a href="https://www.cnblogs.com/xudong-bupt/p/3721210.html">3. [转]linux awk命令详解(21)</a></li><li><a href="https://www.cnblogs.com/xudong-bupt/p/3961159.html">4. java中String、StringBuffer、StringBuilder的区别(20)</a></li><li><a href="https://www.cnblogs.com/xudong-bupt/p/3960177.html">5. java中的==、equals()、hashCode()源码分析(14)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+
+</div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="https://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © 旭东的博客
+</p>
+</div>
+</div>
+
+
+
+
+</body></html>

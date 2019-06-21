@@ -1,5 +1,5 @@
 1. 查看特定N条记录的目录信息
-svn log --limit N
+svn log --limit(-l) N
 svn log -l 3 -v  //添加-v可以看到修改的文件名
 2. 查看某一个文件的版本修改信息
 svn log A
@@ -21,4 +21,8 @@ svn diff -r 版本号1:版本号2 //查看版本号1和版本号2的不同
 用法：#svn revert [-R] xxx_file_dir
 7. 版本回退
 svn up -r 版本号
-svn up -r 2101  
+svn up -r 2101
+
+8. 取消add的添加
+svn revert --recursive（-r） example_folder
+example_folder就已经添加的文件夹的名称
