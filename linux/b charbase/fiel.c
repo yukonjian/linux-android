@@ -1,8 +1,8 @@
 1. 文件节点
 inode: information node,[UNIX]索引节，信息节点
-struct indoe
+struct inode
 {
-  dev_t			i_rdev;     /* 对应的设备文件 */
+  dev_t			i_rdev;     /* 对应的设备号 */
   struct cdev		*i_cdev;   /* 字符设备结构体指针 */
 }
 
