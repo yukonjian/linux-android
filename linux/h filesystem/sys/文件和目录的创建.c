@@ -44,7 +44,8 @@ int sysfs_create_file(struct kobject *kobj, const struct attribute *attr);
 void sysfs_remove_file(struct kobject *kobj, const struct attribute *attr);
 2.4 卸载驱动时释放kobject
 void kobject_put(struct kobject *kobj)
-注：创建文件时，若直接定义一个struct attribute attr，然后使用该attr创建文件是无法通过cat,echo访问的,因为没有show和store函数。
+注：创建文件时，若直接定义一个struct attribute attr，然后使用该attr创建文件是无法通过cat,echo访问的,
+因为没有show和store函数。
 必须和struct device_attribute 类似的定义才行；然后调用sysfs_create_file才能有访问函数；
 也可以使用DEVICE_ATTR直接定义属性文件。
 如：

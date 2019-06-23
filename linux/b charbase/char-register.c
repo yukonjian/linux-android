@@ -53,3 +53,15 @@ static inline unsigned imajor(const struct inode *inode)
 {
 	return MAJOR(inode->i_rdev);
 }
+
+3. 驱动中动态创建设备节点
+struct class *my_class;
+struct class *class_create(struct module *owner, const char *name)
+struct device *device_create(struct class *class, struct device *parent, dev_t devt,
+   void *drvdata, const char *fmt, ...)
+dev_t devt ：设备号
+sample:
+display_dev = device_create(disp_class, NULL, devid, NULL, "disp");
+
+void device_destroy(struct class *class, dev_t devt)
+void class_destroy(struct class *cls)
