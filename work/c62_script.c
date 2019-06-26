@@ -113,3 +113,77 @@ cp -f /app/config/web/group /etc
 #run pmonitor"
 sh /app/scripts/pmonitor.sh  &
 #
+////////////////////////////////////////////////////////////////////////////////
+echo "----"
+export LD_LIBRARY_PATH='/app/lib:/basic/lib/'
+NetConfigFile=/config/Network/General/Network.conf
+#PCType value
+Router=0
+Bridge=1
+
+#PCType=`grep PCType $NetConfigFile | cut -d= -f2`
+PCType=`/app/bin/inifile_wr r /config/Network/General/Network.conf "PC" "Type" "$Bridge"`
+echo "PCType=$PCType"
+
+#default to diable ROUTER
+if [ "$PCType" = "$Router" ]
+then :
+else
+        PCType=$Bridge
+fi
+echo "PCType=$PCType"
+
+LanVlanEnable=`grep "LanVlanEnable" $NetConfigFile | cut -d "=" -f2`
+echo "LanVlanEnable:$LanVlanEnable"
+if [ -z $LanVlanEnable ];then
+        LanVlanEnable=0
+fi
+
+LanVid=`grep "LanVid" $NetConfigFile | cut -d "=" -f2`
+echo "LanVid:$LanVid"
+if [ -z $LanVid ];then
+        LanVid=1
+fi
+
+LanPriority=`grep "LanPriority" $NetConfigFile | cut -d "=" -f2`
+echo "LanPriority:$LanPriority"
+if [ -z $LanPriority ];then
+        LanPriority=0
+fi
+
+PcVlanEnable=`grep "PcVlanEnable" $NetConfigFile | cut -d "=" -f2`
+echo "PcVlanEnable:$PcVlanEnable"
+if [ -z $PcVlanEnable ];then
+        PcVlanEnable=0
+fi
+
+PcVid=`grep "PcVid" $NetConfigFile | cut -d "=" -f2`
+echo "PcVid:$PcVid"
+if [ -z $PcVid ];then
+        PcVid=1
+fi
+
+PcPriority=`grep "PcPriority" $NetConfigFile | cut -d "=" -f2`
+echo "PcPriority:$PcPriority"
+if [ -z $PcPriority ];then
+        PcPriority=0
+fi
+
+        if [ "$LanVlanEnable" -eq "1" ] && [ "$PcVlanEnable" -eq "1" ]
+        then
+          echo "start set vlan 1"
+          /app/bin/configtitanswitch config P1VID $PcVid
+          /app/bin/configtitanswitch priority port1 $PcPriority
+          /app/bin/configtitanswitch config P3VID $LanVid
+          /app/bin/configtitanswitch priority port3 $LanPriority
+          /app/bin/configtitanswitch enable port1
+          /app/bin/configtitanswitch enable port3
+        elif [ "$LanVlanEnable" -eq "1" ] && [ "$PcVlanEnable" -eq "0" ]
+        then
+                echo "set route vlan start"
+                interface="eth0"
+            /sbin/ifconfig $interface 0.0.0.0 up
+            /sbin/vconfig add $interface $LanVid
+            /sbin/ifconfig $interface.$LanVid 0.0.0.1 up
+            /sbin/vconfig set_egress_map "$interface.$LanVid" 0 $LanPriority
+        fi
