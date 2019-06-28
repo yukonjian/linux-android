@@ -1,4 +1,4 @@
-1. 基本使用
+iperf1. 基本使用
 static int devctrl_get_link_by_ioctl(char *net_iface_name)
 {
 	struct mii_data *mii = NULL;
