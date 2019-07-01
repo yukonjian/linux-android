@@ -49,7 +49,7 @@ prot：页保护标志
 该虚存空间的大小为物理内存页面的整数倍。
 在将地址映射到用户空间，需先将其设置为保留页。
 sample:
-static int remap_pfn_mmap(struct file *file, struct vm_area_struct *vma)
+static int xxx_pfn_mmap(struct file *file, struct vm_area_struct *vma)
 {
     unsigned long offset = vma->vm_pgoff << PAGE_SHIFT;
     unsigned long pfn_start = (virt_to_phys(kbuff) >> PAGE_SHIFT) + vma->vm_pgoff;
