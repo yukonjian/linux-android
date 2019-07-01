@@ -61,6 +61,7 @@ struct device *device_create(struct class *class, struct device *parent, dev_t d
    void *drvdata, const char *fmt, ...)
 dev_t devt ：设备号
 sample:
+disp_class = class_create(THIS_MODULE, "class_name");
 display_dev = device_create(disp_class, NULL, devid, NULL, "disp");
 
 void device_destroy(struct class *class, dev_t devt)

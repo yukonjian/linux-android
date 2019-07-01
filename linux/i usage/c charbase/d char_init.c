@@ -12,7 +12,6 @@ int  DAP1902_init(void)
 		goto err_unreg_chrdev_region;
 	}
 
-
 	printk("DAP1902 init;\n");
 	return 0;
 
