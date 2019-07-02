@@ -1,3 +1,4 @@
+#include <stdio.h>
 1. 文件的打开
 FILE * fopen(const char * path, const char * mode);
 1) mode
