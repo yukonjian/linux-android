@@ -222,8 +222,14 @@ root:x:0:0:Linux User,,,:/home/root:/bin/sh
 
 30. ls -lh //可以查看当前文件大小，使用k,M为单位进行显示
 
-31. cut 
+31. cut
 cut是切割命令，参数-d表示按什么划分，参数-f表示截取哪些字段。
 例如: env | grep "USER" | cut -d "=" -f 2;
 env | grep "USER"执行结果为：USER=root
 cut -d "=" -f 2   表示将其=号作为分隔符，选取其第2个字段，所有就是root
+
+32. 删除目录下除指定文件之外的所有文件
+1）rm -rf !(keep) ，需要在当前文件夹中进行
+rm -rf !(keep1|keep2) #删除keep1和keep2文件之外的所有文件，|两边不能有空格
+2）find ./test/ | grep -v keep | xargs rm #删除当前test文件夹中keep文件之外的所有文件
+  -v参数决定了结果为匹配之外的结果
