@@ -18,3 +18,8 @@ return ： 返回真实读取的项数（小于或等于count）
 3. 写文件
 size_t fwrite(const void* buffer, size_t size, size_t count, FILE* stream);
 返回值：返回实际写入的数据块数目
+4. 设置文件指针stream的位置
+int fseek(FILE *stream, long offset, int fromwhere);
+成功:返回0; stream将指向以fromwhere（偏移起始位置：文件头0(SEEK_SET)，当前位置1(SEEK_CUR)，文件尾2(SEEK_END)）
+为基准，偏移offset（指针偏移量）个字节的位置。
+失败:返回非0值; (比如offset超过文件自身大小)，则不改变stream指向的位置。
