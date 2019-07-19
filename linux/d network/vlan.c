@@ -18,3 +18,15 @@ vid标签==pvid，剥离vid标签，发出
 vid标签！=pvid，直接发出
 
 3. 在switch芯片内部的数据转发，端口只会接收vlan table允许的vlan id的vlan包。
+
+4. vconfig的使用
+https://www.jianshu.com/p/c31068cc0e5a
+4.1 在eth0接口上配置VLAN
+vconfig add eth0 100
+4.2 设置VLAN的REORDER_HDR参数，默认就行了；cat /proc/net/vlan/eth0.100查看eth0.100参数
+vconfig set_flag eth0.100 1 1
+4.3 配置网络信息
+ifconfig eth0 0.0.0.0
+ifconfig eth0.100 192.168.100.50 netmask 255.255.255.0 up
+4.4 删除VLAN
+vconfig rem eth0.100

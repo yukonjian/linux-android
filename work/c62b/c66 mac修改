@@ -1,8 +1,8 @@
 1、改MIC地址：
 
-http://172.25.2.85/fcgi/do?set=Hiddenpage&cSetHwa0Address=7C:BA:CC:30:00:00&cSetHwaEswitchAddress=7C:BA:CC:30:00:00&cSetHwa1Address=7C:BA:CC:30:00:01
+http://172.25.1.139/fcgi/do?set=Hiddenpage&cSetHwa0Address=7C:BA:CC:30:00:10&cSetHwaEswitchAddress=7C:BA:CC:30:10:00&cSetHwa1Address=7C:BA:CC:30:00:11
 
 
 说明：（1）IP改为设备IP；
-     （2）两处7C:BA:CC:30:00:00改为需要的MAC，但7C:BA:CC:30:00:01不修改
+     （2）两处7C:BA:CC:30:00:00改为需要的MAC，但7C:BA:CC:30:00:01改为MAC加1
 B
