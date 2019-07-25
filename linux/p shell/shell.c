@@ -1,14 +1,15 @@
-一.shell 基础
-1. 什么是shell
-Shell 是C 语言编写一种应用程序,它是用户使用 Linux 的桥梁,给应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。
-Shell 既是一种命令语言，又是一种程序设计语言。
+参考网页：shell菜鸟教程
+https://www.runoob.com/linux/linux-tutorial.html
 
-2. #!/bin/sh
+1. #!/bin/sh
 #! 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种 Shell。
+在一般情况下，人们并不区分 Bourne Shell (/bin/sh) 和 Bourne Again Shell (/bin/bash)，所以，像 #!/bin/sh，它同样也可以改为 #!/bin/bash。
 
-3. 变量
-1）注意，变量名和等号之间不能有空格。
-2）使用变量 echo ${your_name}  变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界
+2. 变量
+2.1 变量的定义，变量名和等号之间不能有空格,变量的值和等号之间不能有空格；
+your_name="runoob.com"
+2.2 变量的使用，变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界
+echo "I am good at ${skill}Script"
 3）unset variable_name
 4）shell的类型只有字符串（字符串可以用单引号，也可以用双引号，也可以不用引号。）
    a. 有空格的字符串必须用引号括起来。

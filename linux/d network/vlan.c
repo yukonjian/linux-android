@@ -30,3 +30,12 @@ ifconfig eth0 0.0.0.0
 ifconfig eth0.100 192.168.100.50 netmask 255.255.255.0 up
 4.4 删除VLAN
 vconfig rem eth0.100
+5. vlan switch配置一般步骤
+5.1 配置端口属性；
+5.1.1 配置端口的接收帧的类型（tag,untag，all）
+5.1.2 配置端口输出的类型（tag, untag）
+5.1.3 配置端口是否输入的untag包打上PVID，是否输出的包去掉PVID（有些switch无需配置，这是其默认的属性，）
+5.1.4 配置端口PVID
+5.1.5 配置端口的优先级（priority）
+5.2 设置vlan table
+5.3 使能802.1q vlan模式，并设置以vlan table进行vlan匹配

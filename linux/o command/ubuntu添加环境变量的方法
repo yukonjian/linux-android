@@ -76,3 +76,47 @@ vi /etc/profile //编辑profile文件
 有效期限：永久有效
 
 用户局限：对所有用户
+
+2. 常用环境变量
+2.1 可执行文件查找路径
+PATH
+2.2 动态库查找路径
+LD_LIBRARY_PATH
+
+3. 常用编译查找路径设置
+1. 头文件查找路径
+# C
+C_INCLUDE_PATH
+# CPP
+export CPLUS_INCLUDE_PATH=XXX:$CPLUS_INCLUDE_PATH
+2. link链接库文件路径；
+链接库文件在连接（静态库和共享库）和运行（仅限于使用共享库的程序）时被使用，
+其搜索路径是在系统中进行设置的（也可以在编译命令中通过 -l  -L 来指定，这里讲的是使用系统默认搜索路径）。
+2.1 动态链接库搜索路径
+export LD_LIBRARY_PATH=XXX:$LD_LIBRARY_PATH
+静态链接库搜索路径：
+export LIBRARY_PATH=XXX:$LIBRARY_PATH
+
+3. 使用 -I 设置头文件搜索路径；查找优先级高，作为第一个寻找头文件的目录
+-I /home/hello/include
+4. 过 -L 和 -l 参数显式指定。查找优先级高，作为第一个寻找头文件的目录，
+因为优先级高，通常都会以这种方式直接指定要连接的库的路径。
+-L /home/hello/lib
+-lworld表示在上面的lib的路径中寻找libworld.so动态库文件
+
+4. -L、-rpath和-rpath-link的区别
+以下结论及分析仅针对动态库。
+结论：
+（1）-rpath和-rpath-link都可以在链接时指定库的路径；
+（2）运行可执行文件时，-rpath-link指定的路径不再有效(链接器没有将库的路径包含进可执行文件中)，
+　　　　　　　　　　  而-rpath指定的路径还有效(因为链接器已经将库的路径包含在可执行文件中)；
+（3）-L指定的是链接时的库路径，生成的可执行文件在运行时库的路径仍由LD_LIBRARY_PATH环境变量指定；
+（4）不管采用何种选项链接，当提示找不到动态库时均可通过设置LD_LIBRARY_PATH解决。
+-Wl
+这个是gcc的参数，表示编译器将后面的参数传递给链接器ld。
+-Wl,-rpath=《your_lib_dir》；单独的-rpath gcc无法识别
+总结：-L选项用于链接时搜索动态库，-Wl,-rpath=用于运行时搜索动态库。
+
+5. 查看动态库中的函数
+命令 nm -D，如下所示：
+nm -D liblistdevs.so > listdevs.txt

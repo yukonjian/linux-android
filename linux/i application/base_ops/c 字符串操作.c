@@ -5,6 +5,14 @@
 (1) 如果格式化后的字符串长度 < size，则将此字符串全部复制到str中，并给其后添加一个字符串结束符('\0')；
 (2) 如果格式化后的字符串长度 >= size，则只将其中的(size-1)个字符复制到str中，并给其后添加一个字符串结束符('\0')，返回值为欲写入的字符串长度。
 1.2 int sscanf(const char *buffer, const char *format, [ argument ] ... )
+/* 下面参数可以得到正确的结果 */
+	unsigned int a,b,c;
+	sscanf(str, "%2x:%2x:%2x",&a,&b,&c);
+/* 下面参数不可以得到正确的结果 */
+	unsigned char a,b,c;
+	sscanf(str, "%2x:%2x:%2x",&a,&b,&c);
+使用%x获取数据必须要使用unsigned int定义的变量
+
 
 二、字符串操作
 1. strlen( const char string[] );
