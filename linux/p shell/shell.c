@@ -10,7 +10,18 @@ https://www.runoob.com/linux/linux-tutorial.html
 your_name="runoob.com"
 2.2 变量的使用，变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界
 echo "I am good at ${skill}Script"
-3）unset variable_name
+2.3 删除变量 unset variable_name
+unset your_name
+2.4 变量的类型
+2.4.1 局部变量
+局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。
+2.4.2
+环境变量 所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。
+必要的时候shell脚本也可以定义环境变量。
+3.1 字符串
+
+
+
 4）shell的类型只有字符串（字符串可以用单引号，也可以用双引号，也可以不用引号。）
    a. 有空格的字符串必须用引号括起来。
    b. 纯数字的字符串（数字中间不行有空格，两边可以）可以使用let来进行运算操作。
