@@ -42,3 +42,6 @@ umount /mnt
 
 mount.cifs - 挂载通用网际文件系统(Common Internet File System)，挂载到window目录, 可以挂载samba目录
 mount -t cifs -o username=steven,password=steven,dir_mode=0777,nounix,noserverino //172.25.2.89/home/steven/work   /mnt
+
+mount -t cifs -o username=steven,password=steven,dir_mode=0777,nounix,noserverino //172.25.2.89/shared   /home/wushengliang/shared
+sudo mount -t cifs -o username=admin,password=admin,dir_mode=0777,noserverino,gid=22496,uid=1849,vers=2.0 //172.25.2.81/shared  /home/wushengliang/shared

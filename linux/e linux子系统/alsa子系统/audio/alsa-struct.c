@@ -1,3 +1,8 @@
+ALSA代码目录结构
+core                该目录包含了ALSA驱动的中间层，它是整个ALSA驱动的核心部分
+drivers             放置一些与CPU、BUS架构无关的公用代码；dummy.c可以参考；sound/arm/pxa2xx-ac97.c也可以参考；
+soc                 针对system-on-chip体系的中间层代码
+soc/codecs          针对soc体系的各种codec的代码，与平台无关
 一、声卡的创建
 https://blog.csdn.net/droidphone/article/details/6289712
 struct snd_card  // include/sound/core.h

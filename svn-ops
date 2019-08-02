@@ -1,6 +1,11 @@
 1. https://blog.csdn.net/gsg8709/article/details/79435741
 
+/* cx svn 要求 */
 【问题描述】:
 【原因分析】:
 【修改方法】:
 【备注】:
+
+
+c63 bootloader图片显示问题（所有版本均显示dinstar图片），resource目录下的修改
+添加dinstar烧写工具烧写mac; autopack部分的修改
