@@ -1,0 +1,4 @@
+1. emmc
+/home/wushengliang/rk3308/kernel/drivers/mmc/card/Makefile
+
+#obj-$(CONFIG_MMC_BLOCK)                += mmc_block.o

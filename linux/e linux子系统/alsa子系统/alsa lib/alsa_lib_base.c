@@ -6,15 +6,19 @@ http://www.alsa-project.org/
 -r : 采样频率
 -f : 指定采样格式
 -l : 列出所有的声卡和数字音频设备
-arecord -D hw:7,0 -r 16000 -f S16_LE -c 2 /userdata/steven/8803.wav
+arecord -D hw:7,0 -r 16000 -f S16_LE -c 8 /userdata/8803.wav
+
+arecord -D hw:0,0 -r 16000 -f S16_LE -c 8 /userdata/8803.wav
+
+arecord -D hw:0,0 -r 16000 -f S16_LE -c 2 /userdata/8803.wav
 
 2.2 aplay
 -D : 用于指定音频设备PCM 以hwx,x表示；第一个‘x’表示声卡号，第二个‘x’表示设备号；
 -r : 采样频率
 -f : 指定采样格式
 -l : 列出所有的声卡和数字音频设备
-aplay -D hw:7,0 -r 16000 -f S16_LE -c 2 /userdata/steven/8803.wav
-aplay -D hw:7,0 -r 48000 -f S16_LE -c 2 /userdata/steven/8803.wav
+aplay -D hw:1,0,0 -r 16000 -f S16_LE -c 2 /userdata/8803.wav
+aplay -D hw:7,0 -r 48000 -f S16_LE -c 2 /userdata/8803.wav
 aplay -D plughw:7,0 -r 16000 -f S16_LE -c 2 ./tsts.wav
 2.3 amixer
 -c,--card N     select the card

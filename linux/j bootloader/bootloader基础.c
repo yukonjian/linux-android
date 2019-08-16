@@ -15,7 +15,7 @@ BOARD   = 100ask24x0
 SOC     = s3c24x0
 3. uboot源码分析
 2.1 第一阶段的启动
-cpu/arm920t/start.S   /* 硬件相关初始化，拷贝uboot到sdram中，并调用start_armboot */
+arck/arm/cpu/arm920t/start.S   /* 硬件相关初始化，拷贝uboot到sdram中，并调用start_armboot */
 2.2 第二阶段的启动
 board/arm/lib/board.c
 start_armboot();
