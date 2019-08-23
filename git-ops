@@ -40,10 +40,13 @@ git pull origin master
 git push --set-upstream origin 分支名
 5.2 将远程git仓库里的指定分支拉取到本地
 git checkout -b 本地分支名 origin/远程分支名
+git checkout -b platform origin/platform
 注：如果出现提示：
 fatal: Cannot update paths and switch to branch 'dev2' at the same time.
 Did you intend to checkout 'origin/dev2' which can not be resolved as commit?
 需要先执行 git fetch （更新远程代码到本地仓库）
+
+
 
 6.git add -f
 
@@ -104,3 +107,15 @@ git show <commit-hashId> filename 可以显示某次提交的某个内容的修�
 
 14. 空文件夹的提交
 1. 必须在空文件夹下面有文件.gitkeep文件后缀就是天生来解决这个问题的。
+
+15. 放弃本次commit
+第一种情况：还没有push，只是在本地commit
+git reset --soft|--mixed|--hard <commit_id>
+
+这里的<commit_id>就是每次commit的SHA-1，可以在log里查看到
+--mixed    会保留源码,只是将git commit和index 信息回退到了某个版本.
+--soft   保留源码,只回退到commit信息到某个版本.不涉及index的回退,如果还需要提交,直接commit即可.
+--hard    源码也会回退到某个版本,commit和index 都会回退到某个版本.(注意,这种方式是改变本地代码仓库源码)
+
+16. 放弃某个文件的add
+use "git reset HEAD <file>..." to unstage

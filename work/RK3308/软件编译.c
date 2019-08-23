@@ -41,7 +41,7 @@ umask 0022 && make -C /home/project/buildroot O=/home/project/buildroot/output/f
 
 ./mksquashfs ./target ./rootfs.squashfs -noappend -processors 24 -comp gzip
 
-mount -t jffs2 /dev/rkflash0p6 /app
+mount -t jffs2 /dev/mtdblock5 /app
 
 mount -t ext2 /dev/mmcblk1p8 /tmp/test/
 

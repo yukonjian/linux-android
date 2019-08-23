@@ -17,9 +17,12 @@ arecord -D hw:0,0 -r 16000 -f S16_LE -c 2 /userdata/8803.wav
 -r : 采样频率
 -f : 指定采样格式
 -l : 列出所有的声卡和数字音频设备
-aplay -D hw:1,0,0 -r 16000 -f S16_LE -c 2 /userdata/8803.wav
-aplay -D hw:7,0 -r 48000 -f S16_LE -c 2 /userdata/8803.wav
+aplay -D hw:1,0,0 -r 16000 -f S16_LE -c 2 ./tsts16k.pcm
+aplay -D hw:7,0 -r 48000 -f S16_LE -c 2 ./tsts.wav
 aplay -D plughw:7,0 -r 16000 -f S16_LE -c 2 ./tsts.wav
+aplay -D plughw:7,0 -r 16000 -f S16_LE -c 2 ./tsts16k.pcm]
+
+aplay -D plughw:7,1 -r 16000 -f S16_LE -c 2 ./tsts.wav
 2.3 amixer
 -c,--card N     select the card
 -D,--device N   select the device, default 'default'
@@ -161,11 +164,19 @@ amixer -c 0 cset numid=41,iface=MIXER,name='ADC Group 3 HPF Cut-off' 2
 amixer -c 0 cset numid=49,iface=MIXER,name='DAC HPMIX Left Volume' 1
 amixer -c 0 cset numid=50,iface=MIXER,name='DAC HPMIX Right Volume' 1
 
-numid=49,iface=MIXER,name='DAC HPMIX Left Volume'
-  ; type=INTEGER,access=rw---R--,values=1,min=0,max=1,step=0
-  : values=0
-  | dBscale-min=-6.00dB,step=6.00dB,mute=0
+ ./aplay -D hw:0,0  ./tsts-16k.wav
+./amixer -c 0 cset numid=47,iface=MIXER,name='DAC HPOUT Left Volume' 30
+./amixer -c 0 cset numid=48,iface=MIXER,name='DAC HPOUT Right Volume' 30
+
 numid=50,iface=MIXER,name='DAC HPMIX Right Volume'
   ; type=INTEGER,access=rw---R--,values=1,min=0,max=1,step=0
   : values=0
   | dBscale-min=-6.00dB,step=6.00dB,mute=0
+numid=47,iface=MIXER,name='DAC HPOUT Left Volume'
+  ; type=INTEGER,access=rw---R--,values=1,min=0,max=30,step=0
+  : values=0
+  | dBscale-min=-39.00dB,step=1.50dB,mute=1
+numid=48,iface=MIXER,name='DAC HPOUT Right Volume'
+  ; type=INTEGER,access=rw---R--,values=1,min=0,max=30,step=0
+  : values=0
+  | dBscale-min=-39.00dB,step=1.50dB,mute=1

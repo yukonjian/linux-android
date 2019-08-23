@@ -25,3 +25,7 @@ drivers/mtd/nand/子目录下,Nor Flash芯片驱动位于drivers/mtd/chips/子�
 MTD的字符设备和块设备，字符设备通过向内核注册字符设备的file_operations结构实现了对MTD设备
 的读写和控制，提供了对闪存的原始字符访问，关联的设备是/dev/mtd*；
 而MTD块设备则是定义了一个描述MTD块设备mtdblock_tr的结构，关联的设备是/dev/mtdblock*。
+
+三、mtd设备的内核配置
+1. 选择mtd设备
+2. 选择mtd设备下的MTD_BLOCK和MTD_BLKDEVS

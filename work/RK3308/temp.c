@@ -211,3 +211,117 @@ create boot.img...cp -a /home/project/kernel/zboot.img /home/project/rockdev/boo
 
 
 /home/project/kernel && make ARCH=arm64 firefly-rk3308_linux_defconfig && make ARCH=arm64 rk3308-roc-cc-dmic-pdm_emmc.img -j12 && cd -
+
+ g_part->hdr.ui_fw_tag:0x0;line:200;
+
+ [    0.392281] start do_mount_root;
+[    0.392426] end do_mount_root;ret=-6;
+[    0.392451] VFS: Cannot open root device "mtdblock4" or unknown-block(0,0): error -6
+[    0.392463] Please append a correct "root=" boot option; here are the available partitions:
+[    0.392477] Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(0,0)
+[    0.744734] CPU: 3 PID: 1 Comm: swapper/0 Not tainted 4.4.143 #73
+[    0.750824] Hardware name: Firefly RK3308 roc cc digital-pdm mic board (DT)
+[    0.757784] Call trace:
+
+
+pclk_audio 98303 KHz
+Net:   Net Initialization Skipped
+No ethernet found.
+Hit any key to stop autoboot:  0
+android_bootloader_boot_flow Could not find misc partition
+get part misc fail -1
+ANDROID: reboot reason: "(none)"
+FDT load addr 0x10f00000 size 253 KiB
+Booting kernel at 0x4080000 with fdt at 4506800...
+
+
+## Booting Android Image at 0x04080000 ...
+Kernel load addr 0x02080000 size 4629 KiB
+## Flattened Device Tree blob at 04506800
+   Booting using the fdt blob at 0x4506800
+   Uncompressing Kernel Image ... OK
+   Loading Device Tree to 000000000f501000, end 000000000f51436a ... OK
+Adding bank: start=0x00200000, size=0x0fe00000
+
+[    1.513730] Creating 8 MTD partitions on "sfc_nor":
+[    1.513782] 0x000000000000-0x000000040000 : "loader"
+[    1.514625] 0x000000040000-0x0000000e0000 : "uboot"
+[    1.515362] 0x0000000e0000-0x0000000f0000 : "trust"
+[    1.516071] 0x0000000f0000-0x0000006f0000 : "boot"
+[    1.516800] 0x0000006f0000-0x0000009f0000 : "rootfs"
+[    1.517541] 0x0000009f0000-0x000000af0000 : "config"
+[    1.518274] 0x000000af0000-0x000000bf0000 : "basic"
+[    1.518949] 0x000000bf0000-0x001000beffff : "app"
+
+sfc_get 0x00003780 0x02000000 8
+ sfc_get 0x00005780 0x02000000 8
+
+ $ ifconfig eth0 up
+[  201.042617] rk_gmac-dwmac ff4e0000.ethernet: rk_get_eth_addr: rk_vendor_read eth mac address failed (-1)
+[  201.042739] rk_gmac-dwmac ff4e0000.ethernet: rk_get_eth_addr: generate random eth mac address: 1a:$ 89:96:17:f0:a6
+[  201.042773] rk_gmac-dwmac ff4e0000.ethernet: rk_get_eth_addr: rk_vendor_write eth mac address failed (-1)
+[  201.042811] rk_gmac-dwmac ff4e0000.ethernet: rk_get_eth_addr: mac address: 1a:89:96:17:f0:a6
+[  201.042845] eth0: device MAC address 1a:89:96:17:f0:a6
+
+$ [  203.047595] rk_gmac-dwmac ff4e0000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+ifconfig eth0 172.25.2.85
+$
+
+bin  dev  etc  lib  lib64  linuxrc  sbin
+app  basic  bin  dev  etc  lib  lib64  linuxrc  mnt  proc  root  sbin  sys  tmp  userdata  usr  var
+
+
+pack file size: 476353
+crc = 0xbc38f57e
+pack uboot.img success!
+pack uboot okay! Input: ./u-boot.bin
+out:rk3308_loader_v1.24.108.bin
+fix opt:rk3308_loader_v1.24.108.bin
+merge success(rk3308_loader_v1.24.108.bin)
+/home/project/rkbin/tools/boot_merger --replace tools/rk_tools/ ./ /home/project/rkbin/RKBOOT/RK3308MINIALL.ini
+pack loader okay! Input: /home/project/rkbin/RKBOOT/RK3308MINIALL.ini
+/home/project/u-boot
+out:trust.img
+merge success(trust.img)
+/home/project/rkbin/tools/trust_merger  --rsa 3 --size 64 1 --replace tools/rk_tools/ ./ /home/project/rkbin/RKTRUST/RK3308TRUST.ini
+/home/project/u-boot
+pack trust okay! Input: /home/project/rkbin/RKTRUST/RK3308TRUST.ini
+
+Platform RK3308 is build OK, with exist .config
+root@c4c5eeb41873:/home/project/u-boot#
+root@c4c5eeb41873:/home/project/u-boot# make menuconfig
+scripts/kconfig/mconf  Kconfig
+
+pclk_audio 98303 KHz
+Net:   Net Initialization Skipped
+No ethernet found.
+Hit any key to stop autoboot:  0
+android_bootloader_boot_flow Could not find misc partition
+get part misc fail -1
+ANDROID: reboot reason: "(none)"
+Error: Bad gzipped data
+FDT load addr 0x10f00000 size 253 KiB
+Booting kernel at 0x207f800 with fdt at 2453000...
+
+
+## Booting Android Image at 0x0207f800 ...
+Kernel load addr 0x02080000 size 3914 KiB
+## Flattened Device Tree blob at 02453000
+   Booting using the fdt blob at 0x2453000
+   XIP Kernel Image ... OK
+   Loading Device Tree to 000000000f542000, end 000000000f555205 ... OK
+Adding bank: start=0x00200000, size=0x0fe00000
+
+Starting kernel ...
+
+
+"Synchronous Abort" handler, esr 0x02000000
+* Relocate offset = 000000000f966000
+* ELR(PC)    =   fffffffff2d9a00c
+* LR         =   0000000000601edc
+* SP         =   000000000f556c00
+
+
+Kernel command line: storagemedia=nor androidboot.slot_suffix= androidboot.serialno=c3d9b8674f4b94f6  rootwait earlycon=uart8250,mmio32,0xff0c0000 swiotlb=1 console=ttyFIQ0,115200 root=/dev/mtdblock4 rootfstype=squashfs snd_aloop.index=7
+
+Kernel command line: storagemedia=nor androidboot.slot_suffix= androidboot.serialno=c3d9b8674f4b94f6  rootwait earlycon=uart8250,mmio32,0xff0c0000 swiotlb=1 console=ttyFIQ0,115200 root=/dev/mtdblock4 rootfstype=squashfs snd_aloop.index=7
