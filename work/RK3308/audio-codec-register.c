@@ -119,3 +119,59 @@ ADC_CH2_BUF_REF_EN[0]: adc mic的通道1的参考电压buffer使能
 ACODEC_ADC_ANA_CON1
 ADC_CH2_MIC_GAIN[5:4]: adc mic的通道2增益设置
 ADC_CH2_MIC_GAIN[1:0]: adc mic的通道1增益设置
+
+ACODEC_ADC_ANA_CON2
+ADC_CH2_ZEROCROSS_DET_EN[6]: adc ch2过零检测使能
+ADC_CH2_ALC_INIT[5]: adc ch2 ALC初始化
+ADC_CH2_ALC_EN[4]: adc ch2 ALC使能
+ADC_CH2_ZEROCROSS_DET_EN[2]: adc ch1 过零检测使能
+ADC_CH2_ALC_INIT[1]: adc ch2 ALC初始化
+ADC_CH2_ALC_EN[0]: adc ch1 ALC使能
+
+ACODEC_ADC_ANA_CON3
+ADC_CH1_ALC_GAIN[4:0]: adc ch1 ALC增益
+
+ACODEC_ADC_ANA_CON4
+ADC_CH2_ALC_GAIN[4:0]: adc ch2 ALC增益
+
+ACODEC_ADC_ANA_CON5
+ADC_CH2_ADC_INIT[6]: adc ch2 初始化
+ADC_CH2_ADC_EN[5]: adc ch2 使能
+ADC_CH2_CLK_EN[4]: adc ch2 时钟使能
+ADC_CH2_ADC_INIT[2]: adc ch2 初始化
+ADC_CH2_ADC_EN[1]: adc ch2 使能
+ADC_CH2_CLK_EN[0]: adc ch2 时钟使能
+
+ACODEC_ADC_ANA_CON6
+ADC_CURRENT_EN[0]: ADC电流使能（ch1,ch2）
+
+ACODEC_ADC_ANA_CON7
+ADC_CH2_IN_SEL[7:6]: adc ch2输入选择(选择从mic输入)
+ADC_CH1_IN_SEL[5:4]: adc ch1输入选择(选择从mic输入)
+ADC_MICROPHONE_BIAS_BUF_EN[3]: adc 的麦克风偏置电压buffer使能
+ADC_LEVEL_RANGE_MICBIAS[2:0]: adc 的麦克风偏置电压值设置
+ACODEC_ADC_ANA_CON8
+ADC_MICBIAS_CURRENT_EN[4]: adc 的mic偏置电流使能
+
+ACODEC_ADC_ANA_CON10
+ADC_RFF_EN[7]: adc 参考电压使能
+ADC_CURRENT_CHARGE_SEL[6:0]: adc 充电电流选择
+
+ACODEC_ADC_ANA_CON11
+ADC_ALCR_CON_GAIN_PGAR[1]: 使用ALCR模块控制PGAR的增益
+ADC_ALCL_CON_GAIN_PGAL[0]: 使用ALCL模块控制PGAL增益
+
+/*********************************
+dac 的数字部分控制
+ACODEC_DAC_DIG_CON1
+DAC_I2S_LRC_POL[7]: dac i2s LRCK的极性选择
+DAC_I2S_VALID_LEN[6:5]: dac i2s 有效数据长度
+DAC_I2S_MODE[4:3]: dac i2s 模式选择（i2s, pcm）
+DAC_I2S_SWAP[2]: dac i2s 左右声道互换
+
+ACODEC_DAC_DIG_CON2
+DAC_MODE_IO[5]:
+DAC_MODE[4]:
+DAC_I2S_FRAME_LEN[3:2]:
+DAC_I2S_RST[1]:
+DAC_I2S_BIT_CLK_POL[0]: 
