@@ -34,7 +34,7 @@ compatible属性是用来查找节点的方法之一，另外还可以通过节�
         8 = active low level-sensitive
 3.5 gpio
 "gpio-controller"，用来说明该节点描述的是一个gpio控制器
-"#gpio-cells"，用来描述gpio使用节点的属性一个cell的内容，即 `属性 = <&引用GPIO节点别名 GPIO标号 工作模式>
+"#gpio-cells"，用来描述gpaio使用节点的属性一个cell的内容，即 `属性 = <&引用GPIO节点别名 GPIO标号 工作模式>
 3.6 驱动自定义key
 4. VALUE
 dts描述一个键的值有多种方式，当然，一个键也可以没有值
