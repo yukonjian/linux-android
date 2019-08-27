@@ -32,6 +32,15 @@ fcntl是计算机中的一种函数，通过fcntl可以改变已打开的文件�
 参数fd是被参数cmd操作的描述符。针对cmd的值，fcntl能够接受第三个参数int arg。
 int fcntl(int fd, int cmd, long arg);
 
+6. lseek
+off_t lseek(int fildes,off_t offset ,int whence);
+返回：距离文件开头多少个字节。若有错误则返回-1
+fildes: 为已打开的文件描述词，
+offset: 为根据参数whence来移动读写位置的位移数。
+whence: 为下列其中一种:（SEEK_SET,SEEK_CUR和SEEK_END和依次为0，1和2）
+SEEK_SET 将读写位置指向文件头后再增加offset个位移量。
+SEEK_CUR 以目前的读写位置往后增加offset个位移量。
+SEEK_END 将读写位置指向文件尾后再增加offset个位移量。
 
 
 3. linux c下执行shell命令

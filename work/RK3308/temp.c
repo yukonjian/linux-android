@@ -325,3 +325,64 @@ Starting kernel ...
 Kernel command line: storagemedia=nor androidboot.slot_suffix= androidboot.serialno=c3d9b8674f4b94f6  rootwait earlycon=uart8250,mmio32,0xff0c0000 swiotlb=1 console=ttyFIQ0,115200 root=/dev/mtdblock4 rootfstype=squashfs snd_aloop.index=7
 
 Kernel command line: storagemedia=nor androidboot.slot_suffix= androidboot.serialno=c3d9b8674f4b94f6  rootwait earlycon=uart8250,mmio32,0xff0c0000 swiotlb=1 console=ttyFIQ0,115200 root=/dev/mtdblock4 rootfstype=squashfs snd_aloop.index=7
+
+$ cat /proc/meminfo
+MemTotal:         246980 kB
+MemFree:          229180 kB
+MemAvailable:     229048 kB
+Buffers:            1080 kB
+Cached:             2108 kB
+SwapCached:            0 kB
+Active:             2924 kB
+Inactive:            412 kB
+Active(anon):        204 kB
+Inactive(anon):        0 kB
+Active(file):       2720 kB
+Inactive(file):      412 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:           280 kB
+Mapped:             1628 kB
+Shmem:                 0 kB
+Slab:               8336 kB
+SReclaimable:       2548 kB
+SUnreclaim:         5788 kB
+KernelStack:        1360 kB
+PageTables:           56 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:      123488 kB
+Committed_AS:        452 kB
+VmallocTotal:   258867136 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+$
+mem=262144K
+MemTotal:         246980 kB
+
+mem=262128K （-12）
+MemTotal:         246980 kB
+
+mem=262080K	 (-64)
+MemTotal:         246980 kB
+
+mem=261632K  (-512k)
+MemTotal:         246980 kB
+
+mem=259072K
+MemTotal:         245952 kB
+
+mem=260080K
+MemTotal:         246960 kB
+
+mem=260076K
+MemTotal:         246956 kB
+
+[    0.000000]     memory  : 0xffffffc000200000 - 0xffffffc010000000   (   254 MB)
+
+bootargs:storagemedia=nor### main_loop: bootcmd="boot_android ${devtype} ${devnum};bootrkp;run distro_bootcmd;"
