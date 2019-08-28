@@ -170,8 +170,101 @@ DAC_I2S_MODE[4:3]: dac i2s 模式选择（i2s, pcm）
 DAC_I2S_SWAP[2]: dac i2s 左右声道互换
 
 ACODEC_DAC_DIG_CON2
-DAC_MODE_IO[5]:
-DAC_MODE[4]:
-DAC_I2S_FRAME_LEN[3:2]:
-DAC_I2S_RST[1]:
-DAC_I2S_BIT_CLK_POL[0]: 
+DAC_MODE_IO[5]: dac i2s IO的模式选择
+DAC_MODE[4]: dac i2s inner模块的模式选择
+DAC_I2S_FRAME_LEN[3:2]: dac i2s 的帧长度
+DAC_I2S_RST[1]: dac i2s 复位
+DAC_I2S_BIT_CLK_POL[0]: dac i2s 位时钟极性
+
+ACODEC_DAC_DIG_CON3
+DAC_LEFT_CHANNEL_BIST[3:2]: dac左通道测试选择
+DAC_RIGHT_CHANNEL_BIST[1:0]: dac右通道测试选择
+
+ACODEC_DAC_DIG_CON4
+MODULATOR_GAIN[6:4]: 调节器的增益
+CIC_IP_FILTER_GAIN[2:0]: 设置插补过滤器的增益
+
+ACODEC_DAC_DIG_CON5
+DACL_DATA_SEL[2]: DAC左通道数据选择（正常数据，寄存器输入数据）
+DACR_DATA_SEL[1]: DAC右通道数据选择（正常数据，寄存器输入数据）
+
+ACODEC_DAC_DIG_CON10
+DAC_DATA_HIGH[7:0]: dac 寄存器输入数据的高位
+
+ACODEC_DAC_DIG_CON11
+DAC_DATA_LOW[7:0]: dac 寄存器输入数据的低位
+
+ACODEC_DAC_DIG_CON12
+DELAY_TIME_DETECT_HIGH[1:0]: 检测耳机插入和拔出的延时时间的高位
+
+ACODEC_DAC_DIG_CON13
+DELAY_TIME_DETECT_LOW[1:0]: 检测耳机插入和拔出的延时时间的低位
+
+ACODEC_DAC_DIG_CON14
+HEADPHONE_INSERT[0]: 耳机插入的状态
+
+/***************************************
+dac 模拟部分
+ACODEC_DAC_ANA_CON0
+DAC_HEADPHONE_DET_EN[1]: dac 耳机插入检测使能
+DAC_CURRENT_EN[0]: dac 通道电流源使能
+
+ACODEC_DAC_ANA_CON1
+DAC_BUF_REF_R_EN[6]: dac 右通道参考电压缓冲器 使能
+DAC_POP_SOUND_R[5:4]: dac 右通道pop声音控制
+DAC_BUF_REF_L_EN[2]: dac 左通道参考电压缓冲器 使能
+DAC_POP_SOUND_L[1:0]: dac 左通道pop声音控制
+
+ACODEC_DAC_ANA_CON2
+DAC_R_DAC_INIT[7]: dac 右通道初始化
+DAC_R_DAC_EN[6]: dac 右通道使能
+DAC_R_CLK_EN[5]: dac 右通道时钟使能
+DAC_R_REF_EN[4]: dac 右通道参考电压使能
+DAC_L_DAC_INIT[3]: dac 左通道初始化
+DAC_L_DAC_EN[2]: dac 左通道使能
+DAC_L_CLK_EN[1]: dac 左通道时钟使能
+DAC_L_REF_EN[0]: dac 左通道参考电压使能
+
+ACODEC_DAC_ANA_CON3
+DAC_R_HPOUT_INIT[6]: dac 右通道HPOUT模块初始化
+DAC_R_HPOUT_EN[5]: adc 右通道HPOUT模块使能
+DAC_R_HPOUT_MUTE[4]: adc 右通道HPOUT模块静音
+DAC_L_HPOUT_INIT[3]: dac 左通道HPOUT模块初始化
+DAC_L_HPOUT_EN[2]: adc 左通道HPOUT模块使能
+DAC_L_HPOUT_MUTE[1]: adc 左通道HPOUT模块静音
+
+ACODEC_DAC_ANA_CON4
+DAC_R_GAIN[7:6]: dac 右通道line out模块增益设置
+DAC_R_LINEOUT_MUTE[5]: dac 右通道line out模块静音
+DAC_R_LINEOUT_EN[4]: dac 右通道line out模块使能
+DAC_L_GAIN[3:2]: dac 左通道line out模块增益设置
+DAC_L_LINEOUT_MUTE[1]: dac 左通道line out模块静音
+DAC_L_LINEOUT_EN[0]: dac 左通道line out模块使能
+
+ACODEC_DAC_ANA_CON5
+DAC_L_HPOUT_GAIN[4:0]: dac 左通道 HPOUT模块增益设置
+
+ACODEC_DAC_ANA_CON6
+DAC_R_HPOUT_GAIN[4:0]: dac 右通道 HPOUT模块增益设置
+
+ACODEC_DAC_ANA_CON7
+HPOUTR_DS[7:4]: HPOUT 右通道驱动加强
+HPOUTL_DS[3:0]: HPOUT 左通道驱动加强
+
+ACODEC_DAC_ANA_CON8
+LINEOUTR_DS[7:4]: line out 右通道驱动加强
+LINEOUTL_DS[3:0]: line out 左通道驱动加强
+
+ACODEC_DAC_ANA_CON12
+DAC_R_HPMIX_SEL[7:6]: dac 右通道 选择HPMIX模块的输入信号
+DAC_R_HPMIX_GAIN[5:4]: dac 右通道 HPMIX模块增益设置
+DAC_L_HPMIX_SEL[3:2]: dac 左通道 选择HPMIX模块的输入信号
+DAC_L_HPMIX_GAIN[1:0]: dac 左通道 HPMIX模块增益设置
+
+ACODEC_DAC_ANA_CON13
+DAC_R_HPMIX_MUTE[6]: dac 右通道 HPMIX模块静音
+DAC_R_HPMIX_INIT[5]: dac 右通道 HPMIX模块初始化
+DAC_R_HPMIX_EN[4]: dac 右通道 HPMIX模块使能
+DAC_L_HPMIX_MUTE[2]: dac 左通道 HPMIX模块静音
+DAC_L_HPMIX_INIT[1]: dac 左通道 HPMIX模块初始化
+DAC_L_HPMIX_EN[0]: dac 左通道 HPMIX模块使能

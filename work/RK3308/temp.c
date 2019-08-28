@@ -386,3 +386,19 @@ MemTotal:         246956 kB
 [    0.000000]     memory  : 0xffffffc000200000 - 0xffffffc010000000   (   254 MB)
 
 bootargs:storagemedia=nor### main_loop: bootcmd="boot_android ${devtype} ${devnum};bootrkp;run distro_bootcmd;"
+
+
+[    1.465192] rk3308-acodec ff560000.acodec: GPIO lookup for consumer hp-ctl
+[    1.465233] rk3308-acodec ff560000.acodec: using device tree for GPIO lookup
+[    1.465292] of_get_named_gpiod_flags: parsed 'hp-ctl-gpios' property of node '/acodec@ff560000[0]' - status (0)
+[    1.465380] rk3308-acodec ff560000.acodec: GPIO lookup for consumer spk-ctl
+[    1.465407] rk3308-acodec ff560000.acodec: using device tree for GPIO lookup
+[    1.465456] of_get_named_gpiod_flags: parsed 'spk-ctl-gpios' property of node '/acodec@ff560000[0]' - status (0)
+[    1.465516] rk3308-acodec ff560000.acodec: GPIO lookup for consumer pa-drv
+[    1.465543] rk3308-acodec ff560000.acodec: using device tree for GPIO lookup
+[    1.465572] of_get_named_gpiod_flags: can't parse 'pa-drv-gpios' property of node '/acodec@ff560000[0]'
+[    1.465599] of_get_named_gpiod_flags: can't parse 'pa-drv-gpio' property of node '/acodec@ff560000[0]'
+[    1.465678] rk3308-acodec ff560000.acodec: using lookup tables for GPIO lookup
+[    1.465708] rk3308-acodec ff560000.acodec: lookup for GPIO pa-drv failed
+[    1.465735] rk3308-acodec ff560000.acodec: Don't need pa-drv gpio
+[    1.465784] rk3308-acodec ff560000.acodec: De-pop as much as possible
