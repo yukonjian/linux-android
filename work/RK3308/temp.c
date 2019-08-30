@@ -402,3 +402,169 @@ bootargs:storagemedia=nor### main_loop: bootcmd="boot_android ${devtype} ${devnu
 [    1.465708] rk3308-acodec ff560000.acodec: lookup for GPIO pa-drv failed
 [    1.465735] rk3308-acodec ff560000.acodec: Don't need pa-drv gpio
 [    1.465784] rk3308-acodec ff560000.acodec: De-pop as much as possible
+
+void reserve_memory_for_DSP(void)
+{
+	char boot_options[128] = {0};
+
+	snprintf(boot_options, sizeof(boot_options), "mem=%lldK", gd->ram_size/1024 - 1024*2 - 20);
+//	snprintf(boot_options, sizeof(boot_options), "mem=%lldK", gd->ram_size/1024);
+
+	env_update("bootargs", boot_options);
+}
+
+
+$ cat /proc/meminfo
+MemTotal:         253996 kB
+MemFree:          242316 kB
+MemAvailable:     241376 kB
+
+
+
+
+[    0.507387] flash unique id initial snor init1
+[    0.507404] sfc nor id: ef 40 18
+[    0.507416] snor_init;g_spi_flash_info:c053ef08;
+[    0.507630] flash unique id initial start
+[    0.507654] flash unique id initial finished
+[    0.507665] snor_init2;g_spi_flash_info:c053ef08;
+[    0.507674] sfc_nor_mtd_init start1;
+[    0.507685] sfc_nor_mtd_init1;g_spi_flash_info:c053ef08;
+[    0.507695] sfc_nor_mtd_init1;g_spi_flash_info_back:c053ef08;
+[    0.507705] sfc_nor_mtd_init start8;g_spi_flash_info:c053ef08;
+[    0.507714] sfc_nor_mtd_init start9;
+[    0.507722] sfc_nor_mtd_init 1;
+[    0.507731] sfc_nor_mtd_init 2;
+[    0.507856] sfc_nor_mtd_init 3;
+[    0.508075] Creating 8 MTD partitions on "sfc_nor":
+[    0.508095] 0x000000000000-0x0000000e0000 : "uboot"
+[    0.509186] 0x0000000e0000-0x0000000f0000 : "manufacture"
+[    0.510245] 0x0000000f0000-0x000000100000 : "reserver"
+[    0.511341] 0x000000100000-0x000000700000 : "boot"
+[    0.512421] 0x000000700000-0x000000a00000 : "rootfs"
+[    0.513515] 0x000000a00000-0x000000b00000 : "config"
+[    0.514610] 0x000000b00000-0x000000c00000 : "basic"
+[    0.515686] 0x000000c00000-0x001000bfffff : "app"
+
+
+[    0.219961] [<c0061ddd>] (unwind_backtrace) from [<c005f7bb>] (show_stack+0xb/0xc)
+[    0.227726] [<c005f7bb>] (show_stack) from [<c016a8f3>] (dump_stack+0x5b/0x70)
+[    0.235115] [<c016a8f3>] (dump_stack) from [<c006d1a1>] (warn_slowpath_common+0x55/0x7c)
+[    0.243394] [<c006d1a1>] (warn_slowpath_common) from [<c006d221>] (warn_slowpath_null+0xf/0x14)
+[    0.252287] [<c006d221>] (warn_slowpath_null) from [<c0065651>] (__arm_ioremap_pfn_caller+0x71/0x100)
+[    0.261693] [<c0065651>] (__arm_ioremap_pfn_caller) from [<c00656fd>] (__arm_ioremap_caller+0x1d/0x24)
+[    0.271229] [<c00656fd>] (__arm_ioremap_caller) from [<c0246069>] (sip_smc_request_share_mem+0x21/0x2c)
+[    0.280844] [<c0246069>] (sip_smc_request_share_mem) from [<c024622d>] (sip_fiq_debugger_request_share_memory+0xd/0x14)
+[    0.291874] [<c024622d>] (sip_fiq_debugger_request_share_memory) from [<c018f047>] (rk_serial_debug_init+0xab/0x274)
+[    0.302633] [<c018f047>] (rk_serial_debug_init) from [<c04e52c3>] (rk_fiqdbg_probe+0xa7/0x1a0)
+[    0.311452] [<c04e52c3>] (rk_fiqdbg_probe) from [<c01a9b99>] (platform_drv_probe+0x33/0x62)
+[    0.320011] [<c01a9b99>] (platform_drv_probe) from [<c01a8da1>] (driver_probe_device+0xfd/0x1a8)
+[    0.329001] [<c01a8da1>] (driver_probe_device) from [<c01a8e73>] (__driver_attach+0x27/0x4a)
+[    0.337636] [<c01a8e73>] (__driver_attach) from [<c01a7f15>] (bus_for_each_dev+0x3d/0x46)
+[    0.345995] [<c01a7f15>] (bus_for_each_dev) from [<c01a885f>] (bus_add_driver+0xd7/0x130)
+[    0.354359] [<c01a885f>] (bus_add_driver) from [<c01a931f>] (driver_register+0x4d/0x7a)
+[    0.362542] [<c01a931f>] (driver_register) from [<c01a9dfb>] (__platform_driver_probe+0x33/0x84)
+[    0.371534] [<c01a9dfb>] (__platform_driver_probe) from [<c0059665>] (do_one_initcall+0x41/0x13c)
+[    0.380603] [<c0059665>] (do_one_initcall) from [<c04d9abb>] (kernel_init_freeable+0x10b/0x150)
+[    0.389491] [<c04d9abb>] (kernel_init_freeable) from [<c036bf5b>] (kernel_init+0x7/0x9c)
+[    0.397764] [<c036bf5b>] (kernel_init) from [<c005d371>] (ret_from_fork+0x11/0x20)
+[    0.405528] ---[ end trace 27510aab5fd105bd ]---
+[    0.410260] ------------[ cut here ]------------
+[    0.415001] WARNING: CPU: 0 PID: 1 at arch/arm/mm/ioremap.c:301 __arm_ioremap_pfn_caller+0x71/0x100()
+[    0.424438] Modules linked in:
+[    0.427587] CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W       4.4.143 #63
+[    0.435048] Hardware name: Generic DT based system
+[    0.439949] [<c0061ddd>] (unwind_backtrace) from [<c005f7bb>] (show_stack+0xb/0xc)
+[    0.447692] [<c005f7bb>] (show_stack) from [<c016a8f3>] (dump_stack+0x5b/0x70)
+[    0.455077] [<c016a8f3>] (dump_stack) from [<c006d1a1>] (warn_slowpath_common+0x55/0x7c)
+[    0.463345] [<c006d1a1>] (warn_slowpath_common) from [<c006d221>] (warn_slowpath_null+0xf/0x14)
+[    0.472238] [<c006d221>] (warn_slowpath_null) from [<c0065651>] (__arm_ioremap_pfn_caller+0x71/0x100)
+[    0.481668] [<c0065651>] (__arm_ioremap_pfn_caller) from [<c00656fd>] (__arm_ioremap_caller+0x1d/0x24)
+[    0.491186] [<c00656fd>] (__arm_ioremap_caller) from [<c0246179>] (sip_fiq_debugger_uart_irq_tf_init+0x41/0x74)
+[    0.501510] [<c0246179>] (sip_fiq_debugger_uart_irq_tf_init) from [<c018f123>] (rk_serial_debug_init+0x187/0x274)
+[    0.511999] [<c018f123>] (rk_serial_debug_init) from [<c04e52c3>] (rk_fiqdbg_probe+0xa7/0x1a0)
+[    0.520797] [<c04e52c3>] (rk_fiqdbg_probe) from [<c01a9b99>] (platform_drv_probe+0x33/0x62)
+[    0.529345] [<c01a9b99>] (platform_drv_probe) from [<c01a8da1>] (driver_probe_device+0xfd/0x1a8)
+[    0.538333] [<c01a8da1>] (driver_probe_device) from [<c01a8e73>] (__driver_attach+0x27/0x4a)
+[    0.546959] [<c01a8e73>] (__driver_attach) from [<c01a7f15>] (bus_for_each_dev+0x3d/0x46)
+[    0.555324] [<c01a7f15>] (bus_for_each_dev) from [<c01a885f>] (bus_add_driver+0xd7/0x130)
+[    0.563688] [<c01a885f>] (bus_add_driver) from [<c01a931f>] (driver_register+0x4d/0x7a)
+[    0.571863] [<c01a931f>] (driver_register) from [<c01a9dfb>] (__platform_driver_probe+0x33/0x84)
+[    0.580859] [<c01a9dfb>] (__platform_driver_probe) from [<c0059665>] (do_one_initcall+0x41/0x13c)
+[    0.589942] [<c0059665>] (do_one_initcall) from [<c04d9abb>] (kernel_init_freeable+0x10b/0x150)
+[    0.598842] [<c04d9abb>] (kernel_init_freeable) from [<c036bf5b>] (kernel_init+0x7/0x9c)
+[    0.607111] [<c036bf5b>] (kernel_init) from [<c005d371>] (ret_from_fork+0x11/0x20)
+[    0.614873] ---[ end trace 27510aab5fd105be ]---
+[    0.619608] sip_fiq_debugger_uart_irq_tf_init: share memory ioremap failed
+
+
+
+
+[    0.162865] console [pstore-1] enabled
+[    0.166693] pstore: Registered ramoops as persistent store backend
+[    0.173034] ramoops: attached 0x20000@0x30000, ecc: 0/0
+[    0.192849] hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
+[    0.201029] hw-breakpoint: maximum watchpoint size is 8 bytes.
+[    0.207486] ------------[ cut here ]------------
+[    0.212228] WARNING: CPU: 0 PID: 1 at arch/arm/mm/ioremap.c:301 __arm_ioremap_pfn_caller+0x71/0x100()
+[    0.221647] Modules linked in:
+[    0.224800] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 4.4.143 #65
+[    0.231025] Hardware name: Generic DT based system
+[    0.235929] [<c0061ddd>] (unwind_backtrace) from [<c005f7bb>] (show_stack+0xb/0xc)
+[    0.243661] [<c005f7bb>] (show_stack) from [<c016c573>] (dump_stack+0x5b/0x70)
+[    0.251052] [<c016c573>] (dump_stack) from [<c006d1a1>] (warn_slowpath_common+0x55/0x7c)
+[    0.259324] [<c006d1a1>] (warn_slowpath_common) from [<c006d221>] (warn_slowpath_null+0xf/0x14)
+[    0.268210] [<c006d221>] (warn_slowpath_null) from [<c0065651>] (__arm_ioremap_pfn_caller+0x71/0x100)
+[    0.277644] [<c0065651>] (__arm_ioremap_pfn_caller) from [<c00656fd>] (__arm_ioremap_caller+0x1d/0x24)
+[    0.287175] [<c00656fd>] (__arm_ioremap_caller) from [<c02487e9>] (sip_smc_request_share_mem+0x21/0x2c)
+[    0.296802] [<c02487e9>] (sip_smc_request_share_mem) from [<c02489ad>] (sip_fiq_debugger_request_share_memory+0xd/0x14)
+[    0.307826] [<c02489ad>] (sip_fiq_debugger_request_share_memory) from [<c01917c7>] (rk_serial_debug_init+0xab/0x274)
+[    0.318579] [<c01917c7>] (rk_serial_debug_init) from [<c04e93ab>] (rk_fiqdbg_probe+0xa7/0x1a0)
+[    0.327383] [<c04e93ab>] (rk_fiqdbg_probe) from [<c01ac319>] (platform_drv_probe+0x33/0x62)
+[    0.335918] [<c01ac319>] (platform_drv_probe) from [<c01ab521>] (driver_probe_device+0xfd/0x1a8)
+[    0.344892] [<c01ab521>] (driver_probe_device) from [<c01ab5f3>] (__driver_attach+0x27/0x4a)
+[    0.353518] [<c01ab5f3>] (__driver_attach) from [<c01aa695>] (bus_for_each_dev+0x3d/0x46)
+[    0.361869] [<c01aa695>] (bus_for_each_dev) from [<c01aafdf>] (bus_add_driver+0xd7/0x130)
+[    0.370236] [<c01aafdf>] (bus_add_driver) from [<c01aba9f>] (driver_register+0x4d/0x7a)
+[    0.378415] [<c01aba9f>] (driver_register) from [<c01ac57b>] (__platform_driver_probe+0x33/0x84)
+[    0.387399] [<c01ac57b>] (__platform_driver_probe) from [<c0059665>] (do_one_initcall+0x41/0x13c)
+[    0.396469] [<c0059665>] (do_one_initcall) from [<c04ddabb>] (kernel_init_freeable+0x10b/0x150)
+[    0.405352] [<c04ddabb>] (kernel_init_freeable) from [<c036e6db>] (kernel_init+0x7/0x9c)
+[    0.413625] [<c036e6db>] (kernel_init) from [<c005d371>] (ret_from_fork+0x11/0x20)
+[    0.421383] ---[ end trace fac9e7583f6930b1 ]---
+[    0.426126] ------------[ cut here ]------------
+[    0.430844] WARNING: CPU: 0 PID: 1 at arch/arm/mm/ioremap.c:301 __arm_ioremap_pfn_caller+0x71/0x100()
+[    0.440241] Modules linked in:
+[    0.443382] CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W       4.4.143 #65
+[    0.450829] Hardware name: Generic DT based system
+[    0.455723] [<c0061ddd>] (unwind_backtrace) from [<c005f7bb>] (show_stack+0xb/0xc)
+[    0.463452] [<c005f7bb>] (show_stack) from [<c016c573>] (dump_stack+0x5b/0x70)
+[    0.470841] [<c016c573>] (dump_stack) from [<c006d1a1>] (warn_slowpath_common+0x55/0x7c)
+[    0.479129] [<c006d1a1>] (warn_slowpath_common) from [<c006d221>] (warn_slowpath_null+0xf/0x14)
+[    0.488014] [<c006d221>] (warn_slowpath_null) from [<c0065651>] (__arm_ioremap_pfn_caller+0x71/0x100)
+[    0.497429] [<c0065651>] (__arm_ioremap_pfn_caller) from [<c00656fd>] (__arm_ioremap_caller+0x1d/0x24)
+[    0.506942] [<c00656fd>] (__arm_ioremap_caller) from [<c02488f9>] (sip_fiq_debugger_uart_irq_tf_init+0x41/0x74)
+[    0.517253] [<c02488f9>] (sip_fiq_debugger_uart_irq_tf_init) from [<c01918a3>] (rk_serial_debug_init+0x187/0x274)
+[    0.527736] [<c01918a3>] (rk_serial_debug_init) from [<c04e93ab>] (rk_fiqdbg_probe+0xa7/0x1a0)
+[    0.536539] [<c04e93ab>] (rk_fiqdbg_probe) from [<c01ac319>] (platform_drv_probe+0x33/0x62)
+[    0.545064] [<c01ac319>] (platform_drv_probe) from [<c01ab521>] (driver_probe_device+0xfd/0x1a8)
+[    0.554030] [<c01ab521>] (driver_probe_device) from [<c01ab5f3>] (__driver_attach+0x27/0x4a)
+[    0.562657] [<c01ab5f3>] (__driver_attach) from [<c01aa695>] (bus_for_each_dev+0x3d/0x46)
+[    0.571006] [<c01aa695>] (bus_for_each_dev) from [<c01aafdf>] (bus_add_driver+0xd7/0x130)
+[    0.579366] [<c01aafdf>] (bus_add_driver) from [<c01aba9f>] (driver_register+0x4d/0x7a)
+[    0.587535] [<c01aba9f>] (driver_register) from [<c01ac57b>] (__platform_driver_probe+0x33/0x84)
+[    0.596518] [<c01ac57b>] (__platform_driver_probe) from [<c0059665>] (do_one_initcall+0x41/0x13c)
+[    0.605587] [<c0059665>] (do_one_initcall) from [<c04ddabb>] (kernel_init_freeable+0x10b/0x150)
+[    0.614476] [<c04ddabb>] (kernel_init_freeable) from [<c036e6db>] (kernel_init+0x7/0x9c)
+[    0.622758] [<c036e6db>] (kernel_init) from [<c005d371>] (ret_from_fork+0x11/0x20)
+[    0.630505] ---[ end trace fac9e7583f6930b2 ]---
+[    0.635226] sip_fiq_debugger_uart_irq_tf_init: share memory ioremap failed
+[    0.642268] fiq debugger bind fiq to trustzone failed: -12
+[[    0.648221] console [ttyFIQ0] enabled
+    0.648221] console [ttyFIQ0] enabled
+[    0.655614] bootconsole [uart0] disabled
+[    0.655614] bootconsole [uart0] disabled
+[    0.659871] RegisWARNING: suspend_mode_handler: Not support call: 0x4
+tered fiq debugger ttyFIQ0
+[    0.677718] vcc_1v8: regulator get failed, ret=-517
+[    0.678357] vcc_1v8: supplied by vcc_io

@@ -10,7 +10,7 @@ bist: Built-in Self-Test(内部自测);
 ADC_BIST_RESET[7]: adc 自测模块复位
 DAC_BIST_RESET[6]: dac 自测模块复位
 ADC_MCLK_GATING[5]: adc 主时钟选通
-DAC_MCLK_GATING[4]: dac 主时钟选通host 172.16.0.6
+DAC_MCLK_GATING[4]: dac 主时钟选通host
 CODEC_ADC_DIGITAL_RST[2]: adc 数字部分复位
 CODEC_DAC_DIGITAL_RST[1]: dac 数字部分复位
 CODEC_SYSTEM_RST[0]: codec 系统复位
@@ -110,11 +110,11 @@ ACODEC_ADC_ANA_CON0
 ADC_CH2_MIC_MUTE[7]: adc mic的通道2静音
 ADC_CH2_MIC_INIT[6]: adc mic的通道2初始化
 ADC_CH2_MIC_EN[5]: adc mic的通道2使能
-ADC_CH2_BUF_REF_EN[4]: adc mic的通道2的参考电压buffer使能
+ADC_CH2_BUF_REF_EN[4]: adc mic的通道2的参考电压缓冲器使能
 ADC_CH2_MIC_MUTE[3]: adc mic的通道1静音
 ADC_CH2_MIC_INIT[2]: adc mic的通道1初始化
 ADC_CH2_MIC_EN[1]: adc mic的通道1使能
-ADC_CH2_BUF_REF_EN[0]: adc mic的通道1的参考电压buffer使能
+ADC_CH2_BUF_REF_EN[0]: adc mic的通道1的参考电压缓冲器使能
 
 ACODEC_ADC_ANA_CON1
 ADC_CH2_MIC_GAIN[5:4]: adc mic的通道2增益设置

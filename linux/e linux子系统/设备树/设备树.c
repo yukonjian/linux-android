@@ -48,3 +48,12 @@ local-mac-address = [00 00 de ad be ef];
 compatible = "insignal,origen4412","samsung,exynos4412","samsung,exynos4";
 4.5 混合形式
 以上几种的混合形式
+
+4.6 phandle
+我们可以给一个设备节点添加lable，之后可以通过&lable的形式访问这个lable，这种引用是通过phandle（pointer handle）进行的。
+在经过DTC工具编译之后，&lable会变成一个特殊的整型数字n，假设n值为1，那么在引用它的节点下自动生成两个属性，属性如下：
+linux,phandle = <0x00000001>;
+phandle = <0x00000001>;
+
+如a-reference-to-something = <&lable>会变成a-reference-to-something = < 0x00000001>。此处0x00000001就是一个phandle得值，
+每一个phandle都有一个独一无二的整型值，在后续kernel中通过这个特殊的数字间接找到引用的节点。
