@@ -10,6 +10,8 @@ exit                //退出docker
 
 docker image
 docker image list
+
+mount -t nfs  -o nolock 172.25.2.88:/home/   ./rk3308mount
 /////////////////////////////////////////////////////////////////////////////////
 scp  root@172.25.2.88:/home/work/RK3308/rockchip_multicodecs.c ./rockchip_multicodecs.c
 scp  root@172.25.2.88:/home/work/RK3308/rk3308_codec.c ../codecs/rk3308_codec.c
@@ -22,7 +24,7 @@ scp  root@172.25.2.88:/home/work/RK3308/rk3308-evb-dmic-pdm-v11.dts ./
 scp  root@172.25.2.88:/home/work/RK3308/module_init.c ./module_init.c
 scp ./rockdev/boot.img  root@172.25.2.88:/home/work/RK3308/
 
-mount -t nfs  -o nolock 172.25.2.88:/home/work/rk3308mount   ./rk3308mount
+
 
 V:\work\RK3308\rk3308_codec.c
 

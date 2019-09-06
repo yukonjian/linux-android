@@ -19,3 +19,5 @@ card             返回所创建的snd_card实例的指针
 https://blog.csdn.net/DroidPhone/article/list/3
 
 https://blog.csdn.net/zyuanyun/article/category/6752337
+三 component
+https://blog.csdn.net/moonlinux20704/article/details/88417361

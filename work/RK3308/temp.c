@@ -419,8 +419,58 @@ MemTotal:         253996 kB
 MemFree:          242316 kB
 MemAvailable:     241376 kB
 
+$ cat /proc/meminfo
+MemTotal:         254104 kB
+MemFree:          243068 kB
+MemAvailable:     242116 kB
+Buffers:            1036 kB
+Cached:             1556 kB
 
+MemTotal:         253808 kB
+MemFree:          241872 kB
+MemAvailable:     241056 kB
+Buffers:            1116 kB
+Cached:             1720 kB
 
+MemTotal:         253788 kB
+MemFree:          242020 kB
+MemAvailable:     241196 kB
+Buffers:            1116 kB
+Cached:             1720 kB
+SwapCached:            0 kB
+
+$ cat /sys/kernel/debug/regmap/ff320000.i2s/registers
+00: 7200000f
+04: 01c9800f
+08: 00003f1f
+0c: 00000000
+10: 000f0010
+14: 01f00000
+18: XXXXXXXX
+1c: 00000000
+20: XXXXXXXX
+28: 00000000
+30: 00003eff
+34: 00003eff
+38: 00000307
+
+$ cat /sys/kernel/debug/regmap/ff320000.i2s/registers
+00: 7200000f
+04: 01c9800f
+08: 00003f1f
+0c: 00000000
+10: 010f0010
+14: 01f00000
+18: 00000000
+1c: 00000002
+20: 00000000
+28: 00000000
+30: 00003eff
+34: 00003eff
+38: 00000307
+
+arecord -D hw:0,0 -r 16000 -f S16_LE -c 1  ./record.wav
+aplay -D hw:0,0 -r 16000 -f S16_LE -c 2  ./tsts-16k.wav
 
 [    0.507387] flash unique id initial snor init1
 [    0.507404] sfc nor id: ef 40 18
@@ -568,3 +618,264 @@ MemAvailable:     241376 kB
 tered fiq debugger ttyFIQ0
 [    0.677718] vcc_1v8: regulator get failed, ret=-517
 [    0.678357] vcc_1v8: supplied by vcc_io
+/**********************************************************************************
+32bit net problem
+[    0.870741] 0x000000700000-0x000000a00000 : "rootfs"
+[    0.876811] 0x000000a00000-0x000000b00000 : "config"
+[    0.882923] 0x000000b00000-0x000000c00000 : "basic"
+[    0.888928] 0x000000c00000-0x001000bfffff : "app"
+[    0.893824] mtd: partition "app" extends beyond the end of device "sfc_nor" -- size truncated to 0x400000
+[    0.904633] rkflash[1] init success
+[    0.908302] sfc_nor flash registered as a mtd device
+[    0.916696] rk3308-acodec ff560000.acodec: Don't need hp-ctl gpio
+[    0.923267] rk3308-acodec ff560000.acodec: Don't need pa-drv gpio
+[    0.929688] rk3308-acodec ff560000.acodec: De-pop as much as possible
+[    1.012079] rk-multicodecs vad-sound: multicodec <-> ff320000.i2s mapping ok
+[    1.021864] input: rockchip,rk3308-vad Headphones as /devices/platform/vad-sound/sound/card0/input0
+[    1.032675] NET: Registered protocol family 17
+[    1.037287] NET: Registered protocol family 15
+[    1.042005] Bluetooth: RFCOMM TTY layer initialized
+[    1.047007] Bluetooth: RFCOMM socket layer initialized
+[    1.052280] Bluetooth: RFCOMM ver 1.11
+[    1.056190] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[    1.062406] Bluetooth: HIDP socket layer initialized
+[    1.067589] [WLAN_RFKILL]: Enter rfkill_wlan_init
+[    1.072832] [WLAN_RFKILL]: Enter rfkill_wlan_probe
+[    1.077883] [WLAN_RFKILL]: wlan_platdata_parse_dt: wifi_chip_type = rtl8189fs
+[    1.085359] [WLAN_RFKILL]: wlan_platdata_parse_dt: enable wifi power control.
+[    1.092814] [WLAN_RFKILL]: wlan_platdata_parse_dt: wifi power controled by gpio.
+[    1.100599] [WLAN_RFKILL]: wlan_platdata_parse_dt: get property: WIFI,host_wake_irq = 0, flags = 1.
+[    1.110089] [WLAN_RFKILL]: wlan_platdata_parse_dt: The ref_wifi_clk not found !
+[    1.117767] [WLAN_RFKILL]: rfkill_wlan_probe: init gpio
+[    1.123208] [WLAN_RFKILL]: Exit rfkill_wlan_probe
+[    1.128162] [BT_RFKILL]: Enter rfkill_rk_init
+[    1.132958] flash vendor_init_thread!
+[    1.133218] Registering SWP/SWPB emulation handler
+[    1.133868] bootconsole [uart0] disabled
+
+/*****************************************************************************
+good print 32bit
+Starting kernel ...
+
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 4.4.143 (root@a9aa976c2900) (gcc version 6.3.1 20170404 (Linaro GCC 6.3-2017.05) ) #69 SMP PREEMPT Mon Sep 2 13:41:50 CST 2019
+[    0.000000] CPU: ARMv7 Processor [410fd042] revision 2 (ARMv7), cr=50c5383d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine model: Rockchip RK3308 Voice Module Board V10 (AArch32)
+[    0.000000] earlycon: Early serial console at MMIO32 0xff0c0000 (options '')
+[    0.000000] bootconsole [uart0] enabled
+[    0.000000] Reserved memory: failed to reserve memory for node 'drm-logo@00000000': base 0x00000000, size 0 MiB
+[    0.000000] Memory policy: Data cache writealloc
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.0 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] PERCPU: Embedded 11 pages/cpu @cfda8000 s13132 r8192 d23732 u45056
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 64516
+[    0.000000] Kernel command line: coherent_pool=4k user_debug=31 storagemedia=nor androidboot.slot_suffix= androidboot.serialno=c3d9b8674f4b94f6  rootwait earlycon=uart8250,mmio32,0xff0c0000 swiotlb=1 console=ttyFIQ0,115200 root=/dev/mtdblock4 rootfstype=squashfs snd_aloop.index=7
+[    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)
+[    0.000000] Memory: 253808K/260096K available (3176K kernel code, 239K rwdata, 1276K rodata, 188K init, 274K bss, 6288K reserved, 0K cma-reserved)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xffc00000 - 0xfff00000   (3072 kB)
+[    0.000000]     vmalloc : 0xd0800000 - 0xff800000   ( 752 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xd0000000   ( 256 MB)
+[    0.000000]     modules : 0xbf800000 - 0xc0000000   (   8 MB)
+[    0.000000]       .text : 0xc0058000 - 0xc0372274   (3177 kB)
+[    0.000000]       .init : 0xc04dd000 - 0xc050c000   ( 188 kB)
+[    0.000000]       .data : 0xc050c000 - 0xc0547de8   ( 240 kB)
+[    0.000000]        .bss : 0xc0549000 - 0xc058d898   ( 275 kB)
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000]  Build-time adjustment of leaf fanout to 32.
+[    0.000000] NR_IRQS:16 nr_irqs:16 16
+[    0.000000] Architected cp15 timer(s) running at 24.00MHz (virt).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+[    0.000006] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+[    0.008214] Switching to timer-based delay loop, resolution 41ns
+[    0.015145] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=24000)
+[    0.025681] pid_max: default: 4096 minimum: 301
+[    0.030458] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.037226] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.044932] CPU: Testing write buffer coherency: ok
+[    0.050149] Setting up static identity map for 0x58240 - 0x5828c
+[    0.071804] Brought up 4 CPUs
+[    0.074837] SMP: Total of 4 processors activated (192.00 BogoMIPS).
+[    0.081253] CPU: All CPU(s) started in SVC mode.
+[    0.086392] devtmpfs: initialized
+[    0.105122] VFP support v0.3: implementor 41 architecture 3 part 40 variant 4 rev 2
+[    0.113326] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[    0.123315] futex hash table entries: 16 (order: -2, 1024 bytes)
+[    0.129725] pinctrl core: initialized pinctrl subsystem
+[    0.136068] NET: Registered protocol family 16
+[    0.140975] DMA: preallocated 4 KiB pool for atomic coherent allocations
+[    0.154895] cpuidle: using governor menu
+[    0.158938] Registered FIQ tty driver
+[    0.164990] console [pstore-1] enabled
+[    0.168809] pstore: Registered ramoops as persistent store backend
+[    0.175133] ramoops: attached 0x20000@0x30000, ecc: 0/0
+[    0.194929] hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
+[    0.203116] hw-breakpoint: maximum watchpoint size is 8 bytes.
+[    0.209593] fiq debugger fiq mode enabled
+[[    0.214027] console [ttyFIQ0] enabled
+    0.214027] console [ttyFIQ0] enabled
+[    0.221428] bootconsole [uart0] disabled
+[    0.221428] bootconsole [uart0] disabled
+[    0.225680] Registered fiq debugger ttyFIQ0
+WARNING: suspend_mode_handler: Not support call: 0x4
+[    0.241512] vcc_1v8: regulator get failed, ret=-517
+[    0.242152] vcc_1v8: supplied by vcc_io
+[    0.243884] Advanced Linux Sound Architecture Driver Initialized.
+[    0.244564] Bluetooth: Core ver 2.21
+[    0.244607] NET: Registered protocol family 31
+[    0.244620] Bluetooth: HCI device and connection manager initialized
+[    0.244637] Bluetooth: HCI socket layer initialized
+[    0.244651] Bluetooth: L2CAP socket layer initialized
+[    0.244682] Bluetooth: SCO socket layer initialized
+[    0.245644] rockchip-cpuinfo cpuinfo: Serial         : 4887e67c1a454e04
+[    0.246189] clocksource: Switched to clocksource arch_sys_counter
+[    0.248334] thermal thermal_zone1: power_allocator: sustainable_power will be estimated
+[    0.248597] NET: Registered protocol family 2
+[    0.249369] TCP established hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.249415] TCP bind hash table entries: 2048 (order: 2, 16384 bytes)
+[    0.249460] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.249518] UDP hash table entries: 128 (order: 0, 4096 bytes)
+[    0.249539] UDP-Lite hash table entries: 128 (order: 0, 4096 bytes)
+[    0.249728] NET: Registered protocol family 1
+[    0.250042] RPC: Registered named UNIX socket transport module.
+[    0.250058] RPC: Registered udp transport module.
+[    0.250068] RPC: Registered tcp transport module.
+[    0.250079] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.254895] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.255161] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[    0.258799] io scheduler noop registered (default)
+[    0.259815] phy phy-ff008000.syscon:usb2-phy@100.0: Failed to get VBUS supply regulator
+[    0.263325] dma-pl330 ff2c0000.dma-controller: Loaded driver for PL330 DMAC-241330
+[    0.263354] dma-pl330 ff2c0000.dma-controller:       DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+[    0.265692] dma-pl330 ff2d0000.dma-controller: Loaded driver for PL330 DMAC-241330
+[    0.265718] dma-pl330 ff2d0000.dma-controller:       DBUFF-128x8bytes Num_Chans-8 Num_Peri-20 Num_Events-16
+[    0.266003] rockchip-pvtm ff000000.grf:pmu-pvtm: failed to get rst 0 pmu
+[    0.266115] rockchip-pvtm ff00c000.syscon:pvtm: failed to get rst 0 core
+[    0.267416] Serial: 8250/16550 driver, 5 ports, IRQ sharing disabled
+[    0.270549] random: nonblocking pool is initialized
+[    0.271304] zram: Added device: zram0
+[    0.272096] Rockchip WiFi SYS interface (V1.00) ...
+[    0.272471] ff400000.usb supply vusb_d not found, using dummy regulator
+[    0.272548] ff400000.usb supply vusb_a not found, using dummy regulator
+[    0.274722] dwc2 ff400000.usb: Configuration mismatch. dr_mode forced to device
+[    0.274754] dwc2 ff400000.usb: 128 invalid for host_nperio_tx_fifo_size. Check HW configuration.
+[    0.274773] dwc2 ff400000.usb: 256 invalid for host_perio_tx_fifo_size. Check HW configuration.
+[    0.274808] dwc2 ff400000.usb: EPs: 10, dedicated fifos, 972 entries in SPRAM
+[    0.498640] phy phy-ff008000.syscon:usb2-phy@100.0: charger = USB_SDP_CHARGER
+[    0.500055] rk-timer-rtc ff1a0020.rk-timer-rtc: rtc core: registered rk-timer-rtc as rtc0
+[    0.500196] i2c /dev entries driver
+[    0.502368] rk_tsadcv2_temp_to_code: Invalid conversion table: code=4095, temperature=2147483647
+[    0.502570] rockchip-thermal ff1f0000.tsadc: tsadc is probed successfully!
+[    0.502975] Bluetooth: HCI UART driver ver 2.3
+[    0.502991] Bluetooth: HCI UART protocol H4 registered
+[    0.503003] Bluetooth: HCI UART protocol LL registered
+[    0.503240] cpu cpu0: leakage=5
+[    0.503382] cpu cpu0: Failed to get pvtm
+[    0.505018] /cpus/cpu@0: unsupported enable-method property: psci
+[    0.505038] CPUidle arm: CPU 0 failed to init idle CPU ops
+[    0.505473] rockchip-dmc dmc: failed to get the count of devfreq-event in /dmc node
+[    0.505632] rockchip-dmc dmc: Failed to get leakage
+[    0.505700] rockchip-dmc dmc: Failed to get pvtm
+[    0.505938] rockchip-dmc dmc: failed to get vop bandwidth to dmc rate
+[    0.505958] rockchip-dmc dmc: don't add devfreq feature
+[    0.507521] rknandc_base v1.1 2017-01-11
+[    0.507770] rknandc ff4b0000.nandc: rknandc_probe clk rate = 147456000
+[    0.507819] rkflash_dev_init
+[    0.507831] init rkflash[0]
+[    0.507854] rkflash[0] init fail
+[    0.507882] rknandc: probe of ff4b0000.nandc failed with error -1
+[    0.507968] rksfc_base v1.1 2016-01-08
+[    0.508149] rksfc ff4c0000.sfc: rksfc_probe clk rate = 100000000
+[    0.508224] rkflash_dev_init
+[    0.508236] init rkflash[1]
+[    0.508255] sfc nor id: ef 40 18
+[    0.508785] Creating 8 MTD partitions on "sfc_nor":
+[    0.508805] 0x000000000000-0x0000000e0000 : "uboot"
+[    0.509883] 0x0000000e0000-0x0000000f0000 : "manufacture"
+[    0.510883] 0x0000000f0000-0x000000100000 : "reserver"
+[    0.511938] 0x000000100000-0x000000700000 : "boot"
+[    0.512978] 0x000000700000-0x000000a00000 : "rootfs"
+[    0.514078] 0x000000a00000-0x000000b00000 : "config"
+[    0.515210] 0x000000b00000-0x000000c00000 : "basic"
+[    0.516248] 0x000000c00000-0x001000bfffff : "app"
+[    0.516267] mtd: partition "app" extends beyond the end of device "sfc_nor" -- size truncated to 0x400000
+[    0.517251] rkflash[1] init success
+[    0.517268] sfc_nor flash registered as a mtd device
+[    0.521089] rk3308-acodec ff560000.acodec: Don't need hp-ctl gpio
+[    0.521302] rk3308-acodec ff560000.acodec: Don't need pa-drv gpio
+[    0.521318] rk3308-acodec ff560000.acodec: De-pop as much as possible
+[    0.595900] rk-multicodecs vad-sound: multicodec <-> ff320000.i2s mapping ok
+[    0.596982] input: rockchip,rk3308-vad Headphones as /devices/platform/vad-sound/sound/card0/input0
+[    0.597696] NET: Registered protocol family 17
+[    0.597747] NET: Registered protocol family 15
+[    0.597881] Bluetooth: RFCOMM TTY layer initialized
+[    0.597902] Bluetooth: RFCOMM socket layer initialized
+[    0.597935] Bluetooth: RFCOMM ver 1.11
+[    0.597962] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[    0.597977] Bluetooth: HIDP socket layer initialized
+[    0.597993] [WLAN_RFKILL]: Enter rfkill_wlan_init
+[    0.598378] [WLAN_RFKILL]: Enter rfkill_wlan_probe
+[    0.598407] [WLAN_RFKILL]: wlan_platdata_parse_dt: wifi_chip_type = rtl8189fs
+[    0.598419] [WLAN_RFKILL]: wlan_platdata_parse_dt: enable wifi power control.
+[    0.598430] [WLAN_RFKILL]: wlan_platdata_parse_dt: wifi power controled by gpio.
+[    0.598509] [WLAN_RFKILL]: wlan_platdata_parse_dt: get property: WIFI,host_wake_irq = 0, flags = 1.
+[    0.59852ifconfig: SIOCSIFADDR: No such device
+5] [WLAN_RFKILL]: wlan_platdata_parse_dt: The ref_wifi_clk not found !
+[    0.598538] [WLAN_RFKILL]: rfkill_wlan_probe: init gpio
+[    0.598551] [WLAN_RFKILL]: Exit rfkill_wlan_probe
+[    0.598611] [BT_RFKILL]: Enter rfkill_rk_init
+[    0.598865] flash vendor_init_thread!
+[    0.599209] Registering SWP/SWPB emulation handler
+[    0.600346] flash vendor storage:20170-/bin/sh: id: not foun3d
+08sh: bad number
+ ret =$  0
+[    0.600696] input: adc-keys as /devices/platform/adc-keys/input/input1
+[    0.601802] input: gpio-keys as /devices/platform/gpio-keys/input/input2
+[    0.602211] rk-timer-rtc ff1a0020.rk-timer-rtc: setting system clock to 1970-01-01 00:00:00 UTC (0)
+[    0.613902] vbus_host: disabling
+[    0.614281] ALSA device list:
+[    0.614299]   #0: rockchip,rk3308-vad
+[    0.614309]   #7: Loopback 1
+[    0.616492] VFS: Mounted root (squashfs filesystem) readonly on device 31:4.
+[    0.617101] devtmpfs: mounted
+[    0.617410] Freeing unused kernel memory: 188K
+[    0.617420] This architecture does not have kernel memory protection.
+
+$
+/*****************************************************************************
+$ insmod ./snd-soc-rk3308.ko
+[  326.033752] [CODEC_RK3308] FUN:rk3308_platform_probe; LINE:3892;
+$ [  326.034650] rk3308-acodec ff560000.acodec: Don't need pa-drv gpio
+[  326.034686] rk3308-acodec ff560000.acodec: De-pop as much as possible
+
+$
+$
+$
+$ insmod ./snd-soc-rockchip-i2s-tdm.ko
+[  361.059519] [I2S_TDM_RK3308] FUN:rockchip_i2s_tdm_probe; LINE:1121;
+[  361.06011$ 7] [DMA_ENGINE_RK3308] FUN:snd_dmaengine_pcm_register; LINE:447;
+
+$
+$
+$
+$ insmod ./snd-soc-rockchip-multicodecs.ko
+[  391.664488] [CODEC_RK3308] FUN:rk3308_probe; LINE:3286;
+
+[  391.736335] [I2S_TDM_RK3308] FUN:rockchip_i2s_tdm_dai_probe; LINE:916;
+[  391.736390] [CODEC_RK3308] FUN:rk3308_set$
+$ _dai_fmt; LINE:847;fmt:0x4001;
+[  391.736439] [I2S_TDM_RK3308] FUN:rockchip_i2s_tdm_set_fmt; LINE:407;
+[  391.736904] [DMA_ENGINE_RK3308] FUN:dmaengine_pcm_new; LINE:266;
+[  391.737990] rk-multicodecs acodec-sound: rk3308-hifi <-> ff320000.i2s mapping ok
+[  391.738148] [CODEC_RK3308] FUN:rk3308_set_bias_level; LINE:821;Level:1;
+[  391.738148]
+[  391.740051] input: rockchip,rk3308-acodec Headphones as /devices/platform/acodec-sound/sound/card0/input2
+
+$
