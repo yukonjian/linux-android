@@ -227,11 +227,11 @@ DAC_L_REF_EN[0]: dac 左通道参考电压使能
 
 ACODEC_DAC_ANA_CON3
 DAC_R_HPOUT_INIT[6]: dac 右通道HPOUT模块初始化
-DAC_R_HPOUT_EN[5]: adc 右通道HPOUT模块使能
-DAC_R_HPOUT_MUTE[4]: adc 右通道HPOUT模块静音
+DAC_R_HPOUT_EN[5]: dac 右通道HPOUT模块使能
+DAC_R_HPOUT_MUTE[4]: dac 右通道HPOUT模块静音
 DAC_L_HPOUT_INIT[3]: dac 左通道HPOUT模块初始化
-DAC_L_HPOUT_EN[2]: adc 左通道HPOUT模块使能
-DAC_L_HPOUT_MUTE[1]: adc 左通道HPOUT模块静音
+DAC_L_HPOUT_EN[2]: dac 左通道HPOUT模块使能
+DAC_L_HPOUT_MUTE[1]: dac 左通道HPOUT模块静音
 
 ACODEC_DAC_ANA_CON4
 DAC_R_GAIN[7:6]: dac 右通道line out模块增益设置

@@ -100,6 +100,7 @@ identityfile ~/.ssh/steven
 
 12. 查看某个文件的修改记录
 git log -p 文件名
+git log --pretty=oneline 文件名
 
 13. 产看某次提交的修改
 git show <commit-hashId> 便可以显示某次提交的修改内容

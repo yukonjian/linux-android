@@ -879,3 +879,29 @@ $ _dai_fmt; LINE:847;fmt:0x4001;
 [  391.740051] input: rockchip,rk3308-acodec Headphones as /devices/platform/acodec-sound/sound/card0/input2
 
 $
+
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
+
+[    0.651017] vbus_host: disabling
+[    0.651322] ALSA device list:
+[    0.651337]   #0: rockchip,rk3308-vad
+[    0.651346]   #7: Loopback 1
+[    0.653736] VFS: Mounted root (squashfs filesystem) readonly on device 31:4.
+[    0.656158] devtmpfs: mounted
+[    0.656528] Freeing unused kernel memory: 220K
+[    0.656539] This architecture does not have kernel memory protection.
+[    1.135859] jffs2: notice: (126) jffs2_build_xattr_subsystem: complete building xattr subsystem, 0 of xdatum (0 unchecked, 0 orphan) and 0 of xref (0 dead, 0 orphan) found.
+[    1.143535] rk_gmac-dwmac ff4e0000.ethernet: rk_get_eth_addr: rk_vendor_read eth mac address failed (-1)
+[    1.143585] rk_gmac-dwmac ff4e0000.ethernet: rk_get_eth_addr: generate random eth mac address: 32:cf:1e:e2:7c:af
+[    1.143599] rk_gmac-dwmac ff4e0000.ethernet: rk_get_eth_addr: rk_vendor_write eth mac address failed (-1)
+[    1.143617] rk_gmac-dwmac ff4e0000.ethernet: rk_get_eth_addr: mac address: 32:cf:1e:e2:7c:af
+[    1.143628] eth0: device MAC address 32:cf:1e:e2:7c:af
+[    1.241147] ramreserve: loading out-of-tree module taints kernel.
+[    1.241664] num_physpages:0xfdfc;
+[    1.241855] ramreserve_size_all:0x204000
+[    1.242060] PHYS_OFFSET:0x0;ramreserve_char_start_addr:0xfffc000;
+[    1.242264] num_physpages:fdfc ramreserve_head_region_addr:0 ramreserve_size_all:204000
+[    1.242720] ramreservechar register success
+[    3.147535] rk_gmac-dwmac ff4e0000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+$ 
