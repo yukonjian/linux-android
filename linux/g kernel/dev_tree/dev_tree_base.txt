@@ -8,3 +8,10 @@ https://blog.csdn.net/21cnbao
 描述文件放在 arch/arm/plat-xxx 和 arch/arm/mach-xxx
 3. 设备数存放路径
 arch/arm/boot/dts
+4. 常见的数据结构
+1 双引号包含的字符信息
+  string-property = "a string";
+2 cells单位信息是32位无符号整型数据
+  cell-property = <0xFF01 412 0x12341283>;
+3 二进制数据流
+  binary-property = [0x01 0x02 0x03 0x04];

@@ -31,6 +31,7 @@ void mdelay(unsigned long msecs);
 2) sleep 睡眠等待
 void msleep(unsigned int msecs)
 void usleep_range(unsigned long min, unsigned long max)
+注：app中没有msleep;需要使用usleep();在#include <unistd.h>中
 
 3. 得到系统时间
 struct timeval {

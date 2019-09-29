@@ -33,5 +33,20 @@ unsigned int irq_of_parse_and_map(struct device_node *dev, int index);
 从interrupts属性解析出中断号。若设备使用了多个中断，index指定中断的索引号。
 
 6. 读取gpio number
-int of_get_named_gpio_flags(struct device_node *np, const char *propname,
-			   int index, enum of_gpio_flags *flags);
+static inline int of_get_named_gpio(struct device_node *np,const char *propname, int index);
+6.1 static inline int of_get_gpio(struct device_node *np, int index);则需要定义一下gpios属性；
+例如：
+gpios = <&banka 1 0     /* rdy */
+          &banka 2 0 >
+ plat->gpio_rdy = of_get_gpio(dev->of_node, 0);
+
+7. 时钟
+时钟和GPIO也是类似的，时钟控制器的节点被使用时钟的模块引用：
+clocks = <&clks 138>, <&clks 140>, <&clks 141>;
+clock-names = "uart", "general", "noc";
+而驱动中则使用上述的clock-names属性作为clk_get（）或devm_clk_get（）的第二个参数来申请时钟，譬如获取第2个时钟：
+devm_clk_get(&pdev->dev, "general");
+<&clks 138>里的138这个index是与相应时钟驱动中clk的表的顺序对应的，很多开发者也认为这种数字出现在设备树中不太好，因此他们把clk的index作为宏定义到了arch/arm/boot/dts/include/dt-bindings/clock中。譬如include/dt-bindings/clock/imx6qdl-clock.h中存在这样的宏：
+#define IMX6QDL_CLK_STEP                        16
+#define IMX6QDL_CLK_PLL1_SW                  17
+#define IMX6QDL_CLK_ARM                         104

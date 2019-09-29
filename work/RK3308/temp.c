@@ -879,9 +879,11 @@ $ _dai_fmt; LINE:847;fmt:0x4001;
 [  391.740051] input: rockchip,rk3308-acodec Headphones as /devices/platform/acodec-sound/sound/card0/input2
 
 $
-
+cp /home/steven/work/project/git_cx/phone-cx/src/emb/drivers/misc_EM50/src/include/slave_spi.h  ./
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
+SNDRV_PCM_IOCTL_PREPARE
+SNDRV_PCM_IOCTL_READI_FRAMES
 
 [    0.651017] vbus_host: disabling
 [    0.651322] ALSA device list:
@@ -904,4 +906,4 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
 [    1.242264] num_physpages:fdfc ramreserve_head_region_addr:0 ramreserve_size_all:204000
 [    1.242720] ramreservechar register success
 [    3.147535] rk_gmac-dwmac ff4e0000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
-$ 
+$

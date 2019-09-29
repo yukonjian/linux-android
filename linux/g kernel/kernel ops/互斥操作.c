@@ -15,6 +15,15 @@ int down_trylock ( struct  semaphore * sem )
 返回0：成功获得信号量
 返回1：没有获得信号量
 
+1.1 信号量completion
+include/linux/completion.h
+struct completion x;
+void init_completion(struct completion *x)
+void wait_for_completion(struct completion *);该函数执行一个非中断的等待，并且是阻塞型的；
+unsigned long wait_for_completion_timeout(struct completion *x,unsigned long timeout);//该函数是延迟等待，返回值大于0，表示还没等到延迟的时间，信号量已经被释放，即该线程已经被唤醒；可用于同步阻塞。
+void complete(struct completion *);
+注意：每次使用信号量之前都必须重新初始化，因为一旦释放后，该结构就不存在了。
+
 2.互斥量
 struct mutex xxx_mutex;
 void mutex_init(struct mutex *lock);
