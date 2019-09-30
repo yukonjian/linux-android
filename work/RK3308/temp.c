@@ -907,3 +907,25 @@ SNDRV_PCM_IOCTL_READI_FRAMES
 [    1.242720] ramreservechar register success
 [    3.147535] rk_gmac-dwmac ff4e0000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
 $
+
+
+$ echo 0 > /proc/sys/kernel/hung_task_timeout_secs
+$ cat /proc/sys/kernel/hung_task_timeout_secs
+https://blog.csdn.net/electrocrazy/article/details/79377214
+
+
+$ insmod /tmp/mount/ext.ko
+[  457.168063] [EXT_SPI] : Fun is host_spi_init; Line: 100;host_spi_init
+[  457.168096] [E$ XT_SPI] : Fun is host_spi_io_init; Line: 25;host_spi_io_init
+[  457.168200] [EXT_SPI] : Fun is host_spi_irq; Line: 40;host_spi_irq start
+[  457.168237] [EXT_SPI] : Fun is host_spi_irq; Line: 43;host_spi_irq end
+[  457.168677] ext_slave_init
+[  457.168860] [EXT_SPI] : Fun is VariableInit; Line: 1008;version:0x10001
+[  457.168934] [EXT_SPI] : Fun is Int1_isr_init; Line: 519;gpio number:15;
+[  457.168962] [EXT_SPI] : Fun is Int1_isr_init; Line: 520;irq number:64;
+[  457.168987] [EXT_SPI] : Fun is Int1_isr_init; Line: 521;irq number print finished
+[  457.169031] [EXT_SPI] : Fun is slave_spi_isr; Line: 504;slave_spi_irq start
+[  457.169072] [EXT_SPI] : Fun is slave_spi_isr; Line: 509;slave_spi_irq end
+[  457.169388] [EXT_SPI] : Fun is ext_spi_platform_probe; Line: 464;
+
+$
