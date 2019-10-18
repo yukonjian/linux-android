@@ -120,3 +120,9 @@ git reset --soft|--mixed|--hard <commit_id>
 
 16. 放弃某个文件的add
 use "git reset HEAD <file>..." to unstage
+
+17. 回退到以前的版本
+git reset --hard commit_id  //回退到某个版本命令
+git reset --hard HEAD
+git reset --hard HEAD^  //回退到当前版本的前一个版本
+git reset --hard HEAD~100  //回退到当前版本之前的100个版本

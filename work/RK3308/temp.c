@@ -929,3 +929,9 @@ $ insmod /tmp/mount/ext.ko
 [  457.169388] [EXT_SPI] : Fun is ext_spi_platform_probe; Line: 464;
 
 $
+
+echo 0 0x04 > /proc/drmdebug/reg
+
+echo 0 0x04 > /proc/drmdebug/reg
+
+echo 1 0x00 0x00270027 > /proc/drmdebug/reg
