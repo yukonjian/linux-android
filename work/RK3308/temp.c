@@ -930,8 +930,148 @@ $ insmod /tmp/mount/ext.ko
 
 $
 
+cp drmlcd_test /home/steven/work/rk3308sdk/filesystem/rootfs/bin/
+
 echo 0 0x04 > /proc/drmdebug/reg
 
 echo 0 0x04 > /proc/drmdebug/reg
+
+echo 0 0x28 > /proc/drmdebug/reg
+
+echo 1 0x28 0x0820108 > /proc/drmdebug/reg
+
+echo 1 0x168 0x00 > /proc/drmdebug/reg
+
+0x00ac
+0x010000ff
+win0
+echo 1 0x58 0x01ff00ff > /proc/drmdebug/reg
+win1
+echo 1 0xac 0x01ff00ff > /proc/drmdebug/reg
+
+VOP_LITE_BCSH_CTRL 0x0160 W 0x00000000
+Brightness/Contrast
+enhancement/Saturation/Hue
+control
+VOP_LITE_BCSH_BCS 0x0168 W 0x00000000 Brightness/Contrast
+enhancement/Saturation
+
+
 
 echo 1 0x00 0x00270027 > /proc/drmdebug/reg
+
+
+[    1.251611] [drm] no mcu-timing node found in /vop@ff2e0000
+[    1.251631] rockchip-drm display-subsystem: bound ff2e0000.vop (ops 0xc03f4020)
+[    1.251724] rockchip-rgb rgb: [drm:rockchip_rgb_bind] *ERROR* failed to find panel and bridge node
+[    1.251741] rockchip-drm display-subsystem: failed to bind rgb (ops 0xc03ece38): -517
+[    1.251857] rockchip-drm display-subsystem: master bind failed: -517
+
+cp ./cordless/src/dev-voice.c ../git_cx/phone-cx/src/emb/DVFD8181x/drivers/cordless/src/dev-voice.c
+cp ./devctrl/src/devctrl_DVFD8185.c  ../git_cx/phone-cx/src/emb/devctrl/src/devctrl_DVFD8185.c
+cp ././devctrl/include/devctrl.h ../git_cx/phone-cx/src/emb/devctrl/include/devctrl.h
+
+
+echo 1 39 0x30 > backlight
+echo 1 74 0xff > backlight
+echo 1 71 0x0f > backlight
+
+
+{ GPIO_PORTA(18), 0x02, Any_PNX8181_BaseStation},
+
+
+backlight: backlight {
+        status = "okay";
+        compatible = "pwm-backlight";
+        pwms = <&pwm1 0 25000 0>;
+        brightness-levels = <
+                  0   1   2   3   4   5   6   7
+                  8   9  10  11  12  13  14  15
+                 16  17  18  19  20  21  22  23
+                 24  25  26  27  28  29  30  31
+                 32  33  34  35  36  37  38  39
+                 40  41  42  43  44  45  46  47
+                 48  49  50  51  52  53  54  55
+                 56  57  58  59  60  61  62  63
+                 64  65  66  67  68  69  70  71
+                 72  73  74  75  76  77  78  79
+                 80  81  82  83  84  85  86  87
+                 88  89  90  91  92  93  94  95
+                 96  97  98  99 100 101 102 103
+                104 105 106 107 108 109 110 111
+                112 113 114 115 116 117 118 119
+                120 121 122 123 124 125 126 127
+                128 129 130 131 132 133 134 135
+                136 137 138 139 140 141 142 143
+                144 145 146 147 148 149 150 151
+                152 153 154 155 156 157 158 159
+                160 161 162 163 164 165 166 167
+                168 169 170 171 172 173 174 175
+                176 177 178 179 180 181 182 183
+                184 185 186 187 188 189 190 191
+                192 193 194 195 196 197 198 199
+                200 201 202 203 204 205 206 207
+                208 209 210 211 212 213 214 215
+                216 217 218 219 220 221 222 223
+                224 225 226 227 228 229 230 231
+                232 233 234 235 236 237 238 239
+                240 241 242 243 244 245 246 247
+                248 249 250 251 252 253 254 255>;
+        default-brightness-level = <200>;
+};
+
+
+  | Symbol: ROCKCHIP_DRM_BACKLIGHT [=n]                                                                                                                                            |
+  | Type  : tristate                                                                                                                                                               |
+  | Prompt: Rockchip DRM Backlight                                                                                                                                                 |
+  |   Location:                                                                                                                                                                    |
+  |     -> Device Drivers                                                                                                                                                          |
+  |       -> Graphics support                                                                                                                                                      |
+  | (5)     -> DRM Support for Rockchip (DRM_ROCKCHIP [=y])                                                                                                                        |
+  |   Defined at drivers/gpu/drm/rockchip/Kconfig:117                                                                                                                              |
+  |   Depends on: HAS_IOMEM [=y] && DRM_ROCKCHIP [=y]
+
+
+	 Symbol: BACKLIGHT_PWM [=n]                                                                                                                                                     |
+  | Type  : tristate                                                                                                                                                               |
+  | Prompt: Generic PWM based Backlight Driver                                                                                                                                     |
+  |   Location:                                                                                                                                                                    |
+  |     -> Device Drivers                                                                                                                                                          |
+  |       -> Graphics support                                                                                                                                                      |
+  |         -> Backlight & LCD device support (BACKLIGHT_LCD_SUPPORT [=y])                                                                                                         |
+  | (2)       -> Lowlevel Backlight controls (BACKLIGHT_CLASS_DEVICE [=y])                                                                                                         |
+  |   Defined at drivers/video/backlight/Kconfig:261                                                                                                                               |
+  |   Depends on: HAS_IOMEM [=y] && BACKLIGHT_LCD_SUPPORT [=y] && BACKLIGHT_CLASS_DEVICE [=y] && PWM [=y]
+
+	/sys/class/backlight/backlight/brightness
+
+///u-boot
+ Symbol: DM_VIDEO [=n]                                                                                                                                                                 |
+  | Type  : boolean                                                                                                                                                                       |
+  | Prompt: Enable driver model support for LCD/video                                                                                                                                     |
+  |   Location:                                                                                                                                                                           |
+  |     -> Device Drivers                                                                                                                                                                 |
+  | (1)   -> Graphics support                                                                                                                                                             |
+  |   Defined at drivers/video/Kconfig:7                                                                                                                                                  |
+  |   Depends on: DM [=y]                                                                                                                                                                 |
+  |   Selected by: VIDEO_DE2 [=n] && ARM [=y] && ARCH_SUNXI [=n] && SUNXI_DE2 [=n]                                                                                                        |
+  |   Implied by: X86 [=n] && <choice>
+
+  | Symbol: USING_KERNEL_DTB [=n]                                                                                                                                                         |
+  | Type  : boolean                                                                                                                                                                       |
+  | Prompt: Using dtb from Kernel/resource for U-Boot                                                                                                                                     |
+  |   Location:                                                                                                                                                                           |
+  |     -> ARM architecture                                                                                                                                                               |
+  | (1)   -> Support for Rockchip Image Bootloader boot flow (RKIMG_BOOTLOADER [=y])                                                                                                      |
+  |   Defined at arch/arm/mach-rockchip/Kconfig:451                                                                                                                                       |
+  |   Depends on: ARM [=y] && ARCH_ROCKCHIP [=y] && RKIMG_BOOTLOADER [=y] && OF_LIVE [=y]
+
+
+
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libpthread.so.0]
+ 0x0000000000000001 (NEEDED)             Shared library: [libcrypto.so.1.0.0]
+ 0x0000000000000001 (NEEDED)             Shared library: [libz.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libcrypt.so.1]
+
+ /home/steven/work/rk3308sdk/filesystem/rootfs/lib
