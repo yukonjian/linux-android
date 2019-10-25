@@ -1075,3 +1075,7 @@ backlight: backlight {
  0x0000000000000001 (NEEDED)             Shared library: [libcrypt.so.1]
 
  /home/steven/work/rk3308sdk/filesystem/rootfs/lib
+//配置为RGB656
+mw.l ff2e0028 200c0
+mw.l ff2e0028 100c0
+mw.l ff2e0000 00270027
