@@ -24,13 +24,20 @@ struct property *of_find_property(const struct device_node *np,
 */
 struct device_node *of_parse_phandle(const struct device_node *np,
 				     const char *phandle_name, int index)
+/*
+ *  Returns true if the status property is absent or set to "okay" or "ok",
+ *  false otherwise
+ */
+bool of_device_is_available(const struct device_node *device);
 
+/*
+ * Find a property with a given name for a given node
+ * and return the value.
+ */
+const void *of_get_property(const struct device_node *np, const char *name,
+			    int *lenp)
+{
+	struct property *pp = of_find_property(np, name, lenp);
 
-
-
-port = of_parse_phandle(np, "ports", index);
-__of_parse_phandle_with_args(np, "ports", NULL, 0, index, &args)
-
-list = of_get_property(np, "ports", &size);
-
-struct property *pp = of_find_property(np, "ports", lenp);
+	return pp ? pp->value : NULL;
+}

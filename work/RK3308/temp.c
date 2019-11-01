@@ -932,6 +932,15 @@ $
 
 cp drmlcd_test /home/steven/work/rk3308sdk/filesystem/rootfs/bin/
 
+	spin_lock_irqsave(&vop->irq_lock, flags);
+	vop->pre_overlay = s->hdr.pre_overlay;
+	vop_cfg_done(vop);
+	spin_unlock_irqrestore(&vop->irq_lock, flags);
+
+	spin_lock(&vop->reg_lock);
+
+	spin_unlock(&vop->reg_lock);
+
 echo 0 0x04 > /proc/drmdebug/reg
 
 echo 0 0x04 > /proc/drmdebug/reg
@@ -1077,5 +1086,4 @@ backlight: backlight {
  /home/steven/work/rk3308sdk/filesystem/rootfs/lib
 //配置为RGB656
 mw.l ff2e0028 200c0
-mw.l ff2e0028 100c0
 mw.l ff2e0000 00270027

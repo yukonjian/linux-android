@@ -32,7 +32,7 @@ Options:
   -V, --version           Display version information
   -i, --incremental=FILE  Parse FILE and generate appendage output for it
 2. sample
-mkfs.jffs2 --eraseblock=0x10000 -l -n --pad=0x60000 -d ./app/factory -o ./config.img
+mkfs.jffs2 --eraseblock=0x10000 -l -n --pad=0x100000 -d ./factory -o ./config.img
 /* 指定了大小--pad=0x60000，若数据不够则使用0xFF补充 */
 mkfs.jffs2 --eraseblock=0x10000 -l -n  -d ./app/factory -o ./config.img
 /* 输出文件是实际的大小，默认使用了zlib压缩 */
