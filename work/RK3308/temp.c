@@ -1087,3 +1087,12 @@ backlight: backlight {
 //配置为RGB656
 mw.l ff2e0028 200c0
 mw.l ff2e0000 00270027
+
+
+
+$ insmod kpad_led.ko
+[   85.720030] np:cfff1e44;
+[   85.720054] dkpad_led_probe;
+$
+
+phone_mac -s xxx-xxx-xxx-xxx
