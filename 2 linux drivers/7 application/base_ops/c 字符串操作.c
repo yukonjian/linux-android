@@ -1,4 +1,6 @@
+/* linux c 中的头文件 */
 #include <string.h>
+/* linux 驱动中的头文件 */
 #include <linux/string.h>
 1. snprintf sscanf
 1.1. snprintf(char *str, size_t size, const char *format, ...)
@@ -12,6 +14,9 @@
 	unsigned char a,b,c;
 	sscanf(str, "%2x:%2x:%2x",&a,&b,&c);
 使用%x获取数据必须要使用unsigned int定义的变量
+注：sscanf会以空格作为断点，加%*d则是忽略读取的数据）
+char buf[10];
+sscanf("12 aaa", "%*d%s", buf);
 
 
 二、字符串操作
@@ -27,6 +32,10 @@
 若str1>str2，则返回正数。
 4. char *strcpy(char *strDestination, const char *strSource);
 复制源串strSource到目标串strDestination所指定的位置, 包含NULL结束符. 不能处理源串与目标串重叠的情况.函数返回strDestination值.
+5. char *strcat(char *dest, const char *src)；
+dest -- 指向目标数组，该数组包含了一个 C 字符串，且足够容纳追加后的字符串。
+src -- 指向要追加的字符串，该字符串不会覆盖目标字符串。
+该函数返回一个指向最终的目标字符串 dest 的指针。
 
 三、字符串和数据的转换
 1. int atoi(const char *nptr);
