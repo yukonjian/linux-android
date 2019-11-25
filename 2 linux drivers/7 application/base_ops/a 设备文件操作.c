@@ -42,6 +42,17 @@ SEEK_SET 将读写位置指向文件头后再增加offset个位移量。
 SEEK_CUR 以目前的读写位置往后增加offset个位移量。
 SEEK_END 将读写位置指向文件尾后再增加offset个位移量。
 
+7. access
+函数判断文件夹或者文件是否存在
+int access(const char *filename, int mode);
+filename：可以填写文件夹路径或者文件路径
+mode：0 （F_OK） 只判断是否存在
+      2 （R_OK） 判断写入权限
+      4 （W_OK） 判断读取权限
+      6 （X_OK） 判断执行权限
+用于判断文件夹是否存在的时候，mode取0，判断文件是否存在的时候，mode可以取0、2、4、6。
+若存在或者具有权限，返回值为0；不存在或者无权限，返回值为-1。
+
 
 3. linux c下执行shell命令
 system 相当简单：
