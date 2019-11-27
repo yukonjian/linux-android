@@ -140,3 +140,5 @@ udp :server:./iperf -s -u -P 0 -i 1 -p 5001
 8. 把这个文件copy到你的board上去。
 
 如果在板子上无法执行，可能是没有执行权限或者是编译选项不对，可参考相应开发环境修改编译选项。
+
+10. ubuntu 源存放路径/etc/apt/sources.list
