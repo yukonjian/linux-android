@@ -882,6 +882,7 @@ $
 cp /home/steven/work/project/git_cx/phone-cx/src/emb/drivers/misc_EM50/src/include/slave_spi.h  ./
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
+libmxml
 SNDRV_PCM_IOCTL_PREPARE
 SNDRV_PCM_IOCTL_READI_FRAMES
 

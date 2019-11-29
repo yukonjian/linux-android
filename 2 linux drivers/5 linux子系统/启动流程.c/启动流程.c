@@ -25,16 +25,7 @@ https://blog.csdn.net/weixin_33881041/article/details/89830388
 根文件系统启动
 https://blog.csdn.net/qq_33160790/article/details/79244480
 
-uboot CMD命令的使用
-U_BOOT_CMD(name,maxargs,repeatable,command,"usage","help")
-name：命令名，非字符串，但在U_BOOT_CMD中用“#”符号转化为字符串
-maxargs：命令的最大参数个数
-repeatable：是否自动重复（按Enter键是否会重复执行，1表示会重复执行）
-command：该命令对应的响应函数指针
-usage：简短的使用说明（字符串）
-help：较详细的使用说明（字符串）
-#define U_BOOT_CMD(name,maxargs,rep,cmd,usage,help) \
-　　　　cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage, help}
+
 
 
 
