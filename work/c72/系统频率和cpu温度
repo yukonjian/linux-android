@@ -2,6 +2,8 @@
 cd /sys/devices/system/cpu/cpu0/cpufreq
 cat cpuinfo_cur_freq
 
+cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+
 2. 由应用程序设置cpu运行在固定频率
 cd /sys/devices/system/cpu/cpu0/cpufreq
 1) cat scaling_available_governors
@@ -10,8 +12,11 @@ interactive conservative ondemand userspace powersave performance
 3) cat boot_lock  /* 要为0 */
 4) echo 480000 > scaling_setspeed  /* 设置系统运行的频率 */
 
-2.1 cd /sys/class/thermal/thermal_zone0
+2.1 查看cpu温度
+cd /sys/class/thermal/thermal_zone0
 cat temp
+
+cat /sys/class/thermal/thermal_zone0/temp
 
 
 

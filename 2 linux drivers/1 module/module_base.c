@@ -3,13 +3,13 @@ module_param(name, type, perm)
 name：内核参数的名称，自己定义
 type：内核参数的类型，常见的类型byte、short、int、long、ulong、bool 、charp(字符指针)
 perm：内核参数的权限S_I(R/W/X)UGO(/sys/module/xxx/parameter/xxxparam读写权限)
-注：读--4 ； 写--2 ； 执行--1 ；00700 ；是用8进制表示的
+注：读--4 ； 写--2 ； 执行--1 0644 ；是用8进制表示的
 
 带入： insmod xxx.ko name=xxx ;
 查看： /sys/module/xxx/parameter/xxxparam
 sample:
 static int param = 1;
-module_param(param,int, 00700);
+module_param(param,int, 0644);
 
 2. 设备节点的创建
 mknod path c/b major minor

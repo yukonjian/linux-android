@@ -1097,3 +1097,51 @@ $ insmod kpad_led.ko
 $
 
 phone_mac -s xxx-xxx-xxx-xxx
+
+
+/* 内存测试 */
+# cat /proc/meminfo
+MemTotal:         253868 kB
+MemFree:          222448 kB
+MemAvailable:     230396 kB
+Buffers:            3884 kB
+Cached:             8484 kB
+
+MemTotal:         253868 kB
+MemFree:          222448 kB
+MemAvailable:     230396 kB
+Buffers:            3884 kB
+Cached:             8492 kB
+SwapCached:            0 kB
+
+# cat /proc/meminfo
+MemTotal:         253868 kB
+MemFree:          222448 kB
+MemAvailable:     230396 kB
+Buffers:            3884 kB
+
+# cat /proc/meminfo
+MemTotal:         253868 kB
+MemFree:          222448 kB
+MemAvailable:     230396 kB
+Buffers:            3884 kB
+Cached:             8560 kB
+
+/*******************************************************************/
+# cat /proc/meminfo
+MemTotal:         253868 kB
+MemFree:          222200 kB
+MemAvailable:     230272 kB
+Buffers:            3884 kB
+Cached:             8752 kB
+# cat /proc/meminfo
+MemTotal:         253868 kB
+MemFree:          201288 kB
+MemAvailable:     209616 kB
+Buffers:            3884 kB
+Cached:             8840 kB
+/*********************************************************************/
+常态：
+43636
+压力态
+58636

@@ -1,3 +1,4 @@
+#include<pthread.h>
 1. 线程创建
 int pthread_create(pthread_t *tidp,const pthread_attr_t *attr,
 (void*)(*start_rtn)(void*),void *arg);
@@ -6,8 +7,10 @@ tidp：线程号
 attr：线程属性
 start_rtn：线程执行的函数
 arg：函数带入的参数
+return: 线程创建成功，则返回0。若线程创建失败，则返回出错编号
 
 2. 线程退出
+int pthread_join(pthread_t thread, void **retval);
 
 3. 内核级线程的创建
 内核级线程创建时先设置线程属性PTHREAD_SCOPE_SYSTEM，代码如下，:
