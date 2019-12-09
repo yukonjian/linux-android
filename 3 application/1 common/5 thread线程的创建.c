@@ -27,6 +27,55 @@ ret = pthread_create(&iAcceptThreadId, &attr, AcceptThread, NULL);
 https://www.cnblogs.com/feng9exe/p/7890934.html
 
 4 linux 驱动中的线程创建
-4.1 kernel_thread 
-#include <linux/sched.h>
 https://blog.csdn.net/ezimu/article/details/60467017
+4.1 kernel_thread
+#include <linux/sched.h>
+pid_t kernel_thread(int (*fn)(void *), void *arg, unsigned long flags);
+参数说明：
+fn:线程函数地址
+arg:线程函数的形参，没有，可以是NULL
+flags:标志，一般用CLONE_KERNEL（定义在linux/sched.h中，注意有的版本中，没用定义），其他标志及含义见uapi/linux/sched.h中。
+返回值：返回线程ID值。
+注意：kernel_thread()由于没有用EXPORT_SYMBOL导出来，所以用kernel_thread()这能用在和内核一起编译的驱动代码中
+
+4.2 kthread_create
+#include <linux/kthread.h>
+kthread_create(threadfn, data, namefmt, arg...)
+参数说明：
+threadfn:线程函数地址
+data:线程函数形参，如果没有可以定义为NULL
+namefmt,arg…:线程函数名字，可以格式化输出名字。
+返回值：返回线程指针（strcut task_struct *）
+注意：kthread_create()创建后，线程没有立即运行，需要将返回的值，即线程指针（struct task_struct *）,作为参数传入到wake_up_process()唤起线程运行。
+注意：在编写线程循环体时，一般都要加入kthread_should_stop(),如果不加，调用kthread_stop()是没有效果的，也会导致模块退出后，线程仍然还在运行。
+sample:
+strcut task_struct *practice_task_p = NULL;
+int my_kernel_thread(void *arg)
+{
+        int n = 0;
+        while(1)
+        {
+                printk("%s: %d\n",__func__,n++);
+                ssleep(3);
+        if(kthread_should_stop())
+                {
+                        break;
+                }
+        }
+
+        return 0;
+}
+static int __init practiceCall(void)
+{
+        printk("%s:\n",__func__);
+        practice_task_p = kthread_create(my_kernel_thread,NULL,"practice task");
+        if(!IS_ERR(practice_task_p))
+                wake_up_process(practice_task_p);
+        return 0;
+}
+
+static void __exit practiceCallExit(void)
+{
+        printk("%s:\n",__func__);
+        kthread_stop(practice_task_p);
+}
