@@ -11,3 +11,5 @@ s/yyyy/xxxx/表示查找yyyy并替换为xxxx，后面跟g表示一行中有多�
 另外，如果不需要查找子目录，仅需要在当前目录替换，用sed命令就行了，命令如下：sed -i s/xxxx/yyyy/g ./*.txt
 
 sed -i s/RL_MODELID_C62/RL_MODELID_C61/g `grep RL_MODELID_C62 -rl ./`
+
+sed -i s/"RL_MODELID == RL_MODELID_C63"/"RL_MODELID == RL_MODELID_C63 || RL_MODELID == RL_MODELID_C62"/g `grep "RL_MODELID == RL_MODELID_C63" -rl ./`

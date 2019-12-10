@@ -14,11 +14,12 @@ git checkout -b master 如果分支存在则只切换分支，若不存在则创
 git checkout --help
 
 2.log
+git log //简略显示提交的信息
 git log -p -2 // -p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新
-
 git log --name-status //查看修改了那些文件
-
 git show <commit id> //查看某次commit的修改
+git show <commit id> --stat //查看某次commit修改了那些文件
+git show <commit id> <目录或文件名> //查看当前提交的某个目录或文件的修改
 
 3.查看远程分支
 git branch -a

@@ -1,4 +1,4 @@
-# syslogd --help
+example# syslogd --help
 BusyBox v1.20.0 (2019-01-16 17:22:45 CST) multi-call binary.
 
 Usage: syslogd [OPTIONS]

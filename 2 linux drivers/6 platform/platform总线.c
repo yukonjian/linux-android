@@ -66,12 +66,19 @@ struct platform_device_id {
 	kernel_ulong_t driver_data;
 };
 sample：
-static struct platform_device_id ad7606_driver_ids[] = {
+static struct platform_device_id rockchip_multicodecs_of_match[] = {
 	{
 		.name		= "test_match",
 		.driver_data	= ID_AD7606_8,
 	},
 	{ }
+};
+static struct platform_driver rockchip_multicodecs_driver = {
+	.probe = rk_multicodecs_probe,
+	.id_table = rockchip_multicodecs_of_match；
+	.driver = {
+		.name = DRV_NAME,
+	},
 };
 3.1.2 struct device_driver中的struct of_device_id	*of_match_table的使用
 struct of_device_id
@@ -84,9 +91,17 @@ struct of_device_id
 当name,type,compatible存在，会依次进行匹配；
 compatible是在最后一次的匹配，故以compatible匹配较好
 sample：
-static const struct of_device_id ab8500_charger_match[] = {
-	{ .compatible = "stericsson,ab8500-charger", },
-	{ },
+static const struct of_device_id rockchip_multicodecs_of_match[] = {
+	{ .compatible = "rockchip,multicodecs-card", },
+	{},
+};
+static struct platform_driver rockchip_multicodecs_driver = {
+	.probe = rk_multicodecs_probe,
+	.driver = {
+		.name = DRV_NAME,
+		.pm = &snd_soc_pm_ops,
+		.of_match_table = rockchip_multicodecs_of_match,
+	},
 };
 
 3.2 平台驱动的注册函数
