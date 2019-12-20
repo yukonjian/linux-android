@@ -4,6 +4,10 @@ http://www.wowotech.net/device_model/421.html
 http://blog.chinaunix.net/uid-30091091-id-5783251.html
 3. linux设备驱动模型之Kobject、kobj_type、kset
 https://www.cnblogs.com/zzb-Dream-90Time/p/7250096.html
+4. 设备模型的uevent机制
+https://www.cnblogs.com/black-mamba/p/5055683.html
+5. Netlink机制详解
+https://blog.csdn.net/xinyuan510214/article/details/52635085?utm_source=blogxgwz0
 
 1. kobj代表一个目录
 1) kobj的添加
