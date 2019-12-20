@@ -17,9 +17,15 @@ kobject_init_and_add();
     kobject_add_internal();   /* 若kset存在且没有设置parent；则使用kset的kobj作为parent */
       create_dir();
 
-kobject_create_and_add(); /* 函数内部会分配kobj结构体，其余和 kobject_init_and_add一样*/
 
-2) kset的添加
+static struct kobj_type dynamic_kobj_ktype = {
+	.release	= dynamic_kobj_release,
+	.sysfs_ops	= &kobj_sysfs_ops,
+};
+kobject_create_and_add(); /* 函数内部会分配kobj结构体，其余和 kobject_init_and_add一样*/
+  kobject_init(kobj, &dynamic_kobj_ktype);  /* 使用了dynamic_kobj_ktype */
+
+2) kset的添加；kset包含有kobj,并添加了uevent操作；kset=kobj+uevent;
 static struct kobj_type kset_ktype = {
 	.sysfs_ops	= &kobj_sysfs_ops,
 	.release = kset_release,
@@ -36,3 +42,6 @@ kset_create_and_add();
     kobject_add_internal();
     kobject_uevent(&k->kobj, KOBJ_ADD); /* 发送kobj添加事件 */
       kobject_uevent_env();
+
+2. 属性文件的创建
+static inline int __must_check sysfs_create_file(struct kobject *kobj, const struct attribute *attr)
