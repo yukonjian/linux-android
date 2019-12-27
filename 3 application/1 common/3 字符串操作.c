@@ -46,3 +46,6 @@ n: 需要追加的最大字符的长度
 1. int atoi(const char *nptr);
 atoi (表示 ascii to integer), 把字符串转换成整型数的一个函数
 如果 nptr不能转换成 int 或者 nptr为空字符串，那么将返回 0
+
+四、gets, puts， fgets, fputs
+https://blog.csdn.net/qq_41453285/article/details/88853801
