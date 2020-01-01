@@ -21,11 +21,8 @@ if [ -e $i -a ! -e /config$i ];
 //-a 逻辑与
 2. syslogd
 BusyBox v1.20.0 (2019-05-14 16:17:55 CST) multi-call binary.
-
 Usage: syslogd [OPTIONS]
-
 System logging utility
-
         -n              Run in foreground
         -O FILE         Log to FILE (default:/var/log/messages)
         -l N            Log only messages more urgent than prio N (1-8)
@@ -41,6 +38,24 @@ System logging utility
 syslogd -S -O /tmp/Messages -s 100 -b5
 #include <syslog.h>
 https://blog.csdn.net/qq_33348709/article/details/53068954
+void syslog(int priority, const char *message, arguments...);
+priority:
+facility value（转自syslog.h头文件）：
+/* facility codes */
+#define LOG_KERN        (0<<3)  /* kernel messages */
+#define LOG_USER        (1<<3)  /* random user-level messages */
+#define LOG_MAIL        (2<<3)  /* mail system */
+#define LOG_DAEMON      (3<<3)  /* system daemons */
+#define LOG_AUTH        (4<<3)  /* security/authorization messages */
+#define LOG_SYSLOG      (5<<3)  /* messages generated internally by syslogd */
+#define LOG_LPR         (6<<3)  /* line printer subsystem */
+#define LOG_NEWS        (7<<3)  /* network news subsystem */
+#define LOG_UUCP        (8<<3)  /* UUCP subsystem */
+#define LOG_CRON        (9<<3)  /* clock daemon */
+#define LOG_AUTHPRIV    (10<<3) /* security/authorization messages (private) */
+#define LOG_FTP         (11<<3) /* ftp daemon */
+syslog(LOG_ERR|LOG_USER,"test - %m/n");   //控制转换符%m可用于插入与错误变量errno当前值对应的出错消息字符串
+
 3. telnet
 Usage: telnet [-8] [-E] [-L] [-S tos] [-a] [-c] [-d] [-e char] [-l user]
         [-n tracefile] [-b hostalias ] [-r]
@@ -48,7 +63,7 @@ Usage: telnet [-8] [-E] [-L] [-S tos] [-a] [-c] [-d] [-e char] [-l user]
 例子：
 telnet 192.168.25.133 22
 
-telnetd
+3.1 telnetd
 Usage: telnetd [OPTIONS]
 Handle incoming telnet connections
 

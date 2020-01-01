@@ -8,6 +8,8 @@ https://www.cnblogs.com/zzb-Dream-90Time/p/7250096.html
 https://www.cnblogs.com/black-mamba/p/5055683.html
 5. Netlink机制详解
 https://blog.csdn.net/xinyuan510214/article/details/52635085?utm_source=blogxgwz0
+6. socket通讯原理及例程
+https://blog.csdn.net/jiushimanya/article/details/82684525
 
 1. kobj代表一个目录
 1) kobj的添加
@@ -49,3 +51,9 @@ kset_create_and_add();
 
 2. 属性文件的创建
 static inline int __must_check sysfs_create_file(struct kobject *kobj, const struct attribute *attr)
+
+3. Linux下udev和mdev详解
+https://blog.csdn.net/qq_31505483/article/details/52866037
+mdev 是基于uevent_helper 机制的，它在系统启动时修改了内核中的uevnet_helper 变量
+（通过写/proc/sys/kernel/hotplug），值为“/sbin/mdev”
+在脚本中修改其值：echo “/sbin/mdev” > /proc/sys/kernel/hotplug
