@@ -139,6 +139,13 @@ udp :server:./iperf -s -u -P 0 -i 1 -p 5001
 7. 这时候会生成一个iperf的文件。
 8. 把这个文件copy到你的board上去。
 
+4) 利用iperf工具测试IPv6网络
+iperf工具需要在源主机和目的主机上分别运行-c和-s，代表客户端和服务端，这样才能测试他们之间的网络。
+如果是IPv4的环境下，服务端首先运行iperf -s，然后客户端运行iperf -c [IPv4地址] [option]。
+如果是IPv6的环境下，服务端首先运行iperf -s -V，然后客户端运行iperf -c [IPv6地址] [option] -V。
+./iperf -s  -P 0 -i 1 -p 5001 -V
+./iperf -c 2018:25::c081:1f8:813b:999a -P 1 -i 1 -p 5001 -n 500M -b 20M -l 1300 -V
+
 如果在板子上无法执行，可能是没有执行权限或者是编译选项不对，可参考相应开发环境修改编译选项。
 
 10. ubuntu 源存放路径/etc/apt/sources.list

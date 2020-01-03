@@ -1,3 +1,7 @@
+Makefile的静态模式%.o : %.c
+https://blog.csdn.net/u012351051/article/details/88600562
+
+
 1. makefile的命令前面添加@，可以忽略掉命令的打印
 例如：
 1) echo "build alsa dsp"
