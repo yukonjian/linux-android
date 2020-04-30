@@ -39,3 +39,4 @@ vconfig rem eth0.100
 5.1.5 配置端口的优先级（priority）
 5.2 设置vlan table
 5.3 使能802.1q vlan模式，并设置以vlan table进行vlan匹配
+注：关于转发，相当于内部寄存器数据的拷贝（已经经过接收端口处理过的数据）

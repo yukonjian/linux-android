@@ -6,3 +6,7 @@
 
 
 /work/openwrt-sdk/staging_dir/host/bin/mkfs.jffs2 -r /work/mkimage/c62b_app/flash -o /work/mkimage/c62b_app/flash.img -e 0x1000 -n -X lzma
+
+/home/project/buildroot/output/dphone_rk3308_32_release/host/bin/mksquashfs ./rootfs/ ./rootfs.squashfs -noappend -processors 24 -comp xz
+
+/home/project/buildroot/output/dphone_rk3308_32_release/host/bin/unsquashfs rootfs.squashfs
