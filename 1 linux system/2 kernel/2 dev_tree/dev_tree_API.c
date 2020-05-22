@@ -3,11 +3,27 @@ https://www.cnblogs.com/xiaojiang1025/archive/2017/02/06/6368260.html
 
 #include <linux/of.h>
 struct device_node {
-      const char *name;   /* 节点名 */
+      const char *name;   /* 节点名<name> */
       const char *type;   /* 设备类型 */
-      phandle phandle;    /* lable标签的节点有该属性 */
-      const char *full_name; /* 全路径节点名 */
+      phandle phandle;    /* lable标签的节点有该属性 pointer handle */
+      const char *full_name; /* 节点路径名，<name>[@<unit_address>]是节点路径 */
+
+      struct	property *properties;
+
+      struct	device_node *parent;
+      struct	device_node *child;
+      struct	device_node *sibling;    /* 兄; 弟; 姐; 妹; */
 }；
+
+struct property {
+	char	*name;
+	int	length;
+	void	*value;
+	struct property *next;
+	unsigned long _flags;
+	unsigned int unique_id;
+	struct bin_attribute attr;
+};
 
 1. 查找节点
 /**

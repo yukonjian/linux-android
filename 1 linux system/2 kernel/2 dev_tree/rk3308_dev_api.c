@@ -4,7 +4,7 @@ include/of/of.h
 struct property {
 	char	*name;
 	int	length;      /* 计算value中数据的长度，以字节为单位 */
-	void	*value;
+	void	*value;		/* 指向数据的指针 */
 	struct property *next;
 	unsigned long _flags;
 	unsigned int unique_id;

@@ -35,6 +35,7 @@ phandle = <0x00000001>;
 每一个phandle都有一个独一无二的整型值，在后续kernel中通过这个特殊的数字间接找到引用的节点
 3.3 节点属性
 3.3.1 Linux设备树语法中定义了一些具有规范意义的属性，包括：compatible, address, interrupt等
+(address,interrupt能被内核自动解析生成相应的设备信息)
 3.3.2 还有一些Linux内核定义好的，一类设备通用的有默认意义的属性，这些属性一般不能被内核自动解析生成相应的设备信息，
 但是内核已经编写的相应的解析提取函数，常见的有 "mac_addr"，"gpio"，"clock"，"power"。"regulator" 等等。
 3.3.3 compatible
@@ -51,6 +52,19 @@ interrupt-controller; 一个空属性用来声明这个node接收中断信号，
 interrupts = <中断域 中断 触发方式>；
 #interrupt-cells = <2>;
 interrupts = <中断 触发方式>；
+sample:
+gic: interrupt-controller@ff580000 {
+	compatible = "arm,gic-400";
+	#interrupt-cells = <3>;
+	#address-cells = <0>;
+	interrupt-controller;
+
+	reg = <0x0 0xff581000 0x0 0x1000>,
+	      <0x0 0xff582000 0x0 0x2000>,
+	      <0x0 0xff584000 0x0 0x2000>,
+	      <0x0 0xff586000 0x0 0x2000>;
+	interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
+};
 3.3.5 gpio
 "gpio-controller"，用来说明该节点描述的是一个gpio控制器
 "#gpio-cells"，用来描述gpaio使用节点的属性一个cell的内容
